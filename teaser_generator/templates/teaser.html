@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Teaser – {{ u.adresse }}</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #14202b; --muted: #5d6b78; --line: #dfe3e6; --paper: #ffffff;
+    --brand: #0f2a3f; --brand-2: #1d4a6b; --accent: #c99a3e; --tint: #f5f2ea; --pos: #2f7d4f; --neg: #b3412f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink);
+    font-family: "Inter", "DejaVu Sans", sans-serif; font-size: 9.6pt; line-height: 1.45;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; padding: 16mm 15mm 18mm; }
+  .page:last-child { page-break-after: auto; }
+  h1, h2, h3 { margin: 0; color: var(--brand); letter-spacing: -0.01em; }
+  h2 { font-size: 17pt; font-weight: 700; margin-bottom: 2mm; }
+  h3 { font-size: 10.5pt; font-weight: 700; margin: 5mm 0 2mm; }
+  p { margin: 0 0 2.4mm; }
+  .eyebrow { font-size: 7.6pt; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 1.5mm; }
+  .lead { color: var(--muted); font-size: 10pt; margin-bottom: 5mm; }
+  .num { font-variant-numeric: tabular-nums; }
+  .foot { position: absolute; left: 15mm; right: 15mm; bottom: 8mm; display: flex; justify-content: space-between;
+    font-size: 7pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 2mm; }
+
+  /* Cover */
+  .cover { padding: 0; }
+  .hero { height: 150mm; background-size: cover; background-position: center; position: relative; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,42,63,0) 45%, rgba(15,42,63,.85) 100%); }
+  .hero .brandbar { position: absolute; top: 10mm; left: 15mm; right: 15mm; z-index: 2; display: flex; justify-content: space-between; align-items: center; color: #fff; }
+  .brandbar .brand { font-weight: 800; letter-spacing: .04em; font-size: 11pt; background: rgba(15,42,63,.75); padding: 2mm 3.5mm; border-radius: 1.5mm; }
+  .brandbar img { height: 11mm; }
+  .hero .title { position: absolute; left: 15mm; right: 15mm; bottom: 10mm; z-index: 2; color: #fff; }
+  .hero .title .eyebrow { color: #f1d49a; }
+  .hero h1 { color: #fff; font-size: 25pt; line-height: 1.12; font-weight: 800; }
+  .hero .sub { font-size: 11pt; opacity: .92; margin-top: 2mm; }
+  .cover-body { padding: 9mm 15mm 0; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  .kpi { border: 1px solid var(--line); border-radius: 2mm; padding: 3.5mm 3.5mm 3mm; }
+  .kpi .k { font-size: 7.4pt; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .kpi .v { font-size: 15pt; font-weight: 800; color: var(--brand); margin-top: 1mm; white-space: nowrap; }
+  .kpi .s { font-size: 7.6pt; color: var(--muted); }
+  .band { margin-top: 6mm; background: var(--brand); color: #fff; border-radius: 2mm; padding: 5mm 6mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; }
+  .band .it .v { font-size: 12.5pt; font-weight: 800; color: #f1d49a; white-space: nowrap; }
+  .band .it .k { font-size: 8pt; opacity: .9; line-height: 1.3; margin-top: .8mm; }
+  .cover-note { margin-top: 5mm; font-size: 9pt; color: var(--muted); }
+
+  /* Layout helpers */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+  .card { background: var(--tint); border-radius: 2mm; padding: 4.5mm 5mm; }
+  .card h3 { margin-top: 0; }
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm; margin-bottom: 5mm; }
+  .pillar { border-left: 3px solid var(--accent); background: var(--tint); padding: 3.5mm 4.5mm; border-radius: 0 2mm 2mm 0; }
+  .pillar .v { font-size: 14pt; font-weight: 800; color: var(--brand); }
+  .pillar .t { font-weight: 700; margin-top: .5mm; }
+  .pillar p { font-size: 8.6pt; color: var(--muted); margin: 1mm 0 0; }
+
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  td, th { padding: 1.5mm 2mm; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-size: 7.4pt; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+  td.r, th.r { text-align: right; white-space: nowrap; }
+  tr.sum td { font-weight: 800; border-top: 1.5px solid var(--brand); border-bottom: none; color: var(--brand); }
+  tr.sub td { color: var(--muted); }
+  table.proj { font-size: 7.8pt; }
+  table.proj td, table.proj th { padding: 1.2mm 1.3mm; }
+  table.proj th { font-size: 6.6pt; letter-spacing: .02em; }
+  .facts td:first-child { color: var(--muted); width: 45%; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); }
+
+  .photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+  .photos.big { grid-template-columns: 1.35fr 1fr; grid-template-rows: 1fr 1fr; height: 150mm; }
+  .photos.big .ph:first-child { grid-row: span 2; }
+  .ph { background-size: cover; background-position: center; border-radius: 2mm; min-height: 48mm; position: relative; }
+  .ph .cap { position: absolute; left: 2mm; bottom: 2mm; background: rgba(15,42,63,.82); color: #fff; font-size: 7.2pt; padding: .8mm 2mm; border-radius: 1mm; }
+  .badge { display: inline-block; font-size: 7.2pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .8mm 2.2mm; border-radius: 1mm; background: var(--accent); color: #fff; }
+
+  .chart { width: 100%; height: auto; margin: 2mm 0 1mm; }
+  .chart .grid { stroke: var(--line); stroke-width: 1; }
+  .chart .ax { font-size: 8px; fill: var(--muted); }
+  .chart .bar-ist { fill: var(--brand-2); }
+  .chart .bar-sub { fill: var(--accent); }
+  .chart .soll { stroke: var(--brand); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .chart .lbl-soll { font-size: 8.5px; font-weight: 700; fill: var(--brand); }
+  .chart .lbl-sub { font-size: 8px; fill: #fff; font-weight: 700; }
+  .legend { display: flex; gap: 5mm; font-size: 8pt; color: var(--muted); }
+  .legend i { display: inline-block; width: 3mm; height: 3mm; border-radius: .6mm; margin-right: 1.2mm; vertical-align: -.4mm; }
+  .note { font-size: 7.6pt; color: var(--muted); line-height: 1.4; }
+  .disclaimer { font-size: 6.8pt; color: var(--muted); line-height: 1.35; margin-top: 4mm; }
+  ul.clean { margin: 0; padding-left: 4.5mm; } ul.clean li { margin-bottom: .8mm; }
+</style>
+</head>
+<body>
+
+{# ---------- Seite 1: Cover ---------- #}
+<section class="page cover">
+  <div class="hero" style="background-image:url('{{ cover or (photos[0] if photos else '') }}')">
+    <div class="brandbar">
+      {% if logo %}<img src="{{ logo }}" alt="{{ f.anbieter.name }}">{% else %}<span class="brand">{{ f.anbieter.name }}</span>{% endif %}
+      <span class="badge">Exklusiv-Teaser</span>
+    </div>
+    <div class="title">
+      <div class="eyebrow">Kapitalanlage · Eigentumswohnung nach WEG</div>
+      <h1>{{ u.adresse }}</h1>
+      <div class="sub">{{ f.objekt.ort }} · WE-Nr. {{ u.we_nr|int }} · {{ flaeche|num }} m² · Baujahr {{ f.objekt.baujahr }}</div>
+    </div>
+  </div>
+  <div class="cover-body">
+    <div class="kpis">
+      <div class="kpi"><div class="k">Kaufpreis (Gesamtinvest)</div><div class="v num">{{ u.kaufpreis|eur }}</div><div class="s">{{ (u.kaufpreis/flaeche)|eur }} / m² – ohne weitere Nebenkosten</div></div>
+      <div class="kpi"><div class="k">Miete ab Tag 1</div><div class="v num">{{ u.miete_soll|eur(2) }}</div><div class="s">SOLL-Miete {{ soll_qm|num }} €/m² netto kalt</div></div>
+      <div class="kpi"><div class="k">Mietrendite</div><div class="v num">{{ rendite_netto|pct }}</div><div class="s">auf Kaufpreis exkl. KNK¹ · {{ rendite_gesamt|pct }} auf Gesamtinvest</div></div>
+      <div class="kpi"><div class="k">Monatl. Ergebnis</div><div class="v num {{ 'pos' if monat.cf_nach_steuer >= 0 else '' }}">{{ monat.cf_nach_steuer|signed_eur }}</div><div class="s">nach Steuern, 100 % Finanzierung²</div></div>
+    </div>
+    <div class="band">
+      <div class="it"><div class="v num">{{ subvention|eur }}</div><div class="k">Mietsubvention über {{ subvention_monate }} Monate – Sie erhalten sofort die SOLL-Miete</div></div>
+      <div class="it"><div class="v num">{{ reno_se|eur }}</div><div class="k">Renovierungsrückstellung für Ihre Wohnung</div></div>
+      <div class="it"><div class="v num">{{ weg_anteil|eur }}</div><div class="k">Ihr Anteil an der finanzierten Sanierung am Gemeinschaftseigentum</div></div>
+      <div class="it"><div class="v num">{{ u.knk|eur }}</div><div class="k">Kaufnebenkosten übernehmen wir für Sie</div></div>
+    </div>
+    <p class="cover-note">{{ f.objekt.kurzbeschreibung }}</p>
+    <p class="note">¹ Kaufpreis ohne die von uns übernommenen Kaufnebenkosten: {{ u.kaufpreis_netto|eur }}. ² Beispielrechnung, Annahmen siehe Seite „Ihre Cashflow-Rechnung“.</p>
+  </div>
+  <div class="foot"><span>{{ f.anbieter.name }} · {{ f.anbieter.kontakt }}</span><span>Stand {{ f.stand }}</span></div>
+</section>
+
+{# ---------- Seite 2: Konzept & Objekt ---------- #}
+<section class="page">
+  <div class="eyebrow">Das Konzept</div>
+  <h2>Marktmiete ab dem ersten Tag – ohne Renovierungsrisiko</h2>
+  <p class="lead">Sie kaufen eine vermietete, nach WEG geteilte Wohnung. Die Lücke zwischen heutiger Miete und marktgerechter SOLL-Miete schließen wir per Mietsubvention – genau so lange, wie gesetzliche Mieterhöhungen brauchen, um die SOLL-Miete zu erreichen.</p>
+  <div class="pillars">
+    <div class="pillar"><div class="v num">{{ subvention|eur }}</div><div class="t">Mietsubvention</div>
+      <p>Sie erhalten {{ subvention_monate }} Monate lang die Differenz zwischen Ist-Miete ({{ ist_qm|num }} €/m²) und SOLL-Miete ({{ soll_qm|num }} €/m²) – zu Beginn {{ subvention_start|eur(2) }} pro Monat.</p></div>
+    <div class="pillar"><div class="v num">{{ reno_se|eur }}</div><div class="t">Renovierungsrückstellung Sondereigentum</div>
+      <p>Zieht der heutige Mieter aus, steht dieses Budget bereit, um die Wohnung auf Marktmiet-Standard zu bringen.</p></div>
+    <div class="pillar"><div class="v num">{{ weg_anteil|eur }}</div><div class="t">Sanierung Gemeinschaftseigentum</div>
+      <p>Ihr MEA-Anteil an {{ weg_summe|eur }} Rückstellung für {{ weg|map(attribute='name')|join(', ') }} – bereits im Kaufpreis enthalten.</p></div>
+    <div class="pillar"><div class="v num">{{ u.knk|eur }}</div><div class="t">Kaufnebenkosten übernommen</div>
+      <p>Grunderwerbsteuer, Notar und Grundbuch ({{ p.knk_quote|pct }} des beurkundeten Kaufpreises) tragen wir. Ihr Gesamtinvest ist der Kaufpreis.</p></div>
+  </div>
+
+  <div class="grid2">
+    <div>
+      <h3>Lage</h3>
+      {% for absatz in f.objekt.lage %}<p>{{ absatz }}</p>{% endfor %}
+    </div>
+    <div>
+      <h3>Objektdaten</h3>
+      <table class="facts">
+        <tr><td>Adresse</td><td>{{ f.objekt.adressen }}</td></tr>
+        <tr><td>Baujahr</td><td>{{ f.objekt.baujahr }}</td></tr>
+        <tr><td>Wohnanlage</td><td>{{ f.objekt.anlage }}</td></tr>
+        <tr><td>Bauweise</td><td>{{ f.objekt.bauweise }}</td></tr>
+        <tr><td>Heizung</td><td>{{ f.objekt.heizung }}</td></tr>
+        {% if haus.energie %}<tr><td>Energieausweis</td><td>{{ haus.energie }}</td></tr>{% endif %}
+        <tr><td>Keller</td><td>{{ f.objekt.keller }}</td></tr>
+        {% for k, v in (f.objekt.weitere or {}).items() %}<tr><td>{{ k }}</td><td>{{ v }}</td></tr>{% endfor %}
+      </table>
+    </div>
+  </div>
+  <div class="foot"><span>{{ u.adresse }} · WE {{ u.we_nr|int }}</span><span>2</span></div>
+</section>
+
+{# ---------- Seite 3: Die Wohnung ---------- #}
+<section class="page">
+  <div class="eyebrow">Die Wohnung</div>
+  <h2>{{ u.adresse }}</h2>
+  <p class="lead">{{ flaeche|num }} m² Wohnfläche · {{ 'vermietet' if vermietet else u.status }} · aktueller Zustand (Fotos vom Besichtigungstermin)</p>
+  {% if photos %}
+  <div class="photos {{ 'big' if photos|length >= 3 else '' }}">
+    {% for ph in photos[:3] %}<div class="ph" style="background-image:url('{{ ph }}')"><span class="cap">Ist-Zustand</span></div>{% endfor %}
+  </div>
+  {% endif %}
+  <div class="grid2" style="margin-top:6mm">
+    <div>
+      <h3>Wohnungsdaten</h3>
+      <table class="facts">
+        <tr><td>Lage im Haus</td><td>{{ u.adresse }}</td></tr>
+        <tr><td>WE-Nr. (Teilungserklärung)</td><td>{{ u.we_nr|int }}</td></tr>
+        <tr><td>Wohnfläche</td><td class="num">{{ flaeche|num }} m²</td></tr>
+        <tr><td>Miteigentumsanteil</td><td class="num">{{ (u.mea*1000)|num(2) }} / 1.000</td></tr>
+        <tr><td>Status</td><td>{{ u.status }}</td></tr>
+        <tr><td>Ist-Miete (netto kalt)</td><td class="num">{{ u.ist_miete|eur(2) }} ({{ ist_qm|num }} €/m²)</td></tr>
+        <tr><td>SOLL-Miete (netto kalt)</td><td class="num">{{ u.miete_soll|eur(2) }} ({{ soll_qm|num }} €/m²)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Kaufpreis</h3>
+      <table>
+        <tr><td>Kaufpreis Wohnung</td><td class="r">{{ u.kaufpreis_netto|eur }}</td></tr>
+        <tr class="sub"><td>+ von uns übernommene Kaufnebenkosten</td><td class="r">{{ u.knk|eur }}</td></tr>
+        <tr class="sum"><td>Beurkundeter Kaufpreis = Ihr Gesamtinvest</td><td class="r">{{ u.kaufpreis|eur }}</td></tr>
+      </table>
+      <p class="note" style="margin-top:2mm">Im Kaufpreis bereits enthalten bzw. von uns finanziert: Mietsubvention {{ subvention|eur }}, Renovierungsrückstellung {{ reno_se|eur }}, Anteil WEG-Sanierung {{ weg_anteil|eur }}.</p>
+    </div>
+  </div>
+  <div class="foot"><span>{{ u.adresse }} · WE {{ u.we_nr|int }}</span><span>3</span></div>
+</section>
+
+{# ---------- Seite 4: Subvention & Rückstellungen ---------- #}
+<section class="page">
+  <div class="eyebrow">Mietsubvention & Rückstellungen</div>
+  <h2>So kommen Sie sofort auf die SOLL-Miete</h2>
+  <p class="lead">Mieterhöhungen sind gesetzlich begrenzt (Kappungsgrenze: max. 20 % in 3 Jahren, höchstens bis zur ortsüblichen Vergleichsmiete). Bis die Miete auf diesem Weg die SOLL-Miete erreicht, zahlen wir Ihnen die Differenz.</p>
+  {{ chart|safe }}
+  <div class="legend"><span><i style="background:var(--brand-2)"></i>Miete vom Mieter (gesetzliche Erhöhungsstufen)</span><span><i style="background:var(--accent)"></i>Mietsubvention</span></div>
+  <table style="margin-top:4mm">
+    <tr><th>Zeitraum</th><th class="r">Miete Mieter</th><th class="r">SOLL-Miete</th><th class="r">Subvention / Monat</th><th class="r">Subvention gesamt</th></tr>
+    {% for s in stufen %}
+    <tr><td>Monat {{ s.von_monat + 1 }}–{{ s.bis_monat }} ({{ s.monate }} Mon.)</td>
+      <td class="r">{{ (s.miete_qm*flaeche)|eur(2) }} <span class="note">({{ s.miete_qm|num }} €/m²)</span></td>
+      <td class="r">{{ u.miete_soll|eur(2) }}</td><td class="r">{{ s.zuschuss_monat|eur(2) }}</td><td class="r">{{ s.zuschuss_gesamt|eur }}</td></tr>
+    {% endfor %}
+    <tr class="sum"><td colspan="4">Mietsubvention gesamt</td><td class="r">{{ subvention|eur }}</td></tr>
+  </table>
+
+  <div class="grid2" style="margin-top:6mm">
+    <div class="card">
+      <h3>Renovierungsrückstellung Ihre Wohnung</h3>
+      <p class="num" style="font-size:14pt;font-weight:800;color:var(--brand);margin-bottom:1.5mm">{{ reno_se|eur }}</p>
+      <p class="note">Für den Fall, dass der heutige Bestandsmieter auszieht: Budget, um die Wohnung in einen Zustand zu bringen, der die Vermietung zur Marktmiete erlaubt. Kalkuliert mit:</p>
+      <ul class="clean note">
+        {% for m in se %}<li>{{ m.name }}{% if m.name|lower == 'bad' %} (komplett neu){% endif %}</li>{% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Maßnahmen am Gemeinschaftseigentum</h3>
+      <p class="num" style="font-size:14pt;font-weight:800;color:var(--brand);margin-bottom:1.5mm">{{ weg_anteil|eur }} <span class="note" style="font-weight:400">Ihr Anteil</span></p>
+      <table>
+        {% for m in weg %}<tr><td>{{ m.name }}</td><td class="r">{{ m.betrag|eur }}</td></tr>{% endfor %}
+        <tr class="sum"><td>Rückstellung gesamt (WEG)</td><td class="r">{{ weg_summe|eur }}</td></tr>
+      </table>
+      <p class="note" style="margin-top:2mm">Finanziert aus dem Kaufpreis – keine Sonderumlage für Sie.</p>
+    </div>
+  </div>
+  <div class="foot"><span>{{ u.adresse }} · WE {{ u.we_nr|int }}</span><span>4</span></div>
+</section>
+
+{# ---------- Seite 5: Visualisierung nach Renovierung ---------- #}
+{% if zeige_reno_bilder %}
+<section class="page">
+  <div class="eyebrow">Nach der Renovierung</div>
+  <h2>So kann Ihre Wohnung nach Mieterwechsel aussehen</h2>
+  <p class="lead">Beispielhafte Visualisierung des Standards, der mit der Renovierungsrückstellung von {{ reno_se|eur }} umgesetzt wird: neuer brauner Vinylboden, weiße Wände, weiße Türen und Zargen, neue Schalter und Steckdosen, neuer Fliesenspiegel in der Küche und ein neues Bad.</p>
+  <div class="photos big">
+    {% for r in renders[:3] %}<div class="ph" style="background-image:url('{{ r }}')"><span class="cap">Visualisierung</span></div>{% endfor %}
+  </div>
+  <p class="note" style="margin-top:4mm">Hinweis: KI-generierte Beispielbilder, keine Fotos der Wohnung. Raumzuschnitt, Fenster und Ausstattungsdetails können abweichen.</p>
+  <div class="foot"><span>{{ u.adresse }} · WE {{ u.we_nr|int }}</span><span>5</span></div>
+</section>
+{% endif %}
+
+{# ---------- Seite 6: Cashflow ---------- #}
+<section class="page">
+  <div class="eyebrow">Ihre Cashflow-Rechnung</div>
+  <h2>So rechnet sich die Wohnung für Sie</h2>
+  <p class="lead">Beispiel: 100 % Finanzierung des Gesamtinvests von {{ u.kaufpreis|eur }} mit {{ p.zins|pct(2) }} Zins und {{ p.tilgung|pct(2) }} anfänglicher Tilgung, persönlicher Grenzsteuersatz {{ p.grenzsteuer|pct(0) }}.</p>
+  <div class="grid2">
+    <div>
+      <h3>Monatlich (Jahr 1)</h3>
+      <table>
+        <tr><td>Mieteinnahme (SOLL-Miete inkl. Subvention)</td><td class="r">{{ monat.miete|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Zins</td><td class="r">{{ monat.zins|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Tilgung</td><td class="r">{{ monat.tilgung|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Hausverwaltung (WEG)</td><td class="r">{{ monat.hv|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Mietverwaltung</td><td class="r">{{ monat.mv|eur(2) }}</td></tr>
+        <tr class="sub"><td>− sonstige nicht umlagefähige Kosten</td><td class="r">{{ monat.sonstige|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Instandhaltungsrücklage</td><td class="r">{{ monat.ruecklage|eur(2) }}</td></tr>
+        <tr><td><b>Cashflow vor Steuern</b></td><td class="r"><b>{{ monat.cf_vor_steuer|signed_eur(2) }}</b></td></tr>
+        <tr class="sub"><td>+ Steuereffekt (Abschreibung {{ monat.afa|eur(2) }} / Monat)</td><td class="r">{{ monat.steuer|signed_eur(2) }}</td></tr>
+        <tr class="sum"><td>Cashflow nach Steuern</td><td class="r">{{ monat.cf_nach_steuer|signed_eur(2) }}</td></tr>
+      </table>
+      <p class="note" style="margin-top:2mm">Davon fließen {{ monat.tilgung|eur(2) }} als Tilgung in Ihr Vermögen.</p>
+    </div>
+    <div>
+      <h3>Vermögensaufbau nach 10 Jahren</h3>
+      <div class="card">
+        <table>
+          <tr><td>Getilgte Darlehenssumme</td><td class="r">{{ tilgung_10j|eur }}</td></tr>
+          <tr><td>Steuererstattungen gesamt</td><td class="r">{{ steuer_10j|eur }}</td></tr>
+          <tr><td>Ihr Cashflow nach Steuern gesamt</td><td class="r">{{ cf_10j|signed_eur }}</td></tr>
+          <tr class="sum"><td>Restschuld nach 10 Jahren</td><td class="r">{{ proj[-1].restschuld|eur }}</td></tr>
+        </table>
+      </div>
+      <h3>Steuerliche Annahmen</h3>
+      <ul class="clean note">
+        <li>AfA {{ afa_satz|pct(1) }} p.a. auf den Gebäudeanteil ({{ afa_jahr|eur }} p.a.), Restnutzungsdauer {{ p.rnd_jahre|int }} Jahre lt. Gutachten; Bodenanteil {{ bodenanteil|eur }}</li>
+        <li>Werbungskosten: Zinsen, Hausverwaltung, Mietverwaltung, sonstige Kosten, pauschal {{ werbungskosten|eur }} / Monat</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Entwicklung über 10 Jahre</h3>
+  <table class="num proj">
+    <tr><th>Jahr</th><th class="r">Miete</th><th class="r">Zins</th><th class="r">Tilgung</th><th class="r">Kosten</th><th class="r">CF v. Steuern</th><th class="r">Steuer</th><th class="r">CF n. Steuern</th><th class="r">Restschuld</th></tr>
+    {% for r in proj %}
+    <tr><td>{{ r.jahr }}</td><td class="r">{{ r.miete|eur }}</td><td class="r">{{ r.zins|eur }}</td><td class="r">{{ r.tilgung|eur }}</td><td class="r">{{ r.bewirtschaftung|eur }}</td>
+      <td class="r">{{ r.cf_vor_steuer|signed_eur }}</td><td class="r">{{ r.steuer|signed_eur }}</td><td class="r">{{ r.cf_nach_steuer|signed_eur }}</td><td class="r">{{ r.restschuld|eur }}</td></tr>
+    {% endfor %}
+  </table>
+  <p class="disclaimer">Konservative Annahme: Miete bleibt über 10 Jahre auf SOLL-Niveau ({{ soll_qm|num }} €/m²), Kosten konstant. Mögliche Mietsteigerungen nach Ende der Subvention sind nicht berücksichtigt. Die Darstellung ist eine unverbindliche Beispielrechnung und ersetzt keine Steuer-, Rechts- oder Finanzierungsberatung. Zins, Tilgung und steuerliche Wirkung hängen von Ihrer persönlichen Situation und Ihrer Bank ab. Alle Angaben ohne Gewähr; maßgeblich sind Kaufvertrag, Teilungserklärung und die zugehörigen Vereinbarungen zu Mietsubvention und Rückstellungen.</p>
+  <div class="foot"><span>{{ f.anbieter.name }} · {{ f.anbieter.kontakt }}</span><span>{{ 6 if zeige_reno_bilder else 5 }}</span></div>
+</section>
+
+</body>
+</html>

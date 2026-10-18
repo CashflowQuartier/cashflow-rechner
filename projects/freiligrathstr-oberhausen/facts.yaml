@@ -1,0 +1,49 @@
+# Objektfakten für die Teaser – aus den Unterlagen im Drive-Ordner
+# "PE - IR - Freiligrathstrasse 8-10, Oberhausen" (Exposé Sterzing, Baubeschreibung,
+# Energieausweise, Mieterliste, Besichtigungsnotizen). Zahlen zu Preisen, Subvention,
+# Rückstellungen und Cashflow kommen NICHT von hier, sondern aus der PE-Excel.
+stand: Oktober 2026
+
+anbieter:
+  name: Cashflow Quartier
+  kontakt: Ihr Ansprechpartner bei Cashflow Quartier
+
+drive:
+  ordner: PE - IR - Freiligrathstrasse 8-10, Oberhausen
+  pe_excel: intern/20260915 - PE Freiligrathstr..xlsx
+
+objekt:
+  ort: 46117 Oberhausen-Osterfeld
+  adressen: Freiligrathstr. 8 + 10, Baustr. 21A, 46117 Oberhausen
+  baujahr: 1966
+  anlage: 3 Mehrfamilienhäuser, 28 Eigentumswohnungen (seit 1983 nach WEG geteilt), je EG bis 3. OG
+  bauweise: Massivbau, Satteldach mit Ziegeleindeckung, Kunststofffenster
+  heizung: Gas-Zentralheizung, neuer Heizkessel 2021
+  keller: alle Häuser voll unterkellert
+  weitere:
+    Außenflächen: ca. 300 m² Hof/Garten als Gemeinschaftsfläche
+  kurzbeschreibung: >-
+    Solide Wohnanlage aus den 1960er-Jahren in einem bei Familien gefragten, innenstadtnahen
+    Stadtteil von Oberhausen. Die Wohnungen sind vermietet, die Mieten liegen deutlich unter
+    Marktniveau – genau hier setzt unser Konzept an.
+  lage:
+    - >-
+      Osterfeld ist ein innenstadtnaher, bei Familien gefragter Stadtteil von Oberhausen mit
+      gepflegter Nachbarschaftsstruktur in reinem Wohngebiet.
+    - >-
+      In unmittelbarer Umgebung: Kindergärten und Schulen, Supermärkte, Bäcker, Drogerien,
+      Apotheken, Haus- und Kinderärzte sowie Restaurants und Cafés.
+    - >-
+      Naherholung bietet der Revierpark Vonderort an der Stadtgrenze zu Bottrop mit Wiesen,
+      See und Sportangeboten. Düsseldorf, Essen und Bochum erreichen Sie in ca. 20–25 Minuten,
+      Dortmund in ca. 40 Minuten Fahrzeit.
+    - >-
+      Marktmieten im Umfeld laut ImmobilienScout24: 7,78–12,90 €/m², im Mittel 10,34 €/m².
+
+haeuser:
+  Freiligrathstr. 8:
+    energie: Verbrauchsausweis, 146 kWh/(m²·a), Klasse E, Erdgas
+  Freiligrathstr. 10:
+    energie: Verbrauchsausweis, 193 kWh/(m²·a), Erdgas
+  Baustr. 21A:
+    energie: Verbrauchsausweis, 175 kWh/(m²·a), Erdgas
