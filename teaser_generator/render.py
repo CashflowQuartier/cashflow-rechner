@@ -18,6 +18,11 @@ from . import finance
 TEMPLATES = Path(__file__).parent / "templates"
 ASSETS = Path(__file__).parent / "assets"
 FONT_WEIGHTS = (400, 500, 600, 700, 800)
+GLOBAL_CONFIG = Path(__file__).parent / "config" / "cfq.yaml"
+EINGEBAUTE_ICONS = {
+    "star": '<svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 20.9l1.6-7L2 9.2l7.1-.6z"/></svg>',
+    "faq": '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 16h-2v-2h2v2zm2.1-7.7l-.9.9c-.7.7-1.2 1.3-1.2 2.8h-2v-.5c0-1.1.4-2.1 1.2-2.8l1.2-1.3c.4-.4.6-.9.6-1.4a2 2 0 00-4 0H8a4 4 0 018 0c0 .9-.4 1.6-.9 2.3z"/></svg>',
+}
 CHROMIUM_CANDIDATES = [
     os.environ.get("CHROMIUM_PATH", ""),
     "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
@@ -25,7 +30,12 @@ CHROMIUM_CANDIDATES = [
     shutil.which("chromium-browser") or "",
     shutil.which("google-chrome") or "",
 ]
-RENO_BILDER_SCHWELLE = 5000  # ab dieser Reno-Rückstellung SE werden Visualisierungen gezeigt
+RENO_BILDER_SCHWELLE = 5000
+# Seitenverhältnisse (Breite/Höhe) der Bildrahmen im Layout – Bilder werden exakt darauf zugeschnitten
+HERO_RATIO = 182 / 98
+IST_RATIO = 58.3 / 62
+SOLL_RATIO = 58.3 / 40
+TEAM_RATIO = 42.9 / 30  # ab dieser Reno-Rückstellung SE werden Visualisierungen gezeigt
 
 
 def eur(v, nachkomma=0):
@@ -49,9 +59,16 @@ def signed_eur(v, nachkomma=0):
     return ("+ " if v > 0.005 else "− " if v < -0.005 else "") + eur(abs(v), nachkomma)
 
 
-def image_data_uri(path: str | Path, max_px: int = 1600, quality: int = 82) -> str:
-    """Bild verkleinern, EXIF-Rotation anwenden und als data-URI einbetten."""
+def image_data_uri(path: str | Path, max_px: int = 1600, quality: int = 82, ratio: float | None = None,
+                   fokus_y: float = 0.5) -> str:
+    """Bild verkleinern, EXIF-Rotation anwenden, optional exakt auf Seitenverhältnis (Breite/Höhe) zuschneiden
+    und als data-URI einbetten. Der Zuschnitt passiert hier statt per CSS, damit kein PDF-Viewer (z. B. Apple
+    Vorschau) die Bilder verzerrt."""
     im = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
+    if ratio:
+        w, h = im.size
+        ziel = (round(h * ratio), h) if w / h > ratio else (w, round(w / ratio))
+        im = ImageOps.fit(im, ziel, centering=(0.5, fokus_y))
     im.thumbnail((max_px, max_px))
     tmp = tempfile.NamedTemporaryFile(suffix=".jpg", delete=False)
     im.save(tmp.name, "JPEG", quality=quality, optimize=True)
@@ -119,13 +136,24 @@ def wohnungstitel(adresse: str, stadt: str) -> dict:
             "voll": " · ".join(x for x in (strasse, f"Wohnung {lage}" if lage else "", stadt) if x)}
 
 
+def icon_svg(name: str) -> str:
+    if name in EINGEBAUTE_ICONS:
+        return EINGEBAUTE_ICONS[name]
+    f = ASSETS / "icons" / f"{name}.svg"
+    return re.sub(r"<title>.*?</title>", "", f.read_text()) if f.exists() else ""
+
+
+def links_mit_icons(links: list[dict]) -> list[dict]:
+    return [dict(l, svg=icon_svg(l.get("icon", ""))) for l in links or []]
+
+
 def team_bilder(team: list[dict]) -> list[dict]:
     out = []
     for t in team or []:
         t = dict(t)
         bild = t.get("bild")
         pfad = (ASSETS / "team" / bild) if bild and not Path(bild).is_absolute() else (Path(bild) if bild else None)
-        t["foto"] = image_data_uri(pfad, 500, 80) if pfad and pfad.exists() else None
+        t["foto"] = image_data_uri(pfad, 600, 80, ratio=TEAM_RATIO, fokus_y=0.25) if pfad and pfad.exists() else None
         t["initialen"] = "".join(w[0] for w in t["name"].split()[:2]).upper()
         out.append(t)
     return out
@@ -201,9 +229,9 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         weg=project.weg_massnahmen,
         weg_summe=project.weg_summe,
         se=project.se_massnahmen,
-        photos=[image_data_uri(x) for x in photos],
-        renders=[image_data_uri(x) for x in renders],
-        cover=image_data_uri(cover, 2000) if cover else None,
+        photos=[image_data_uri(x, 1400, ratio=IST_RATIO) for x in photos],
+        renders=[image_data_uri(x, 1400, ratio=SOLL_RATIO) for x in renders],
+        cover=image_data_uri(cover, 2000, ratio=HERO_RATIO, fokus_y=0.6) if cover else None,
         logo=logo_data_uri(logo or ASSETS / "logo_navy.png"),
         logo_white=logo_data_uri(ASSETS / "logo_white.png"),
         font_css=font_face_css(),
@@ -211,6 +239,8 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         steuer=finance.steuerrechnung(u, p),
         bilanz=finance.vermoegensbilanz(u, p),
         team=team_bilder(facts.get("team")),
+        links=links_mit_icons(facts.get("anbieter", {}).get("links")),
+        break_even=finance.break_even_miete(u, p),
         markt=marktvergleich(facts.get("lage", {}).get("preise"), u["kaufpreis_netto"] / fl, soll_qm),
         mietrecht=facts.get("mietrecht", {"kappungsgrenze": 0.20}),
     )

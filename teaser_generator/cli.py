@@ -42,7 +42,8 @@ def main(argv=None):
     if not (a.unit and a.facts and a.out):
         ap.error("--unit, --facts und --out sind erforderlich")
 
-    facts = yaml.safe_load(Path(a.facts).read_text(encoding="utf-8"))
+    facts = yaml.safe_load(render.GLOBAL_CONFIG.read_text(encoding="utf-8")) or {}
+    facts.update(yaml.safe_load(Path(a.facts).read_text(encoding="utf-8")) or {})
     unit = project.unit(a.unit)
     kappung = (facts.get("mietrecht") or {}).get("kappungsgrenze")
     if kappung and unit.get("erh1_qm") and unit.get("ist_miete"):

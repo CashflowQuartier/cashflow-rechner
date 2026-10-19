@@ -1,0 +1,56 @@
+# Projektübergreifende Angaben zu Cashflow Quartier – gelten für jeden Teaser.
+# Projekt-facts.yaml kann einzelne Schlüssel überschreiben.
+anbieter:
+  name: Cashflow Quartier
+  kontakt: kontakt@cashflowquartier.com · Alte Freiheit 16–18, 42103 Wuppertal
+  email: kontakt@cashflowquartier.com
+  adresse: Alte Freiheit 16–18, 42103 Wuppertal
+  website: https://www.cashflowquartier.com
+  erstgespraech: https://zpmb0e7ydhg.typeform.com/to/nMUdIKKC
+  google:
+    sterne: "4,9"
+    anzahl: über 200
+    link: https://www.google.com/search?q=Jan-Moritz+Becker+Rezensionen
+  # icon: Datei in assets/icons (simple-icons) oder "star"/"faq" (eingebaute Symbole)
+  links:
+    - {label: Kundenstimmen, text: cashflowquartier.com/referenzen, url: "https://www.cashflowquartier.com/referenzen", icon: star}
+    - {label: FAQ, text: Häufige Fragen, url: "https://www.cashflowquartier.com/unser-system", icon: faq}
+    - {label: Instagram, text: "@janmoritzbecker", url: "https://www.instagram.com/janmoritzbecker/", icon: instagram}
+    - {label: TikTok, text: "@janmoritzbecker", url: "https://www.tiktok.com/@janmoritzbecker", icon: tiktok}
+    - {label: YouTube, text: "@janmoritzbecker", url: "https://www.youtube.com/@janmoritzbecker", icon: youtube}
+    - {label: Facebook, text: janmoritzbecker93, url: "https://www.facebook.com/janmoritzbecker93", icon: facebook}
+    - {label: Podcast, text: auf Spotify hören, url: "https://open.spotify.com/show/0dLigO5JLOgwcZSuqYkeoO", icon: spotify}
+
+kennzahlen_cfq:
+  - {wert: "800+", label: Investoren}
+  - {wert: "50 Mio. €+", label: vermitteltes Volumen}
+  - {wert: "200+", label: neue Investoren pro Jahr}
+  - {wert: "99 %", label: ohne Eigenkapital gestartet}
+
+portfolio_beispiele:
+  - {name: Lea Breuer, rolle: Immobilieninvestorin, text: "Es zieht sich alles so durch, was ihr sagt – und das jetzt bereits bei Immobilie 1 bis 3 und bald auch 4 und 5."}
+  - {name: Nico Graf, rolle: Bauleiter, text: "Ich habe mittlerweile zwei Immobilien über euch gekauft. Eigenkapital musste ich bei beiden keinen einzigen Cent einbringen."}
+  - {name: Isabel Capek, rolle: Modedesignerin, text: "Ich war bei der ersten Wohnung direkt überzeugt. Die dritte Wohnung machen wir jetzt bereits."}
+
+team:
+  - {name: Jan-Moritz Becker, rolle: Ankauf & Projektentwicklung, bild: jan.jpg,
+     text: "Gründer und Investor. Bankausbildung, VWL-Studium und über 70 selbst finanzierte Wohneinheiten – er sucht die Objekte aus und entwickelt sie."}
+  - {name: Michelle, rolle: Vertriebsassistenz, bild: michelle.jpg,
+     text: "Gelernte Immobilienkauffrau. Sie bereitet unsere Immobilien auf und sorgt dafür, dass vom Exposé bis zum Notar alles sauber läuft."}
+  - {name: Jannis, rolle: Verkauf, bild: jannis.jpg,
+     text: "Holt aus deiner Bonität das Bestmögliche heraus und achtet darauf, dass du trotz Finanzierung ruhig schlafen kannst."}
+  - {name: Milan Wiesemann, rolle: Verkauf, bild: milan.jpg,
+     text: "Begleitet dich vom ersten Gespräch bis zur eigenen Immobilie – mit Maschinenbau-Analytik und Gespür für Menschen."}
+  - {name: Joell, rolle: Verkauf, bild: joell.jpg,
+     text: "Prokurist und Experte für Portfolio-Aufbau. Er denkt mit dir nicht in einer Wohnung, sondern in 10 bis 20 Jahren."}
+  - {name: Salome, rolle: Verwaltung, bild: salome.jpg,
+     text: "Geschäftsführerin der CQ Property Management GmbH. Sie behält Mieterentwicklung und Mietoptimierung im Blick."}
+  - {name: Davyd, rolle: Verwaltung, bild: davyd.jpg,
+     text: "Property Manager für Haus- und Mietverwaltung – damit dein Objekt im laufenden Betrieb rund läuft."}
+  - {name: Robin, rolle: WEG- & SEV-Verwaltung,
+     text: "Kümmert sich um die WEG-Verwaltung und die Sondereigentumsverwaltung deiner Wohnung."}
+
+testimonials:
+  - {text: "Rundum zufrieden, sehr kompetentes Beratungsteam, schnell, flexibel. Erste Immobilie ohne Eigenkapital diese Woche gekauft, dank top Beratung.", name: Bianca Ko, quelle: Google-Bewertung}
+  - {text: "Sehr professionelle Abwicklung & super transparente Kommunikation im gesamten Prozess. Ich hoffe, es bleibt nicht nur bei diesem ersten Objekt.", name: Julian M., quelle: Google-Bewertung}
+  - {text: "Sowohl meine Frau als auch ich haben keinen Aufwand mit der Immobilie. Das ist wie in einen ETF zu investieren.", name: Philipp Rossmanith, quelle: Immobilieninvestor}

@@ -42,7 +42,8 @@
   .pill { display: inline-block; background: var(--gold); color: var(--navy); font-weight: 600; font-size: 8.4pt; padding: 1.4mm 4mm; border-radius: 10mm; }
   .cover h1 { font-size: 20pt; line-height: 1.15; text-align: center; margin-top: 1mm; }
   .cover .sub { text-align: center; font-size: 11pt; margin: 2.5mm auto 6mm; max-width: 160mm; }
-  .hero { height: 98mm; border-radius: var(--r-lg); background-size: cover; background-position: center 60%; box-shadow: 0 6px 22px rgba(5,13,43,.14); }
+  .hero { height: 98mm; border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 6px 22px rgba(5,13,43,.14); }
+  .hero img, .ph img, .member .foto img { display: block; width: 100%; height: 100%; }
   .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin-top: 6mm; }
   .kpi { background: var(--gray); border-radius: var(--r-md); padding: 4mm 4mm 3.5mm; }
   .kpi .k { font-size: 8pt; color: var(--muted); }
@@ -85,7 +86,7 @@
   /* Fotos Ist / Soll */
   .pairs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
   .pair { display: grid; grid-template-rows: 62mm 40mm; gap: 2.5mm; }
-  .ph { background-size: cover; background-position: center; border-radius: var(--r-md); position: relative; box-shadow: 0 4px 14px rgba(5,13,43,.12); }
+  .ph { border-radius: var(--r-md); overflow: hidden; position: relative; box-shadow: 0 4px 14px rgba(5,13,43,.12); }
   .ph .cap { position: absolute; left: 2.5mm; bottom: 2.5mm; background: rgba(255,255,255,.93); color: var(--navy); font-weight: 600;
     font-size: 7.2pt; padding: .8mm 2.4mm; border-radius: 10mm; }
   .ph .cap.gold { background: var(--gold); }
@@ -136,14 +137,16 @@
   .vs .aus { background: var(--gold); }
 
   /* Team */
-  .team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm 3.5mm; }
-  .member .foto { height: 33mm; border-radius: var(--r-md); background-size: cover; background-position: center 20%; background-color: var(--gray); }
-  .member .ini { height: 33mm; border-radius: var(--r-md); background: var(--gray); display: flex; align-items: center; justify-content: center;
+  .team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm 3.5mm; }
+  .member .foto { height: 30mm; border-radius: var(--r-md); overflow: hidden; background: var(--gray); }
+  .member .d { font-size: 7.3pt; color: var(--muted); line-height: 1.35; margin-top: .8mm; }
+  .member .ini { height: 30mm; border-radius: var(--r-md); background: var(--gray); display: flex; align-items: center; justify-content: center;
     font-size: 20pt; font-weight: 600; color: rgba(5,13,43,.35); }
   .member .n { font-weight: 600; font-size: 9.4pt; margin-top: 1.8mm; line-height: 1.2; }
   .member .r { font-size: 7.8pt; color: var(--gold); font-weight: 600; }
   .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
   .quote { background: var(--gray); border-radius: var(--r-md); padding: 3.2mm 4mm; font-size: 7.9pt; line-height: 1.42; }
+  .quotes.compact .quote { font-size: 7.5pt; padding: 2.8mm 3.6mm; }
   .quote .stars { color: var(--gold); letter-spacing: 1px; font-size: 9pt; }
   .quote .who { margin-top: 1.6mm; font-weight: 600; font-size: 8pt; }
   .quote .who span { font-weight: 400; color: var(--muted); }
@@ -152,10 +155,16 @@
   .rating .txt { font-size: 9.6pt; line-height: 1.35; }
   .rating .txt b { font-size: 11pt; }
   .rating .cta { margin-left: auto; background: var(--gold); color: var(--navy); font-weight: 600; font-size: 8.6pt; padding: 2.2mm 4.5mm; border-radius: 10mm; white-space: nowrap; }
-  .links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
-  .links a { display: block; background: var(--gray); border-radius: var(--r-md); padding: 3mm 3.5mm; }
-  .links a .l { font-weight: 600; font-size: 9pt; }
-  .links a .u { font-size: 7.5pt; color: var(--muted); }
+  .links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5mm; }
+  .links a { display: flex; align-items: center; gap: 2.5mm; background: var(--gray); border-radius: var(--r-md); padding: 2.4mm 3mm; }
+  .links .ico { flex: none; width: 7.5mm; height: 7.5mm; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; }
+  .links .ico svg { width: 4mm; height: 4mm; fill: #fff; }
+  .links a .l { display: block; font-weight: 600; font-size: 8.8pt; line-height: 1.2; }
+  .links a .u { display: block; font-size: 7.2pt; color: var(--muted); line-height: 1.25; }
+  .usp { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 6mm; }
+  .usp-item { display: grid; grid-template-columns: 6.5mm 1fr; gap: 2.6mm; background: var(--gray); border-radius: var(--r-md); padding: 4mm 4.5mm; }
+  .usp-item .t { font-weight: 600; font-size: 10.2pt; line-height: 1.25; margin-bottom: 1mm; }
+  .usp-item p { font-size: 8.5pt; color: var(--muted); margin: 0; line-height: 1.45; }
   .contact { display: flex; justify-content: space-between; align-items: center; margin-top: 3.5mm; padding: 3.2mm 5mm; border: 1.5px solid var(--gold); border-radius: var(--r-lg); }
   .contact .t { font-weight: 600; font-size: 10.5pt; }
   .disclaimer { font-size: 6.7pt; color: var(--muted); line-height: 1.36; margin-top: 3mm; }
@@ -175,7 +184,7 @@
   <div class="topbar"><img src="{{ logo }}" alt="{{ f.anbieter.name }}"><span class="pill">Exklusives Kapitalanlage-Angebot</span></div>
   <h1><span class="ul">{{ titel.strasse }} · {{ titel.wohnung }} · {{ titel.stadt }}</span></h1>
   <div class="sub">Eigentumswohnung · {{ flaeche|num }} m² · {{ f.objekt.ort }} · Baujahr {{ f.objekt.baujahr }}<br>Marktmiete ab Tag 1 – ohne Kaufnebenkosten, ohne Renovierungsrisiko.</div>
-  <div class="hero" style="background-image:url('{{ cover or (photos[0] if photos else '') }}')"></div>
+  <div class="hero"><img src="{{ cover or (photos[0] if photos else '') }}" alt="Außenansicht"></div>
   <div class="kpis">
     <div class="kpi"><div class="k">Gesamtinvest</div><div class="v num">{{ u.kaufpreis|eur }}</div><div class="s">keine weiteren Nebenkosten</div></div>
     <div class="kpi"><div class="k">Miete ab Tag 1</div><div class="v num">{{ u.miete_soll|eur(2) }}</div><div class="s">SOLL-Miete {{ soll_qm|num }} €/m² netto kalt</div></div>
@@ -209,8 +218,8 @@
   <div class="pairs">
     {% for i in range([photos|length, 3]|min) %}
     <div class="pair">
-      <div class="ph" style="background-image:url('{{ photos[i] }}')"><span class="cap">Ist-Zustand</span></div>
-      {% if zeige_reno_bilder and renders|length > i %}<div class="ph" style="background-image:url('{{ renders[i] }}')"><span class="cap gold">Soll-Zustand · Visualisierung</span></div>{% endif %}
+      <div class="ph"><img src="{{ photos[i] }}" alt="Ist-Zustand"><span class="cap">Ist-Zustand</span></div>
+      {% if zeige_reno_bilder and renders|length > i %}<div class="ph"><img src="{{ renders[i] }}" alt="Soll-Zustand"><span class="cap gold">Soll-Zustand · Visualisierung</span></div>{% endif %}
     </div>
     {% endfor %}
   </div>
@@ -370,7 +379,36 @@
   {{ foot(5) }}
 </section>
 
-{# ================= Seite 6: Team & Vertrauen ================= #}
+{# ================= Seite 6: Konzept-Zusammenfassung ================= #}
+<section class="page">
+  {{ topbar('Unser Konzept auf einen Blick') }}
+  <div class="eyebrow">Warum sich das rechnet</div>
+  <h2><span class="ul">Kapitalanlage ohne Eigenkapital –</span><br>mit ehrlichen Zahlen.</h2>
+  <p class="lead">Du kaufst eine vermietete Kapitalanlage-Immobilie, für die du kein Eigenkapital einsetzen musst. Das funktioniert nicht durch Tricks, sondern weil die Wohnung von Anfang an sauber kalkuliert ist.</p>
+  <div class="usp">
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Finanzierbar ohne Eigenkapital</div>
+      <p>Unsere Wohnungen sind nicht überteuert, sondern zu einem marktgerechten Preis eingekauft. Deshalb finanzieren Banken bei unserem Konzept in der Regel auch die Kaufnebenkosten mit – und die übernehmen wir ohnehin für dich.</p></div></div>
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">{% if rendite_netto and rendite_netto > 0.05 %}Über 5 % Mietrendite – {% endif %}mit ortsüblicher Marktmiete</div>
+      <p>{% if rendite_netto %}{{ rendite_netto|pct }} Mietrendite auf den Kaufpreis{% endif %} bei einer SOLL-Miete von {{ soll_qm|num }} €/m² – einer ganz normalen Marktvermietung. Keine Sondervermietungsformen, die die Miete künstlich hochtreiben.</p></div></div>
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Luft nach oben – für dich</div>
+      <p>WG-Vermietung an Studierende, möblierte Vermietung oder Monteurszimmer haben wir bewusst nicht einkalkuliert. Willst du den Ertrag weiter steigern, kannst du diese Optionen selbst nutzen.</p></div></div>
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Steigerbar bis in den positiven Cashflow</div>
+      <p>{% if break_even.plus_pct > 0 %}Rechnerisch reicht eine Mieterhöhung von rund {{ break_even.plus_pct|pct(0) }} (auf ca. {{ break_even.qm|num }} €/m²), damit dein Cashflow nach Steuern positiv wird. Mit ein bis zwei regulären Mieterhöhungszyklen (max. {{ (mietrecht.kappungsgrenze*100)|int }} % in 3 Jahren, begrenzt durch die ortsübliche Vergleichsmiete) kommst du dorthin.{% else %}Schon heute ist dein Cashflow nach Steuern positiv – jede weitere Mieterhöhung erhöht deinen Überschuss.{% endif %}</p></div></div>
+  </div>
+
+  <h3>Nicht nur eine Wohnung – ein Portfolio</h3>
+  <p class="muted" style="font-size:8.8pt">Weil jede Wohnung so kalkuliert ist, dass sie die Bank ohne Eigenkapital finanziert und sie sich trägt, bleibt deine Bonität für die nächste Einheit erhalten. Viele unserer Investoren starten mit einer Wohnung und bauen Schritt für Schritt ein ganzes Portfolio auf.</p>
+  <div class="stats" style="margin:3mm 0 4mm">
+    {% for k in f.kennzahlen_cfq %}<div class="stat"><div class="v">{{ k.wert }}</div><div class="k">{{ k.label }}</div></div>{% endfor %}
+  </div>
+  <div class="quotes">
+    {% for q in f.portfolio_beispiele %}<div class="quote">„{{ q.text }}“<div class="who">{{ q.name }} <span>· {{ q.rolle }}</span></div></div>{% endfor %}
+  </div>
+  <p class="note" style="margin-top:2mm">Kennzahlen und Zitate: <a href="https://www.cashflowquartier.com/referenzen" style="text-decoration:underline">cashflowquartier.com/referenzen</a></p>
+  {{ foot(6) }}
+</section>
+
+{# ================= Seite 7: Team & Vertrauen ================= #}
 <section class="page">
   {{ topbar('Wer wir sind') }}
   <div class="eyebrow">Alles aus einer Hand</div>
@@ -379,31 +417,28 @@
   <div class="team">
     {% for t in team %}
     <div class="member">
-      {% if t.foto %}<div class="foto" style="background-image:url('{{ t.foto }}')"></div>{% else %}<div class="ini">{{ t.initialen }}</div>{% endif %}
+      {% if t.foto %}<div class="foto"><img src="{{ t.foto }}" alt="{{ t.name }}"></div>{% else %}<div class="ini">{{ t.initialen }}</div>{% endif %}
       <div class="n">{{ t.name }}</div><div class="r">{{ t.rolle }}</div>
+      {% if t.text %}<div class="d">{{ t.text }}</div>{% endif %}
     </div>
     {% endfor %}
   </div>
 
-  <h3 style="margin-top:4mm">Was unsere Kunden sagen</h3>
-  <a class="rating" href="{{ f.anbieter.google.link }}">
+  <a class="rating" href="{{ f.anbieter.google.link }}" style="margin-top:3mm">
     <div class="score">{{ f.anbieter.google.sterne }}</div>
     <div class="txt"><b>★★★★★</b><br>{{ f.anbieter.google.anzahl }} Google-Rezensionen</div>
     <span class="cta">Alle Kundenstimmen ansehen →</span>
   </a>
-  <div class="quotes">
+  <div class="quotes compact">
     {% for q in f.testimonials %}<div class="quote"><div class="stars">★★★★★</div>„{{ q.text }}“<div class="who">{{ q.name }} <span>· {{ q.quelle }}</span></div></div>{% endfor %}
   </div>
 
-  <h3 style="margin-top:3.5mm">Folge uns</h3>
+  <h3 style="margin-top:3mm">Folge uns & mehr erfahren</h3>
   <div class="links">
-    {% for l in f.anbieter.links %}<a href="{{ l.url }}"><div class="l">{{ l.label }} →</div><div class="u">{{ l.text }}</div></a>{% endfor %}
+    {% for l in links %}<a href="{{ l.url }}"><span class="ico">{{ l.svg|safe }}</span><span><span class="l">{{ l.label }}</span><span class="u">{{ l.text }}</span></span></a>{% endfor %}
+    <a href="{{ f.anbieter.erstgespraech }}" style="background:var(--gold)"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span><span class="l">Gespräch vereinbaren</span><span class="u" style="color:var(--navy)">Fragen zur Wohnung?</span></span></a>
   </div>
-  <div class="contact">
-    <div><div class="t">Fragen zu dieser Wohnung?</div><div class="muted" style="font-size:8.6pt"><a href="mailto:{{ f.anbieter.email }}">{{ f.anbieter.email }}</a> · {{ f.anbieter.adresse }}</div></div>
-    <a class="pill" href="{{ f.anbieter.erstgespraech }}">Gespräch vereinbaren →</a>
-  </div>
-  {{ foot(6) }}
+  {{ foot(7) }}
 </section>
 
 </body>

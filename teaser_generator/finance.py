@@ -207,3 +207,13 @@ def vermoegensbilanz(u: dict, p: Params, wertsteigerung_pa: float = 0.03, jahre:
         restschuld=proj[-1].restschuld,
         cf_monat=monat_jahr1(u, p).cf_nach_steuer,
     )
+
+
+def break_even_miete(u: dict, p: Params) -> dict:
+    """Miete, ab der der Cashflow nach Steuern (Jahr 1) positiv wird. Jeder zusätzliche Euro Miete
+    wirkt nach Steuern nur zu (1 - Grenzsteuersatz)."""
+    m = monat_jahr1(u, p)
+    if m.cf_nach_steuer >= 0:
+        return {"miete": m.miete, "plus_pct": 0.0, "qm": m.miete / u["flaeche"]}
+    noetig = -m.cf_nach_steuer / (1 - p.grenzsteuer)
+    return {"miete": m.miete + noetig, "plus_pct": noetig / m.miete, "qm": (m.miete + noetig) / u["flaeche"]}

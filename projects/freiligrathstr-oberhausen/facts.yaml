@@ -4,38 +4,7 @@
 # Zahlen zu Preisen, Subvention, Rückstellungen und Cashflow kommen NICHT von hier, sondern aus der PE-Excel.
 stand: Oktober 2026
 
-anbieter:
-  name: Cashflow Quartier
-  kontakt: kontakt@cashflowquartier.com · Alte Freiheit 16–18, 42103 Wuppertal
-  email: kontakt@cashflowquartier.com
-  adresse: Alte Freiheit 16–18, 42103 Wuppertal
-  website: https://www.cashflowquartier.com
-  google:
-    sterne: "4,9"
-    anzahl: über 200
-    link: https://www.google.com/search?q=Jan-Moritz+Becker+Rezensionen
-  links:
-    - {label: Kundenstimmen, text: cashflowquartier.com/referenzen, url: "https://www.cashflowquartier.com/referenzen"}
-    - {label: Instagram, text: "@janmoritzbecker", url: "https://www.instagram.com/janmoritzbecker/"}
-    - {label: TikTok, text: "@janmoritzbecker", url: "https://www.tiktok.com/@janmoritzbecker"}
-    - {label: YouTube, text: "@janmoritzbecker", url: "https://www.youtube.com/@janmoritzbecker"}
-    # Facebook und Podcast (Spotify): Links noch offen – hier ergänzen
-  erstgespraech: https://zpmb0e7ydhg.typeform.com/to/nMUdIKKC
-
-team:
-  - {name: Jan-Moritz Becker, rolle: Ankauf & Projektentwicklung, bereich: Ankauf, bild: jan.jpg}
-  - {name: Michelle, rolle: Vertriebsassistenz, bereich: Vertrieb, bild: michelle.jpg}
-  - {name: Jannis, rolle: Verkauf, bereich: Vertrieb, bild: jannis.jpg}
-  - {name: Milan Wiesemann, rolle: Verkauf, bereich: Vertrieb, bild: milan.jpg}
-  - {name: Joell, rolle: Verkauf, bereich: Vertrieb, bild: joell.jpg}
-  - {name: Salome, rolle: Verwaltung (GF CQ Property Management), bereich: Verwaltung, bild: salome.jpg}
-  - {name: Davyd, rolle: Verwaltung, bereich: Verwaltung, bild: davyd.jpg}
-  - {name: Robin, rolle: WEG- & SEV-Verwaltung, bereich: Verwaltung}
-
-testimonials:
-  - {text: "Rundum zufrieden, sehr kompetentes Beratungsteam, schnell, flexibel. Erste Immobilie ohne Eigenkapital diese Woche gekauft, dank top Beratung.", name: Bianca Ko, quelle: Google-Bewertung}
-  - {text: "Sehr professionelle Abwicklung & super transparente Kommunikation im gesamten Prozess. Ich hoffe, es bleibt nicht nur bei diesem ersten Objekt.", name: Julian M., quelle: Google-Bewertung}
-  - {text: "Sowohl meine Frau als auch ich haben keinen Aufwand mit der Immobilie. Das ist wie in einen ETF zu investieren.", name: Philipp Rossmanith, quelle: Immobilieninvestor}
+# Anbieter, Team, Links und Kundenstimmen: projektübergreifend in teaser_generator/config/cfq.yaml
 
 objekt:
   ort: 46117 Oberhausen-Osterfeld
