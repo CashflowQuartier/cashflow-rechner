@@ -199,7 +199,7 @@
     <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
       <div class="t">Renovierungsrückstellung</div>
       <div class="v num">{{ reno_se|eur }}</div>
-      <ul><li>für deine Wohnung bei Mieterwechsel</li>{% for m in se %}<li>{{ m.name|replace('Fussbodenheizung','Fußbodenheizung') }}{% if m.name|lower == 'bad' %} komplett neu{% endif %}</li>{% endfor %}</ul></div></div>
+      <ul><li>für deine Wohnung {{ "bei Mieterwechsel" if vermietet else "vor der Neuvermietung" }}</li>{% for m in se %}<li>{{ m.name|replace('Fussbodenheizung','Fußbodenheizung') }}{% if m.name|lower == 'bad' %} komplett neu{% endif %}</li>{% endfor %}</ul></div></div>
     <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
       <div class="t">Kaufnebenkosten übernommen</div>
       <div class="v num">{{ u.knk|eur }}</div>
@@ -214,7 +214,7 @@
   {{ topbar('Die Wohnung') }}
   <div class="eyebrow">Deine Wohnung</div>
   <h2><span class="ul">Heute und nach der Renovierung.</span></h2>
-  <p class="lead">{{ flaeche|num }} m² · {{ 'vermietet' if vermietet else u.status }}. Oben siehst du den aktuellen Zustand vom Besichtigungstermin, darunter den Standard, den wir nach einem Mieterwechsel aus der Renovierungsrückstellung umsetzen.</p>
+  <p class="lead">{{ flaeche|num }} m² · {{ 'vermietet' if vermietet else u.status }}. Oben siehst du den aktuellen Zustand vom Besichtigungstermin, darunter den Standard, den wir {{ "nach einem Mieterwechsel" if vermietet else "vor der Neuvermietung" }} aus der Renovierungsrückstellung umsetzen.</p>
   <div class="pairs" style="grid-template-columns: repeat({{ [photos|length, 3]|min }}, 1fr)">
     {% for i in range([photos|length, 3]|min) %}
     <div class="pair">
@@ -367,8 +367,8 @@
     <tr class="sum"><td colspan="4">Mietsubvention gesamt</td><td class="r">{{ subvention|eur }}</td></tr>
   </table>
 
-  <h3>Und wenn der Mieter vorher auszieht?</h3>
-  <p class="muted" style="font-size:8.8pt">Dann renoviert unsere Verwaltung die Wohnung aus der Renovierungsrückstellung von {{ reno_se|eur }} nach festen Vorgaben – {{ se|map(attribute='name')|join(', ')|replace('Fussbodenheizung','Fußbodenheizung') }} – und vermietet sie neu zur Marktmiete.</p>
+  <h3>{{ "Und wenn der Mieter vorher auszieht?" if vermietet else "Die Wohnung ist aktuell frei" }}</h3>
+  <p class="muted" style="font-size:8.8pt">{{ "Dann renoviert" if vermietet else "Vor der Neuvermietung renoviert" }} unsere Verwaltung die Wohnung aus der Renovierungsrückstellung von {{ reno_se|eur }} nach festen Vorgaben – {{ se|map(attribute='name')|join(', ')|replace('Fussbodenheizung','Fußbodenheizung') }} – und vermietet sie neu zur Marktmiete.</p>
 
   <h3>So ist es rechtlich geregelt – der SEV-Vertrag</h3>
   <div class="flow">
@@ -384,7 +384,7 @@
   {{ topbar('Unser Konzept auf einen Blick') }}
   <div class="eyebrow">Warum sich das rechnet</div>
   <h2><span class="ul">Kapitalanlage ohne Eigenkapital –</span><br>mit ehrlichen Zahlen.</h2>
-  <p class="lead">Du kaufst eine vermietete Kapitalanlage-Immobilie, für die du kein Eigenkapital einsetzen musst. Das funktioniert nicht durch Tricks, sondern weil die Wohnung von Anfang an sauber kalkuliert ist.</p>
+  <p class="lead">Du kaufst eine {{ "vermietete " if vermietet }}Kapitalanlage-Immobilie, für die du kein Eigenkapital einsetzen musst. Das funktioniert nicht durch Tricks, sondern weil die Wohnung von Anfang an sauber kalkuliert ist.</p>
   <div class="usp">
     <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Finanzierbar ohne Eigenkapital</div>
       <p>Unsere Wohnungen sind nicht überteuert, sondern zu einem marktgerechten Preis eingekauft. Deshalb finanzieren Banken bei unserem Konzept in der Regel auch die Kaufnebenkosten mit – und die übernehmen wir ohnehin für dich.</p></div></div>
