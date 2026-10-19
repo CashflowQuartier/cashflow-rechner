@@ -38,23 +38,23 @@ projekt:
     Wir legen die Basis für die nächsten Jahrzehnte: Die Maßnahmen am Gemeinschaftseigentum sind im Kaufpreis bereits
     enthalten und als Rückstellung hinterlegt – du musst dafür nichts zusätzlich einplanen.
   sanierung:
-    - {name: Neues Dach, text: "Komplette Neueindeckung mit Betondachsteinen, neue Unterspannbahn und Lattung, neue Regenrinnen (Tannenbergstr. 6–10, 14–18, 22–26)."}
+    - {name: Neues Dach, text: "Neueindeckung mit Betondachsteinen, neue Unterspannbahn, Lattung und Regenrinnen."}
+    - {name: Fassade, text: "Sanierung der Fassaden – für ein gepflegtes Erscheinungsbild und einen besseren Wärmeschutz."}
     - {name: Gedämmte Giebel, text: "Wärmedämmverbundsystem mit 12 cm Dämmung und weißem Silikonharzputz an den sechs Giebelwänden."}
     - {name: Treppenhäuser, text: "Renovierung der Treppenhäuser – der erste Eindruck für Mieter und Interessenten."}
     - {name: Zählerzentralisierung, text: "Zentrale, moderne Zähleranlage statt verteilter Einzelzähler."}
-    - {name: Wärmepumpe statt Gas, text: "Umstellung der Gas-Zentralheizung auf Wärmepumpen mit Ökostrom (PAUL Net Zero) – ohne Investition der Eigentümer."}
-  weg_hinweis: "Die Umstellung auf Wärmepumpen läuft als Wärmeliefervertrag mit PAUL und ist deshalb nicht Teil der Rückstellung."
+    - {name: Wärmepumpe statt Gas, text: "Wärmepumpen mit Ökostrom (PAUL Net Zero) statt Gas-Zentralheizung – ohne Investition der Eigentümer."}
+  weg_hinweis: "Die Wärmepumpen laufen als Wärmeliefervertrag und sind nicht Teil der Rückstellung."
   energie:
     vorher: H
     nachher: C
-    nachher_label: mindestens, nach Umstellung
+    nachher_label: mindestens
     kurz: Wärmepumpen statt Gas – Energieklasse H → mindestens C
     punkte:
-      - "Endenergie Tannenbergstr. 6–10: 257 → 73 kWh/(m²·a); Haldenstr. 2 / Tannenbergstr. 36–38: 293 → 83 kWh/(m²·a)."
-      - "CO2-Ausstoß der Heizung praktisch null – der Vermieteranteil am CO2-Preis entfällt."
-      - "Planung, Einbau, Wartung und Störungsdienst übernimmt PAUL; der Wärmepreis ist für 15 Jahre vereinbart."
-      - "GEG-Pflicht zu 65 % erneuerbarer Wärme erfüllt."
-    quelle: "Quelle: Angebot PAUL Tech AG (PAUL Net Zero) vom 16.10.2026, Vergleichsrechnung Kola NetZero vom 19.10.2026 – unverbindliche Schätzung, Vorbehalt der technischen Prüfung."
+      - "Endenergie rund −70 %: z. B. 257 → 73 kWh/(m²·a) in der Tannenbergstr. 6–10."
+      - "CO2 der Heizung praktisch null – kein Vermieteranteil am CO2-Preis, GEG (65 % erneuerbar) erfüllt."
+      - "Einbau, Wartung und Störungsdienst übernimmt PAUL, Wärmepreis für 15 Jahre vereinbart."
+    quelle: "Quelle: Angebot PAUL Tech AG vom 16.10.2026 / Vergleichsrechnung Kola NetZero vom 19.10.2026, unverbindliche Schätzung."
   reno_je_qm: 400
   reno_standard: [neuer Vinylboden, weiße Wände, Türen und Zargen, neue Schalter und Steckdosen, Fliesenspiegel in der Küche, neues Bad]
   preisliste_hinweis: "Lage und Flächen laut Mieterliste/PE; maßgeblich für Nummer, Fläche und Miteigentumsanteil ist die Teilungserklärung."

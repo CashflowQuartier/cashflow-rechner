@@ -15,7 +15,8 @@ from . import finance, render
 # Zeilen je Preislisten-Seite (Hauszeilen zählen mit); die erste Seite hat Überschrift und Erläuterung
 PREISLISTE_ZEILEN_ERSTE = 34
 PREISLISTE_ZEILEN = 39
-GALERIE_RATIO = 58.3 / 44
+# Bildwand Seite 2: großes Bild links (2/3), zwei gestapelte rechts (1/3), Höhe 92 mm
+GALERIE_RATIOS = (119.2 / 92, 59.3 / 44.25)
 
 
 def haus_und_lage(adresse: str) -> tuple[str, str]:
@@ -68,6 +69,17 @@ def haeuser(rows: list[dict]) -> list[dict]:
     return list(out.values())
 
 
+def reno_beispiele(rows: list[dict], n: int = 4) -> list[dict]:
+    """Die häufigsten Wohnungsgrößen mit ihrer Renovierungsrückstellung (aufsteigend nach Fläche)."""
+    groessen = {}
+    for r in rows:
+        if r["art"] == "Wohnung" and r["u"].get("reno_se"):
+            g = groessen.setdefault(round(r["u"]["flaeche"]), {"flaeche": r["u"]["flaeche"], "reno": r["u"]["reno_se"], "anzahl": 0})
+            g["anzahl"] += 1
+    top = sorted(groessen.values(), key=lambda g: -g["anzahl"])[:n]
+    return sorted(top, key=lambda g: g["flaeche"])
+
+
 def preisliste_seiten(hs: list[dict]) -> list[list[dict]]:
     """Hausweise auf Seiten verteilen; ein Haus wird nicht auf zwei Seiten zerrissen."""
     seiten, akt, n = [], [], 0
@@ -94,11 +106,10 @@ def build_context(project, beispiel_unit, facts: dict, cover: str | None, galeri
     pt = facts.get("projekt", {})
     stadt = facts.get("objekt", {}).get("stadt", "")
     titel = pt.get("titel") or project.titel
-    n_vor = 3  # Cover, Objekt, Sanierung
-    seite_nr = {"cashflow": n_vor + 1, "konzept": n_vor + 2}
-    seite_nr["preisliste"] = n_vor + 3
+    # Reihenfolge: Cover, Projekt, Sanierung, Beispielrechnung, Zusammenfassung, Konzept, Preisliste, Lage, Team
+    seite_nr = {"cashflow": 4, "zusammenfassung": 5, "konzept": 6, "preisliste": 7}
     n = seite_nr["preisliste"] + len(seiten)
-    seite_nr.update(lage=n, zusammenfassung=n + 1, team=n + 2)
+    seite_nr.update(lage=n, team=n + 1)
     ctx.update(
         projekt=pt,
         beispiel=True,
@@ -120,7 +131,9 @@ def build_context(project, beispiel_unit, facts: dict, cover: str | None, galeri
         subvention_gesamt=sum(r["u"].get("subvention") or 0 for r in rows),
         reno_gesamt=sum(r["u"].get("reno_se") or 0 for r in rows),
         knk_gesamt=sum(r["u"].get("knk") or 0 for r in rows),
-        galerie=[render.image_data_uri(x, 1200, ratio=GALERIE_RATIO) for x in galerie],
+        galerie=[render.image_data_uri(x, 1600 if i == 0 else 1000, ratio=GALERIE_RATIOS[min(i, 1)])
+                 for i, x in enumerate(galerie[:3])],
+        reno_beispiele=reno_beispiele(rows),
     )
     if not ctx["se"] and pt.get("reno_standard"):
         ctx["se"] = [{"name": x} for x in pt["reno_standard"]]
