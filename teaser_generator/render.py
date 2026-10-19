@@ -131,6 +131,20 @@ def team_bilder(team: list[dict]) -> list[dict]:
     return out
 
 
+def marktvergleich(preise: dict, unser_kauf_qm: float, soll_qm: float) -> dict:
+    """Ø je Quelle; Box nur zeigen, wenn der Markt über unserem Preis bzw. auf/über der SOLL-Miete liegt."""
+    out = {}
+    for key, unser, besser in (("kauf", unser_kauf_qm, lambda m, x: m > x), ("miete", soll_qm, lambda m, x: m >= x)):
+        cfg = (preise or {}).get(key) or {}
+        werte = [q["wert"] for q in cfg.get("quellen", []) if q.get("wert")]
+        if not werte:
+            continue
+        mittel = sum(werte) / len(werte)
+        out[key] = {"label": cfg.get("label", ""), "mittel": mittel, "quellen": cfg.get("quellen", []),
+                    "zeigen": besser(mittel, unser)}
+    return out
+
+
 def build_context(project, unit, facts: dict, photos: list[str], renders: list[str], cover: str | None,
                   logo: str | None = None) -> dict:
     p = project.params
@@ -187,6 +201,8 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         steuer=finance.steuerrechnung(u, p),
         bilanz=finance.vermoegensbilanz(u, p),
         team=team_bilder(facts.get("team")),
+        markt=marktvergleich(facts.get("lage", {}).get("preise"), u["kaufpreis_netto"] / fl, soll_qm),
+        mietrecht=facts.get("mietrecht", {"kappungsgrenze": 0.20}),
     )
 
 

@@ -49,6 +49,12 @@ objekt:
   weitere:
     Außenflächen: ca. 300 m² Hof/Garten
 
+mietrecht:
+  # Bei jedem Projekt neu prüfen (Mieterschutzverordnung des Bundeslandes)
+  kappungsgrenze: 0.20
+  mietpreisbremse: false
+  hinweis: "Oberhausen ist nicht in der Mieterschutzverordnung NRW (MietSchVO NRW vom 28.01.2025) aufgeführt: Es gilt die allgemeine Kappungsgrenze von 20 % in 3 Jahren, eine Mietpreisbremse besteht nicht."
+
 lage:
   titel: Oberhausen – mitten in der Metropole Ruhr
   intro: >-
@@ -60,15 +66,28 @@ lage:
     - {wert: "70.812", label: Beschäftigte am Arbeitsort, sub: "über 70.000 – erstmals seit 40 Jahren"}
     - {wert: "> 20 Mio.", label: Besucher pro Jahr, sub: Neue Mitte Oberhausen}
     - {wert: "21 Min.", label: nach Düsseldorf, sub: "ICE ab Oberhausen Hbf · Essen 16 Min."}
+  # Marktvergleich: Ø aller Quellen. Box wird nur gezeigt, wenn Ø Kaufpreis > unser Kaufpreis/m² (exkl. KNK)
+  # bzw. Ø Miete >= SOLL-Miete. Homeday-Preisatlas immer mit aufnehmen.
   preise:
-    kauf: {wert: "2.250 €/m²", label: "Ø Angebotspreis Eigentumswohnung Osterfeld", quelle: "LL Immobilien 2026; Stadt gesamt Ø 2.067–2.171 €/m² (Immowelt 09/2026, Immoportal 08/2026, +3,4 % zum Vorjahr)"}
-    miete: {wert: "7,92–9,69 €/m²", label: "Angebotsmieten Osterfeld", quelle: "ImmoScout24 Q2/2026, Engel & Völkers Q3/2026"}
+    kauf:
+      label: Ø Angebotspreis Eigentumswohnung Osterfeld
+      quellen:
+        - {name: Homeday Preisatlas (Freiligrathstraße 8, 10/2026), wert: 1600}
+        - {name: LL Immobilien (Osterfeld, 2026), wert: 2250}
+        - {name: Engel & Völkers (Osterfeld-Ost, 2026), wert: 2752}
+    miete:
+      label: Ø Angebotsmiete Osterfeld
+      quellen:
+        - {name: Homeday Preisatlas (Freiligrathstraße 8, 10/2026), wert: 6.40}
+        - {name: ImmoScout24 (Osterfeld-West, Q2/2026), wert: 7.92}
+        - {name: miet-check (Osterfeld-West, 2026), wert: 9.01}
+        - {name: Engel & Völkers (Osterfeld-Ost, Q3/2026), wert: 9.69}
+        - {name: Immoportal (Osterfeld-Ost, 2026), wert: 8.48}
   abschnitte:
     - titel: Bevölkerung
       punkte:
         - "213.355 Einwohner (IT.NRW, 11/2025) – seit dem Tiefpunkt 2020 um rund 4.000 gewachsen."
         - "Stadtbezirk Osterfeld: rund 38.000 Einwohner auf 10,8 km²."
-        - "Prognose der Stadt bis 2040: weitgehend stabil (−1,7 %), getragen von Zuzug."
     - titel: Anbindung
       punkte:
         - "A42 mit den Anschlussstellen Oberhausen-Neue Mitte und Bottrop-Süd direkt am Stadtteil; über die A516 zum Kreuz Oberhausen (A2/A3)."
@@ -91,8 +110,8 @@ lage:
         - "Grün vor der Tür: Revierpark Vonderort (2020–23 revitalisiert) und OLGA-Park."
   quellen: >-
     Quellen: IT.NRW 11/2025; Stadt Oberhausen 2025/2026; Bundesagentur für Arbeit 12/2024; Unibail-Rodamco-Westfield 2019;
-    tageskarte.io 2026; EAP-Magazin 2022; DB-Fahrplan 2026; Immowelt, Immoportal, LL Immobilien, ImmoScout24, Engel & Völkers 2026
-    (Angebotspreise). Der Homeday-Preisatlas weist für Oberhausen derzeit keine Wohnungspreise aus.
+    tageskarte.io 2026; EAP-Magazin 2022; DB-Fahrplan 2026; Immowelt, Immoportal, LL Immobilien, ImmoScout24, Engel & Völkers 2026,
+    Homeday Preisatlas (Angebotspreise).
 
 haeuser:
   Freiligrathstr. 8:

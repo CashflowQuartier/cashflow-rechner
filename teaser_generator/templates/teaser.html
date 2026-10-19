@@ -329,10 +329,11 @@
     <div class="blk"><h3>{{ a.titel }}</h3><ul class="dots">{% for pkt in a.punkte %}<li>{{ pkt }}</li>{% endfor %}</ul></div>
     {% endfor %}
   </div>
-  <div class="preis">
-    <div class="card"><div class="v">{{ f.lage.preise.kauf.wert }}</div><div class="k">{{ f.lage.preise.kauf.label }}</div><div class="s">{{ f.lage.preise.kauf.quelle }}</div></div>
-    <div class="card" style="background:var(--gold)"><div class="v">{{ (u.kaufpreis_netto/flaeche)|eur }}/m²</div><div class="k">Dein Kaufpreis</div><div class="s" style="color:var(--navy)">ohne die von uns übernommenen Kaufnebenkosten</div></div>
-    <div class="card"><div class="v">{{ f.lage.preise.miete.wert }}</div><div class="k">{{ f.lage.preise.miete.label }}</div><div class="s">{{ f.lage.preise.miete.quelle }} · deine SOLL-Miete: {{ soll_qm|num }} €/m²</div></div>
+  {% set zeige_kauf = markt.kauf and markt.kauf.zeigen %}{% set zeige_miete = markt.miete and markt.miete.zeigen %}
+  <div class="preis" style="grid-template-columns: repeat({{ 1 + (1 if zeige_kauf else 0) + (1 if zeige_miete else 0) }}, 1fr)">
+    {% if zeige_kauf %}<div class="card"><div class="v">{{ markt.kauf.mittel|eur }}/m²</div><div class="k">{{ markt.kauf.label }}</div><div class="s">Ø aus: {{ markt.kauf.quellen|map(attribute='name')|join(', ') }}</div></div>{% endif %}
+    <div class="card" style="background:var(--gold)"><div class="v">{{ (u.kaufpreis_netto/flaeche)|eur }}/m²</div><div class="k">Dein Kaufpreis</div><div class="s" style="color:var(--navy)">ohne die von uns übernommenen Kaufnebenkosten · SOLL-Miete {{ soll_qm|num }} €/m²</div></div>
+    {% if zeige_miete %}<div class="card"><div class="v">{{ markt.miete.mittel|num }} €/m²</div><div class="k">{{ markt.miete.label }}</div><div class="s">Ø aus: {{ markt.miete.quellen|map(attribute='name')|join(', ') }}</div></div>{% endif %}
   </div>
   <p class="disclaimer">{{ f.lage.quellen }}</p>
   {{ foot(4) }}
@@ -344,7 +345,8 @@
   <div class="eyebrow">Unser System</div>
   <h2><span class="ul">Marktmiete ab dem ersten Tag.</span> Ohne Renovierungsrisiko.</h2>
   <h3 style="margin-top:2mm">So kommst du sofort auf deine SOLL-Miete</h3>
-  <p class="lead" style="margin-bottom:2mm">Mieterhöhungen sind gesetzlich begrenzt (max. 20 % in 3 Jahren, höchstens bis zur ortsüblichen Vergleichsmiete). Bis die Miete auf diesem Weg die SOLL-Miete von {{ soll_qm|num }} €/m² erreicht, gleichen wir die Differenz aus – insgesamt {{ subvention|eur }} über {{ subvention_monate }} Monate.</p>
+  <p class="lead" style="margin-bottom:2mm">Mieterhöhungen sind gesetzlich begrenzt: max. {{ (mietrecht.kappungsgrenze*100)|int }} % in 3 Jahren, höchstens bis zur ortsüblichen Vergleichsmiete. Bis die Miete auf diesem Weg die SOLL-Miete von {{ soll_qm|num }} €/m² erreicht, gleichen wir die Differenz aus – insgesamt {{ subvention|eur }} über {{ subvention_monate }} Monate.</p>
+  {% if mietrecht.hinweis %}<p class="note" style="margin:-1mm 0 2mm">{{ mietrecht.hinweis }}</p>{% endif %}
   {{ chart|safe }}
   <div class="legend"><span><i style="background:var(--navy)"></i>Miete vom Mieter (gesetzliche Erhöhungsstufen)</span><span><i style="background:var(--gold)"></i>Mietsubvention</span></div>
   <table style="margin-top:2.5mm; font-size:8.6pt">
@@ -362,8 +364,8 @@
   <h3>So ist es rechtlich geregelt – der SEV-Vertrag</h3>
   <div class="flow">
     <div class="card"><div class="n">1</div><div class="t">Kaufvertrag</div><p>Mietsubvention ({{ subvention|eur }}) und Renovierungsrückstellung ({{ reno_se|eur }}) sind im Kaufpreis enthalten und stehen rechtlich dir als Eigentümer zu.</p></div>
-    <div class="card"><div class="n">2</div><div class="t">SEV-Vertrag</div><p>Über den Sondereigentumsverwaltungs-Vertrag stellst du beide Beträge unserer Verwaltung als zinsloses Darlehen zur Verfügung.</p></div>
-    <div class="card"><div class="n">3</div><div class="t">Auszahlung & Renovierung</div><p>Du erhältst jeden Monat eine Überweisung: SOLL-Kaltmiete plus die Nebenkostenvorauszahlung des Mieters. Zieht der Mieter aus, renoviert die Verwaltung aus der Rückstellung.</p></div>
+    <div class="card"><div class="n">2</div><div class="t">SEV-Vertrag</div><p>Über den Sondereigentumsverwaltungs-Vertrag stellst du beide Beträge unserer Verwaltung als zinsloses Darlehen zur Verfügung. Renovierungen beauftragen wir und bezahlen sie aus der Rückstellung – die Rechnung lautet auf dich als Eigentümer.</p></div>
+    <div class="card"><div class="n">3</div><div class="t">Auszahlung & Renovierung</div><p>Du erhältst jeden Monat eine Überweisung: SOLL-Kaltmiete plus die Nebenkostenvorauszahlung des Mieters. Zieht der Mieter aus, beauftragen wir die Renovierung und bezahlen sie aus der Rückstellung. Die Rechnung steht dir zu – du kannst die Kosten steuerlich absetzen.</p></div>
   </div>
   {{ foot(5) }}
 </section>

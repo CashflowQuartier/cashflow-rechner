@@ -44,6 +44,12 @@ def main(argv=None):
 
     facts = yaml.safe_load(Path(a.facts).read_text(encoding="utf-8"))
     unit = project.unit(a.unit)
+    kappung = (facts.get("mietrecht") or {}).get("kappungsgrenze")
+    if kappung and unit.get("erh1_qm") and unit.get("ist_miete"):
+        faktor = unit["erh1_qm"] / (unit["ist_miete"] / unit["flaeche"])
+        if abs(faktor - (1 + kappung)) > 0.005:
+            print(f"WARNUNG: PE-Excel rechnet mit {faktor - 1:.0%} je Erhöhungsschritt, vor Ort gilt eine Kappungsgrenze "
+                  f"von {kappung:.0%} – Subvention in der Excel prüfen!", file=sys.stderr)
     ctx = render.build_context(project, unit, facts, a.photos, a.renders, a.cover, a.logo)
     html = render.render_html(ctx)
     if a.html:

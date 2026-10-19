@@ -55,6 +55,20 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
 8. **Ausliefern**: PDF per `SendUserFile` schicken. Auf Wunsch per `mcp__Google_Drive__create_file` in den
    Ordner `folgt - Vertriebsordner` hochladen, aber nur nach Bestätigung durch den Nutzer.
 
+## Darstellungsregeln (verbindlich)
+- **Positiv darstellen:** Ist eine Markt- oder Standortkennzahl negativ (z. B. Bevölkerungsprognose, Beschäftigtenentwicklung,
+  Preistrend), wird sie weggelassen und nicht erwähnt. Ausnahme: Die Zahlen der Käuferrechnung (Cashflow, Steuer, Bilanz) bleiben vollständig.
+- **Marktvergleich Seite 4:** Ø-Angebotspreis und Ø-Angebotsmiete immer aus mehreren Quellen mitteln, den **Homeday-Preisatlas
+  für die konkrete Adresse** (`homeday.de/de/preisatlas/<stadt>/<straße+nr,+plz>?marketing_type=sell|rent&property_type=apartment`,
+  per Playwright im Higgsfield-Sandbox, da direkt gesperrt) immer einbeziehen. Quellen und Werte in `facts.yaml → lage.preise`.
+  Der Generator blendet die Kauf-Box aus, wenn der Ø nicht über unserem Kaufpreis/m² (exkl. KNK) liegt, und die Miet-Box, wenn der Ø unter der SOLL-Miete liegt.
+- **Mietrecht pro Projekt recherchieren:** Gilt in der Gemeinde eine abgesenkte Kappungsgrenze (z. B. 15 % statt 20 % in 3 Jahren)
+  oder eine Mietpreisbremse (Mieterschutzverordnung des Bundeslandes, Anlage mit Gemeindeliste)? Ergebnis in `facts.yaml → mietrecht`
+  eintragen. Der Generator warnt, wenn die PE-Excel mit einem anderen Erhöhungsfaktor rechnet – dann den Nutzer informieren.
+- **SEV-Vertrag:** Subvention und Renovierungsrückstellung stehen laut Kaufvertrag dem Käufer zu und werden per SEV-Vertrag als zinsloses
+  Darlehen an die Verwaltung gegeben. Renovierungen beauftragt CFQ und bezahlt sie aus der Rückstellung; die Rechnung lautet auf den
+  Eigentümer, der sie steuerlich absetzen kann.
+
 ## Aufbau & Tonalität des Teasers
 - Ansprache immer mit **„du“**, wie auf www.cashflowquartier.com. Design: Onest, Navy #050D2B, Gold #E9B33F.
 - Titel: Straße · Wohnungsbezeichnung · Stadt (wird automatisch aus der Adresse in der PE-Excel gebildet).
