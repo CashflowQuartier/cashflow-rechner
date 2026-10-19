@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m teaser_generator.cli:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push -u origin claude/:*)",
+      "Bash(pdftoppm:*)",
+      "Bash(pdfinfo:*)",
+      "mcp__Google_Drive__search_files",
+      "mcp__Google_Drive__read_file_content",
+      "mcp__Google_Drive__download_file_content",
+      "mcp__Google_Drive__get_file_metadata",
+      "mcp__Google_Drive__create_file",
+      "mcp__Google_Drive__copy_file",
+      "mcp__Google_Drive__update_file",
+      "mcp__Higgsfield__generate_image",
+      "mcp__Higgsfield__generate_image_batch",
+      "mcp__Higgsfield__jobs_wait",
+      "mcp__Higgsfield__sandbox_exec",
+      "mcp__Higgsfield__models_explore",
+      "mcp__Higgsfield__balance",
+      "WebSearch",
+      "WebFetch"
+    ]
+  }
+}
