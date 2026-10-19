@@ -1,0 +1,28 @@
+{# ================= Seite 6: Konzept-Zusammenfassung ================= #}
+<section class="page">
+  {{ topbar('Unser Konzept auf einen Blick') }}
+  <div class="eyebrow">Warum sich das rechnet</div>
+  <h2><span class="ul">Kapitalanlage ohne Eigenkapital –</span><br>mit ehrlichen Zahlen.</h2>
+  <p class="lead">Du kaufst eine vermietete Kapitalanlage-Immobilie, für die du kein Eigenkapital einsetzen musst. Das funktioniert nicht durch Tricks, sondern weil die Wohnung von Anfang an sauber kalkuliert ist.</p>
+  <div class="usp">
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Finanzierbar ohne Eigenkapital</div>
+      <p>Unsere Wohnungen sind nicht überteuert, sondern zu einem marktgerechten Preis eingekauft. Deshalb finanzieren Banken bei unserem Konzept in der Regel auch die Kaufnebenkosten mit – und die übernehmen wir ohnehin für dich.</p></div></div>
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">{% if rendite_netto and rendite_netto > 0.05 %}Über 5 % Mietrendite – {% endif %}mit ortsüblicher Marktmiete</div>
+      <p>{% if rendite_netto %}{{ rendite_netto|pct }} Mietrendite auf den Kaufpreis{% endif %} bei einer SOLL-Miete von {{ soll_qm|num }} €/m² – einer ganz normalen Marktvermietung. Keine Sondervermietungsformen, die die Miete künstlich hochtreiben.</p></div></div>
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Luft nach oben – für dich</div>
+      <p>WG-Vermietung an Studierende, möblierte Vermietung oder Monteurszimmer haben wir bewusst nicht einkalkuliert. Willst du den Ertrag weiter steigern, kannst du diese Optionen selbst nutzen.</p></div></div>
+    <div class="usp-item"><div class="ic">{{ check_svg|safe }}</div><div><div class="t">Steigerbar bis in den positiven Cashflow</div>
+      <p>{% if break_even.plus_pct > 0 %}Rechnerisch reicht eine Mieterhöhung von rund {{ break_even.plus_pct|pct(0) }} (auf ca. {{ break_even.qm|num }} €/m²), damit dein Cashflow nach Steuern positiv wird. Mit ein bis zwei regulären Mieterhöhungszyklen (max. {{ (mietrecht.kappungsgrenze*100)|int }} % in 3 Jahren, begrenzt durch die ortsübliche Vergleichsmiete) kommst du dorthin.{% else %}Schon heute ist dein Cashflow nach Steuern positiv – jede weitere Mieterhöhung erhöht deinen Überschuss.{% endif %}</p></div></div>
+  </div>
+
+  <h3>Nicht nur eine Wohnung – ein Portfolio</h3>
+  <p class="muted" style="font-size:8.8pt">Weil jede Wohnung so kalkuliert ist, dass sie die Bank ohne Eigenkapital finanziert und sie sich trägt, bleibt deine Bonität für die nächste Einheit erhalten. Viele unserer Investoren starten mit einer Wohnung und bauen Schritt für Schritt ein ganzes Portfolio auf.</p>
+  <div class="stats" style="margin:3mm 0 4mm">
+    {% for k in f.kennzahlen_cfq %}<div class="stat"><div class="v">{{ k.wert }}</div><div class="k">{{ k.label }}</div></div>{% endfor %}
+  </div>
+  <div class="quotes">
+    {% for q in f.portfolio_beispiele %}<div class="quote">„{{ q.text }}“<div class="who">{{ q.name }} <span>· {{ q.rolle }}</span></div></div>{% endfor %}
+  </div>
+  <p class="note" style="margin-top:2mm">Kennzahlen und Zitate: <a href="https://www.cashflowquartier.com/referenzen" style="text-decoration:underline">cashflowquartier.com/referenzen</a></p>
+  {{ foot(seite_nr.zusammenfassung) }}
+</section>

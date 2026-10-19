@@ -179,8 +179,10 @@ def load(path: str) -> Project:
         if not adr:
             break
         u = {k: ws.cell(row=r, column=c).value for k, c in colmap.items()}
-        units.append(u)
         r += 1
+        if not u.get("flaeche"):
+            continue  # Rest-/Leerzeile ohne Fläche (z. B. Überbleibsel aus einer Vorlage)
+        units.append(u)
     gesamtflaeche = ws.cell(row=r, column=colmap["flaeche"]).value or sum(u["flaeche"] for u in units)
 
     sollm = val("Soll-Miete")
@@ -197,8 +199,10 @@ def load(path: str) -> Project:
         steuermodell=steuermodell,
     )
 
-    weg_head = labels.get(_norm("Baukosten Gemeinschaftsflächen"))
-    se_head = labels.get(_norm("Baukosten Sondereigentum"))
+    # Maßnahmenblöcke stehen je nach Vorlage oben oder unter der Einheitentabelle
+    alle = _find_labels(ws, max_row=ws.max_row)
+    weg_head = alle.get(_norm("Baukosten Gemeinschaftsflächen"))
+    se_head = alle.get(_norm("Baukosten Sondereigentum"))
     weg = _block(ws, weg_head[0]) if weg_head else []
     se = _block(ws, se_head[0]) if se_head else []
     weg_summe = _right(ws, weg_head[0]) if weg_head else 0

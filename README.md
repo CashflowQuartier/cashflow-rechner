@@ -21,6 +21,12 @@ python -m teaser_generator.cli --pe "PE - ….xlsx" --facts projects/<slug>/fact
 ```
 Für die PDF-Erzeugung wird Headless-Chromium verwendet (`CHROMIUM_PATH` setzen, falls nicht automatisch gefunden).
 
+Projekt-Teaser über alle Einheiten (allgemeine Infos, Beispielrechnung, Preisliste):
+```bash
+python -m teaser_generator.cli --pe "PE - ….xlsx" --facts projects/<slug>/facts.yaml --projekt --unit 36 \
+  --cover aussen.jpg --galerie a.jpg b.jpg c.jpg --out out/Teaser_Projekt.pdf
+```
+
 ## Mit Claude
 Claude bekommt den Projektordner genannt („Mach die Teaser für PE - IR - Freiligrathstrasse 8-10“).
 Den Rest übernimmt der Skill `.claude/skills/wohnungs-teaser/SKILL.md`: Drive lesen, Fotos wählen,

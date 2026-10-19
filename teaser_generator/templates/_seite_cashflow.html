@@ -1,0 +1,62 @@
+{# ================= Seite 3: Cashflow ================= #}
+<section class="page">
+  {{ topbar('Deine Cashflow-Rechnung') }}
+  <div class="eyebrow">Deine Cashflow-Rechnung</div>
+  <h2><span class="ul">So rechnet sich {{ 'eine Wohnung' if beispiel else 'die Wohnung' }} für dich.</span></h2>
+  {% if beispiel %}<p class="lead" style="margin-bottom:1.5mm"><b style="color:var(--navy)">Beispielwohnung: {{ beispiel_lage }}</b> · {{ flaeche|num }} m² · {{ u.status }}. Die Werte jeder einzelnen Einheit findest du in der Preisliste ab Seite {{ seite_nr.preisliste }}.</p>{% endif %}
+  <p class="lead">Beispiel: 100 % Finanzierung des Gesamtinvests von {{ u.kaufpreis|eur }} mit {{ p.zins|pct(2) }} Zins und {{ p.tilgung|pct(2) }} anfänglicher Tilgung, persönlicher Grenzsteuersatz {{ p.grenzsteuer|pct(0) }}.</p>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-top:0">Monatlicher Cashflow</h3>
+      <table>
+        <tr><td>Mieteinnahme (SOLL-Miete inkl. Subvention)</td><td class="r">{{ monat.miete|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Zins</td><td class="r">{{ monat.zins|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Tilgung</td><td class="r">{{ monat.tilgung|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Hausverwaltung (WEG)</td><td class="r">{{ monat.hv|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Mietverwaltung (SEV)</td><td class="r">{{ monat.mv|eur(2) }}</td></tr>
+        <tr class="sub"><td>− sonstige nicht umlagefähige Kosten</td><td class="r">{{ monat.sonstige|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Instandhaltungsrücklage</td><td class="r">{{ monat.ruecklage|eur(2) }}</td></tr>
+        <tr><td><b>Cashflow vor Steuern</b></td><td class="r"><b>{{ monat.cf_vor_steuer|signed_eur(2) }}</b></td></tr>
+        <tr class="sub"><td>+ Steuerersparnis (siehe rechts)</td><td class="r">{{ monat.steuer|signed_eur(2) }}</td></tr>
+        <tr class="sum"><td>Cashflow nach Steuern</td><td class="r">{{ monat.cf_nach_steuer|signed_eur(2) }}</td></tr>
+      </table>
+      <p class="note" style="margin-top:1.5mm">Davon fließen {{ monat.tilgung|eur(2) }} als Tilgung direkt in dein Vermögen.</p>
+    </div>
+    <div class="card">
+      <h3>Steuerrechnung (monatlich)</h3>
+      <table>
+        <tr><td>Mieteinnahmen</td><td class="r">{{ steuer.miete|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Zinskosten</td><td class="r">{{ steuer.zins|eur(2) }}</td></tr>
+        <tr class="sub"><td>− Abschreibung (AfA {{ afa_satz|pct(1) }} p.a.)</td><td class="r">{{ steuer.afa|eur(2) }}</td></tr>
+        <tr class="sub"><td>− sonstige Werbungskosten (pauschal)</td><td class="r">{{ steuer.werbungskosten|eur(2) }}</td></tr>
+        <tr class="sub"><td>− nicht umlagefähiges Hausgeld³</td><td class="r">{{ steuer.hausgeld_nicht_umlagefaehig|eur(2) }}</td></tr>
+        <tr><td><b>Steuerliches Ergebnis</b></td><td class="r"><b>{{ steuer.ergebnis|signed_eur(2) }}</b></td></tr>
+        <tr class="sub"><td>× Grenzsteuersatz</td><td class="r">{{ steuer.grenzsteuer|pct(0) }}</td></tr>
+        <tr class="sum"><td>Deine Steuerersparnis</td><td class="r">{{ steuer.ersparnis|signed_eur(2) }}</td></tr>
+      </table>
+      <p class="note" style="margin-top:1.5mm">³ Hausverwaltung, Mietverwaltung und sonstige nicht umlagefähige Kosten. AfA auf den Gebäudeanteil ({{ afa_jahr|eur }} p.a., Restnutzungsdauer {{ p.rnd_jahre|int }} Jahre lt. Gutachten; Bodenanteil {{ bodenanteil|eur }}).</p>
+    </div>
+  </div>
+
+  <h3>Vermögensaufbau nach {{ bilanz.jahre }} Jahren</h3>
+  <div class="bilanz">
+    <div class="card dark">
+      <table>
+        <tr><td>Kaufpreis inkl. Renovierungsrückstellung</td><td class="r">{{ bilanz.basis_wert|eur }}</td></tr>
+        <tr><td>Wert nach {{ bilanz.jahre }} Jahren bei {{ bilanz.wertsteigerung_pa|pct(0) }} Wertsteigerung p.a.</td><td class="r">{{ bilanz.wert_ende|eur }}</td></tr>
+        <tr><td>+ Tilgung über {{ bilanz.jahre }} Jahre</td><td class="r">{{ bilanz.tilgung|eur }}</td></tr>
+        <tr class="sub"><td>− Startschuld (Gesamtinvest)</td><td class="r">{{ bilanz.gesamtinvest|eur }}</td></tr>
+        <tr class="sum"><td>Dein prognostizierter Gewinn</td><td class="r">{{ bilanz.gewinn|signed_eur }}</td></tr>
+      </table>
+      <p class="note" style="margin-top:2mm">Restschuld nach {{ bilanz.jahre }} Jahren: {{ bilanz.restschuld|eur }}.</p>
+    </div>
+    <div class="vs">
+      <div class="box ein"><div class="k muted">Dein Einsatz über {{ bilanz.jahre }} Jahre</div><div class="v num">{{ (-bilanz.liquiditaet)|eur }}</div>
+        <div class="note">{{ (-monat.cf_nach_steuer)|eur(2) }} pro Monat × 12 × {{ bilanz.jahre }} Jahre</div></div>
+      <div class="box aus"><div class="k">Prognostiziertes Ergebnis</div><div class="v num">{{ bilanz.gewinn|signed_eur }}</div>
+        <div class="note" style="color:var(--navy)">aus Wertsteigerung und Tilgung</div></div>
+    </div>
+  </div>
+  <p class="disclaimer">Vereinfachte Beispielrechnung: Der monatliche Cashflow aus Jahr 1 wird über {{ bilanz.jahre }} Jahre fortgeschrieben. In der Realität sinkt der Zinsanteil und damit die Steuerersparnis, gleichzeitig sind Mieterhöhungen nach Ende der Subvention wahrscheinlich – beides ist nicht berücksichtigt. Wertentwicklung ist eine Prognose, keine Garantie. Die Darstellung ersetzt keine Steuer-, Rechts- oder Finanzierungsberatung; Zins, Tilgung und steuerliche Wirkung hängen von deiner persönlichen Situation und deiner Bank ab. Alle Angaben ohne Gewähr; maßgeblich sind Kaufvertrag, Teilungserklärung und SEV-Vertrag.</p>
+  {{ foot(seite_nr.cashflow) }}
+</section>

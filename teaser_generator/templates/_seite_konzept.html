@@ -1,0 +1,30 @@
+{# ================= Seite 5: Konzept / Subvention / SEV ================= #}
+<section class="page">
+  {{ topbar('Das Konzept') }}
+  <div class="eyebrow">Unser System</div>
+  <h2><span class="ul">Marktmiete ab dem ersten Tag.</span> Ohne Renovierungsrisiko.</h2>
+  <h3 style="margin-top:2mm">So kommst du sofort auf deine SOLL-Miete{% if beispiel %} – am Beispiel {{ beispiel_lage }}{% endif %}</h3>
+  <p class="lead" style="margin-bottom:2mm">Mieterhöhungen sind gesetzlich begrenzt: max. {{ (mietrecht.kappungsgrenze*100)|int }} % in 3 Jahren, höchstens bis zur ortsüblichen Vergleichsmiete. Bis die Miete auf diesem Weg die SOLL-Miete von {{ soll_qm|num }} €/m² erreicht, gleichen wir die Differenz aus – insgesamt {{ subvention|eur }} über {{ subvention_monate }} Monate.</p>
+  {% if mietrecht.hinweis %}<p class="note" style="margin:-1mm 0 2mm">{{ mietrecht.hinweis }}</p>{% endif %}
+  {{ chart|safe }}
+  <div class="legend"><span><i style="background:var(--navy)"></i>Miete vom Mieter (gesetzliche Erhöhungsstufen)</span><span><i style="background:var(--gold)"></i>Mietsubvention</span></div>
+  <table style="margin-top:2.5mm; font-size:8.6pt">
+    <tr><th>Zeitraum</th><th class="r">Miete Mieter</th><th class="r">SOLL-Miete</th><th class="r">Subvention / Monat</th><th class="r">Subvention gesamt</th></tr>
+    {% for s in stufen %}
+    <tr><td>Monat {{ s.von_monat + 1 }}–{{ s.bis_monat }}</td><td class="r">{{ (s.miete_qm*flaeche)|eur(2) }}</td>
+      <td class="r">{{ u.miete_soll|eur(2) }}</td><td class="r">{{ s.zuschuss_monat|eur(2) }}</td><td class="r">{{ s.zuschuss_gesamt|eur }}</td></tr>
+    {% endfor %}
+    <tr class="sum"><td colspan="4">Mietsubvention gesamt</td><td class="r">{{ subvention|eur }}</td></tr>
+  </table>
+
+  <h3>Und wenn der Mieter vorher auszieht?</h3>
+  <p class="muted" style="font-size:8.8pt">Dann renoviert unsere Verwaltung die Wohnung aus der Renovierungsrückstellung von {{ reno_se|eur }} nach festen Vorgaben – {{ se|map(attribute='name')|join(', ')|replace('Fussbodenheizung','Fußbodenheizung') }} – und vermietet sie neu zur Marktmiete.</p>
+
+  <h3>So ist es rechtlich geregelt – der SEV-Vertrag</h3>
+  <div class="flow">
+    <div class="card"><div class="n">1</div><div class="t">Kaufvertrag</div><p>Mietsubvention ({{ subvention|eur }}) und Renovierungsrückstellung ({{ reno_se|eur }}) sind im Kaufpreis enthalten und stehen rechtlich dir als Eigentümer zu.</p></div>
+    <div class="card"><div class="n">2</div><div class="t">SEV-Vertrag</div><p>Über den Sondereigentumsverwaltungs-Vertrag stellst du beide Beträge unserer Verwaltung als zinsloses Darlehen zur Verfügung. Renovierungen beauftragen wir und bezahlen sie aus der Rückstellung – die Rechnung lautet auf dich als Eigentümer.</p></div>
+    <div class="card"><div class="n">3</div><div class="t">Auszahlung & Renovierung</div><p>Du erhältst jeden Monat eine Überweisung: SOLL-Kaltmiete plus die Nebenkostenvorauszahlung des Mieters. Zieht der Mieter aus, beauftragen wir die Renovierung und bezahlen sie aus der Rückstellung. Die Rechnung steht dir zu – du kannst die Kosten steuerlich absetzen.</p></div>
+  </div>
+  {{ foot(seite_nr.konzept) }}
+</section>

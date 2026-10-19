@@ -1,0 +1,23 @@
+{# ================= Seite 4: Lage ================= #}
+<section class="page">
+  {{ topbar('Die Lage') }}
+  <div class="eyebrow">Die Lage</div>
+  <h2><span class="ul">{{ f.lage.titel }}</span></h2>
+  <p class="lead">{{ f.lage.intro }}</p>
+  <div class="stats">
+    {% for s in f.lage.kennzahlen %}<div class="stat"><div class="v">{{ s.wert }}</div><div class="k">{{ s.label }}</div><div class="s">{{ s.sub }}</div></div>{% endfor %}
+  </div>
+  <div class="lage-grid">
+    {% for a in f.lage.abschnitte %}
+    <div class="blk"><h3>{{ a.titel }}</h3><ul class="dots">{% for pkt in a.punkte %}<li>{{ pkt }}</li>{% endfor %}</ul></div>
+    {% endfor %}
+  </div>
+  {% set zeige_kauf = markt.kauf and markt.kauf.zeigen %}{% set zeige_miete = markt.miete and markt.miete.zeigen %}
+  <div class="preis" style="grid-template-columns: repeat({{ 1 + (1 if zeige_kauf else 0) + (1 if zeige_miete else 0) }}, 1fr)">
+    {% if zeige_kauf %}<div class="card"><div class="v">{{ markt.kauf.mittel|eur }}/m²</div><div class="k">{{ markt.kauf.label }}</div><div class="s">Ø aus: {{ markt.kauf.quellen_text }} (2026)</div></div>{% endif %}
+    <div class="card" style="background:var(--gold)"><div class="v">{{ (u.kaufpreis_netto/flaeche)|eur }}/m²</div><div class="k">{{ 'Kaufpreis Beispielwohnung' if beispiel else 'Dein Kaufpreis' }}</div><div class="s" style="color:var(--navy)">ohne die von uns übernommenen Kaufnebenkosten · SOLL-Miete {{ soll_qm|num }} €/m²</div></div>
+    {% if zeige_miete %}<div class="card"><div class="v">{{ markt.miete.von|num }}–{{ markt.miete.bis|num }} €/m²</div><div class="k">{{ markt.miete.label }}</div><div class="s">Quellen: {{ markt.miete.quellen_text }} (2026)</div></div>{% endif %}
+  </div>
+  <p class="disclaimer">{{ f.lage.quellen }}</p>
+  {{ foot(seite_nr.lage) }}
+</section>

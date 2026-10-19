@@ -54,6 +54,16 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
 8. **Ausliefern**: PDF per `SendUserFile` schicken. Auf Wunsch per `mcp__Google_Drive__create_file` in den
    Ordner `folgt - Vertriebsordner` hochladen, aber nur nach Bestätigung durch den Nutzer.
 
+## Projekt-Teaser (ein PDF für alle Einheiten)
+Wenn der Nutzer einen Teaser „für alle Einheiten“ will: allgemeine Infos + Beispielrechnung einer Wohnung + Preisliste.
+```
+python -m teaser_generator.cli --pe <pe.xlsx> --facts projects/<slug>/facts.yaml --projekt --unit <Beispiel-WE> \
+  --cover <aussen.jpg> --galerie <bild1> <bild2> <bild3> --out out/<slug>/Teaser_<Projekt>.pdf
+```
+Seiten: Cover · Projekt (Galerie, Häuserübersicht, Objektdaten) · Sanierung & Energie · Beispielrechnung · Konzept/Subvention ·
+Preisliste (hausweise, automatisch auf Seiten verteilt) · Lage · Zusammenfassung · Team. Projekttexte stehen in `facts.yaml → projekt`
+(Vorlage: `projects/tannenbergstr-eschweiler/facts.yaml`). Die Seiten 3–7 des Wohnungs-Teasers sind als `templates/_seite_*.html` für beide Teaser gemeinsam.
+
 ## Zuordnung & Ablage (verbindlich)
 - **WE-Nummer = Nummer laut Teilungserklärung** (in der PE-Excel Spalte „Einheit“, 1…n), NICHT die Spalte „WE-Nr.“ der
   PE-Excel (interne Nummer, z. B. 33–60). Teaser, Ordner und Dateinamen verwenden immer die TE-Nummer.
