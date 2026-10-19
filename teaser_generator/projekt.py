@@ -97,7 +97,7 @@ def preisliste_seiten(hs: list[dict]) -> list[list[dict]]:
 
 
 def build_context(project, beispiel_unit, facts: dict, cover: str | None, galerie: list[str],
-                  photos: list[str] | None = None) -> dict:
+                  photos: list[str] | None = None, whitelabel: bool = False) -> dict:
     ctx = render.build_context(project, beispiel_unit, facts, photos or [], [], cover)
     rows = einheiten(project)
     hs = haeuser(rows)
@@ -109,9 +109,10 @@ def build_context(project, beispiel_unit, facts: dict, cover: str | None, galeri
     # Reihenfolge: Cover, Projekt, Sanierung, Beispielrechnung, Zusammenfassung, Konzept, Preisliste, Lage, Team
     seite_nr = {"cashflow": 4, "zusammenfassung": 5, "konzept": 6, "preisliste": 7}
     n = seite_nr["preisliste"] + len(seiten)
-    seite_nr.update(lage=n, team=n + 1)
+    seite_nr.update(lage=n, team=None if whitelabel else n + 1)
     ctx.update(
         projekt=pt,
+        whitelabel=whitelabel,
         beispiel=True,
         beispiel_lage=" · ".join(haus_und_lage(beispiel_unit["adresse"])),
         titel={"strasse": titel, "wohnung": "", "stadt": stadt, "voll": f"{titel} · {stadt}" if stadt else titel},

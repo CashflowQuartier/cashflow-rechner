@@ -32,6 +32,7 @@ def main(argv=None):
     ap.add_argument("--html", help="zusätzlich HTML speichern")
     ap.add_argument("--list", action="store_true", help="Einheiten auflisten")
     ap.add_argument("--projekt", action="store_true", help="Projekt-Teaser über alle Einheiten (Beispielwohnung = --unit)")
+    ap.add_argument("--whitelabel", action="store_true", help="Projekt-Teaser ohne Logo, Kontakt, Team und Hausfarben")
     ap.add_argument("--galerie", nargs="*", default=[], help="Projekt-Teaser: bis zu 3 Impressionen für die Projektseite")
     a = ap.parse_args(argv)
 
@@ -49,7 +50,7 @@ def main(argv=None):
     unit = project.unit(a.unit)
     if a.projekt:
         from . import projekt
-        ctx = projekt.build_context(project, unit, facts, a.cover, a.galerie, a.photos)
+        ctx = projekt.build_context(project, unit, facts, a.cover, a.galerie, a.photos, a.whitelabel)
         html = projekt.render_html(ctx)
         if a.html:
             Path(a.html).write_text(html, encoding="utf-8")

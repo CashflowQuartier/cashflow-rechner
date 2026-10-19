@@ -62,7 +62,9 @@ python -m teaser_generator.cli --pe <pe.xlsx> --facts projects/<slug>/facts.yaml
 ```
 Seiten: Cover · Projekt (Galerie, Häuserübersicht, Objektdaten) · Sanierung & Energie · Beispielrechnung · Konzept/Subvention ·
 Preisliste (hausweise, automatisch auf Seiten verteilt) · Lage · Zusammenfassung · Team. Projekttexte stehen in `facts.yaml → projekt`
-(Vorlage: `projects/tannenbergstr-eschweiler/facts.yaml`). Die Seiten 3–7 des Wohnungs-Teasers sind als `templates/_seite_*.html` für beide Teaser gemeinsam.
+(Vorlage: `projects/tannenbergstr-eschweiler/facts.yaml`).
+`--whitelabel` erzeugt dieselbe Mappe ohne Logo, Kontaktdaten, Team-Seite, CFQ-Kennzahlen/Zitate und in neutralen Farben
+(Dateiname mit `_WhiteLabel`). Danach per `pdftotext … | grep -i cashflow` prüfen, dass kein Branding übrig ist. Die Seiten 3–7 des Wohnungs-Teasers sind als `templates/_seite_*.html` für beide Teaser gemeinsam.
 
 ## Zuordnung & Ablage (verbindlich)
 - **WE-Nummer = Nummer laut Teilungserklärung** (in der PE-Excel Spalte „Einheit“, 1…n), NICHT die Spalte „WE-Nr.“ der

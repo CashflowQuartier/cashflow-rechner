@@ -16,7 +16,15 @@
   </div>
 
   <h3>Nicht nur eine Wohnung – ein Portfolio</h3>
-  <p class="muted" style="font-size:8.8pt">Weil jede Wohnung so kalkuliert ist, dass sie die Bank ohne Eigenkapital finanziert und sie sich trägt, bleibt deine Bonität für die nächste Einheit erhalten. Viele unserer Investoren starten mit einer Wohnung und bauen Schritt für Schritt ein ganzes Portfolio auf.</p>
+  <p class="muted" style="font-size:8.8pt">Weil jede Wohnung so kalkuliert ist, dass sie die Bank ohne Eigenkapital finanziert und sie sich trägt, bleibt deine Bonität für die nächste Einheit erhalten. Viele {{ '' if whitelabel else 'unserer ' }}Investoren starten mit einer Wohnung und bauen Schritt für Schritt ein ganzes Portfolio auf.</p>
+  {% if whitelabel and projekt %}
+  <div class="stats" style="margin:3mm 0 4mm">
+    <div class="stat"><div class="v">{{ anzahl }}</div><div class="k">Einheiten im Projekt</div></div>
+    <div class="stat"><div class="v">{{ kp_min|eur }}</div><div class="k">Gesamtinvest ab</div></div>
+    <div class="stat"><div class="v">{{ subvention_gesamt|eur }}</div><div class="k">Mietsubvention gesamt</div></div>
+    <div class="stat"><div class="v">{{ reno_gesamt|eur }}</div><div class="k">Renovierungsrückstellung</div></div>
+  </div>
+  {% else %}
   <div class="stats" style="margin:3mm 0 4mm">
     {% for k in f.kennzahlen_cfq %}<div class="stat"><div class="v">{{ k.wert }}</div><div class="k">{{ k.label }}</div></div>{% endfor %}
   </div>
@@ -24,5 +32,6 @@
     {% for q in f.portfolio_beispiele %}<div class="quote">„{{ q.text }}“<div class="who">{{ q.name }} <span>· {{ q.rolle }}</span></div></div>{% endfor %}
   </div>
   <p class="note" style="margin-top:2mm">Kennzahlen und Zitate: <a href="https://www.cashflowquartier.com/referenzen" style="text-decoration:underline">cashflowquartier.com/referenzen</a></p>
+  {% endif %}
   {{ foot(seite_nr.zusammenfassung) }}
 </section>

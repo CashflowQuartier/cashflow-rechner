@@ -7,6 +7,10 @@
   {{ font_css|safe }}
   {% include "_style.css" %}
   /* Projekt-Teaser */
+  .topbar.wl { padding-top: 2mm; }
+  .topbar.wl .crumb { text-align: left; }
+  .topbar.wl .crumb + .crumb { text-align: right; }
+  {% if whitelabel %}:root { --navy: #1f2a33; --gold: #cdb991; --muted: rgba(31,42,51,.62); --soft: rgba(31,42,51,.1); }{% endif %}
   .kpi .v.vb { font-size: 12.5pt; line-height: 1.22; }
   .kpi .v.vb span { font-size: 8pt; font-weight: 500; color: var(--muted); display: inline-block; width: 6.5mm; }
   .galerie { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; margin-bottom: 4mm; }
@@ -62,17 +66,21 @@
 </style>
 </head>
 <body>
-{% set check_svg %}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#050d2b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"/></svg>{% endset %}
+{% set check_svg %}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"/></svg>{% endset %}
 {% macro topbar(bereich) -%}
-  <div class="topbar"><img src="{{ logo }}" alt="{{ f.anbieter.name }}"><div class="crumb"><b>{{ titel.voll }}</b><br>{{ bereich }}</div></div>
+  {% if whitelabel %}<div class="topbar wl"><div class="crumb"><b>{{ titel.voll }}</b></div><div class="crumb">{{ bereich }}</div></div>
+  {% else %}<div class="topbar"><img src="{{ logo }}" alt="{{ f.anbieter.name }}"><div class="crumb"><b>{{ titel.voll }}</b><br>{{ bereich }}</div></div>{% endif %}
+{%- endmacro %}
+{% macro absender() -%}
+  {% if whitelabel %}{{ titel.voll }} · Kapitalanlage-Exposé{% else %}{{ f.anbieter.name }} · <a href="mailto:{{ f.anbieter.email }}">{{ f.anbieter.email }}</a> · {{ f.anbieter.adresse }}{% endif %}
 {%- endmacro %}
 {% macro foot(nr) -%}
-  <div class="foot"><span>{{ f.anbieter.name }} · <a href="mailto:{{ f.anbieter.email }}">{{ f.anbieter.email }}</a> · {{ f.anbieter.adresse }}</span><span>Seite {{ nr }}</span></div>
+  <div class="foot"><span>{{ absender() }}</span><span>Seite {{ nr }}</span></div>
 {%- endmacro %}
 
 {# ================= Seite 1: Cover ================= #}
 <section class="page cover">
-  <div class="topbar"><img src="{{ logo }}" alt="{{ f.anbieter.name }}"><span class="pill">Exklusives Kapitalanlage-Angebot</span></div>
+  <div class="topbar{{ ' wl' if whitelabel }}">{% if not whitelabel %}<img src="{{ logo }}" alt="{{ f.anbieter.name }}">{% else %}<span class="crumb">Stand {{ f.stand }}</span>{% endif %}<span class="pill">Exklusives Kapitalanlage-Angebot</span></div>
   <h1><span class="ul">{{ titel.voll }}</span></h1>
   <div class="sub">{{ anzahl }} Einheiten an {{ haeuser|length }} Adressen · {{ f.objekt.ort }}<br>{{ projekt.untertitel }}</div>
   <div class="hero"><img src="{{ cover }}" alt="Außenansicht"></div>
@@ -97,7 +105,7 @@
       <ul><li>Grunderwerbsteuer</li><li>Notar</li><li>Grundbuch</li><li>Außer dem Gesamtinvest fallen für dich keine weiteren Kosten an.</li></ul></div></div>
   </div>
   <p class="note" style="margin-top:5mm">¹ Kaufpreis ohne die von uns übernommenen Kaufnebenkosten. ² {{ beispiel_lage }}, {{ flaeche|num }} m², Gesamtinvest {{ u.kaufpreis|eur }} – Rechnung auf Seite {{ seite_nr.cashflow }}, Werte aller Einheiten in der Preisliste ab Seite {{ seite_nr.preisliste }}.</p>
-  <div class="foot"><span>{{ f.anbieter.name }} · <a href="mailto:{{ f.anbieter.email }}">{{ f.anbieter.email }}</a> · {{ f.anbieter.adresse }}</span><span>Stand {{ f.stand }}</span></div>
+  <div class="foot"><span>{{ absender() }}</span><span>Stand {{ f.stand }}</span></div>
 </section>
 
 {# ================= Seite 2: Das Projekt ================= #}
@@ -219,7 +227,7 @@
 {% endfor %}
 
 {% include "_seite_lage.html" %}
-{% include "_seite_team.html" %}
+{% if not whitelabel %}{% include "_seite_team.html" %}{% endif %}
 
 </body>
 </html>
