@@ -6,6 +6,22 @@ stand: Oktober 2026
 
 # Anbieter, Team, Links und Kundenstimmen: projektübergreifend in teaser_generator/config/cfq.yaml
 
+drive:
+  ordner: PE - IR - Freiligrathstrasse 8-10, Oberhausen
+  projektordner_id: 1v6qlIBdmANF-Of7ucvxxv8nZFyd4LmNM
+  pe_excel: intern/20260915 - PE Freiligrathstr..xlsx
+  teilungserklaerung: Projektübersicht/TE/Teilungserklärung.pdf
+  # WE-Ordner (Nummer laut Teilungserklärung) – je Ordner Unterordner Ist-Bilder / Soll-Bilder.
+  # Weitere Ordner-IDs per search_files (parentId = projektordner_id, title contains 'WE ') ermitteln.
+  einheiten:
+    1: {ordner: 1bs8ZzYd6N_aQ1zLy49hlhcEZaCw9Y3PC, ist: 11AnGPMCg5r1K1JeZHtmeBOyHxl1l-_Hj, soll: 1cRCRgIW7T_-1y9vhsimwGgxBDG-V-kUk}
+    8: {ordner: 185uNPsO0hGbAquMuz8cjWltCc4d2H_mB, ist: 1A741RkJ5dK7LjOD8CSu2Fc5jZ968VmPM, soll: 1LM9iReUBgLL26D_1iiXwMhbpTrYRW35n}
+    11: {ordner: 154w1Vicbu-PSQB0VYGTwYXUxPPB8aoNu, ist: 1cHtRo5ppSeJ_adJkTvlCE4Q7rIvCbrZB, soll: 1_klldon1pA7DM70FJrWnT5cBIe2_zOZf}
+    16: {ordner: 19J_xbZ01sxJq4RegFebeZr0Bs2Cqfw54, ist: 1v8OAkW2upgY91uKSrXyo41SGRqpzVLAQ, soll: 1yyfGNJG_ihamAw8y2LEZHV9UwMl-bxIA}
+  hinweise_te:
+    - "WE 5/6 (Fr. 8, 2. OG): Flächen in der PE-Excel gegenüber TE vertauscht – vor Teaser klären."
+    - "WE 17 umfasst laut PE-Excel auch TE-Nr. 18 (Baustr. 21A EG Mitte)."
+
 objekt:
   ort: 46117 Oberhausen-Osterfeld
   stadt: Oberhausen
