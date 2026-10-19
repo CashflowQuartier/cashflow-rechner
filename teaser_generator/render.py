@@ -131,17 +131,27 @@ def team_bilder(team: list[dict]) -> list[dict]:
     return out
 
 
+MIETE_AUSREISSER = 0.15  # Mietquellen mehr als 15 % unter der SOLL-Miete fliegen raus
+
+
 def marktvergleich(preise: dict, unser_kauf_qm: float, soll_qm: float) -> dict:
-    """Ø je Quelle; Box nur zeigen, wenn der Markt über unserem Preis bzw. auf/über der SOLL-Miete liegt."""
+    """Marktvergleich nach den Darstellungsregeln (siehe Skill):
+    Kauf: Quellen unter unserem Kaufpreis/m² fliegen raus, gezeigt wird der Ø der übrigen (keine übrig -> Box aus).
+    Miete: Ausreißer > 15 % unter SOLL fliegen raus, gezeigt wird die Spanne; Box nur, wenn die SOLL-Miete darin liegt."""
+    preise = preise or {}
     out = {}
-    for key, unser, besser in (("kauf", unser_kauf_qm, lambda m, x: m > x), ("miete", soll_qm, lambda m, x: m >= x)):
-        cfg = (preise or {}).get(key) or {}
-        werte = [q["wert"] for q in cfg.get("quellen", []) if q.get("wert")]
-        if not werte:
-            continue
-        mittel = sum(werte) / len(werte)
-        out[key] = {"label": cfg.get("label", ""), "mittel": mittel, "quellen": cfg.get("quellen", []),
-                    "zeigen": besser(mittel, unser)}
+    kurz = lambda qs: ", ".join(dict.fromkeys(x["name"].split(" (")[0] for x in qs))
+    kauf = preise.get("kauf") or {}
+    q = [x for x in kauf.get("quellen", []) if x.get("wert") and x["wert"] > unser_kauf_qm]
+    if q:
+        out["kauf"] = {"label": kauf.get("label", ""), "quellen": q, "zeigen": True,
+                       "mittel": sum(x["wert"] for x in q) / len(q), "quellen_text": kurz(q)}
+    miete = preise.get("miete") or {}
+    q = [x for x in miete.get("quellen", []) if x.get("wert") and x["wert"] >= soll_qm * (1 - MIETE_AUSREISSER)]
+    if q:
+        lo, hi = min(x["wert"] for x in q), max(x["wert"] for x in q)
+        out["miete"] = {"label": miete.get("label", ""), "quellen": q, "von": lo, "bis": hi,
+                        "zeigen": lo <= soll_qm <= hi, "quellen_text": kurz(q)}
     return out
 
 

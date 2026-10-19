@@ -331,9 +331,9 @@
   </div>
   {% set zeige_kauf = markt.kauf and markt.kauf.zeigen %}{% set zeige_miete = markt.miete and markt.miete.zeigen %}
   <div class="preis" style="grid-template-columns: repeat({{ 1 + (1 if zeige_kauf else 0) + (1 if zeige_miete else 0) }}, 1fr)">
-    {% if zeige_kauf %}<div class="card"><div class="v">{{ markt.kauf.mittel|eur }}/m²</div><div class="k">{{ markt.kauf.label }}</div><div class="s">Ø aus: {{ markt.kauf.quellen|map(attribute='name')|join(', ') }}</div></div>{% endif %}
+    {% if zeige_kauf %}<div class="card"><div class="v">{{ markt.kauf.mittel|eur }}/m²</div><div class="k">{{ markt.kauf.label }}</div><div class="s">Ø aus: {{ markt.kauf.quellen_text }} (2026)</div></div>{% endif %}
     <div class="card" style="background:var(--gold)"><div class="v">{{ (u.kaufpreis_netto/flaeche)|eur }}/m²</div><div class="k">Dein Kaufpreis</div><div class="s" style="color:var(--navy)">ohne die von uns übernommenen Kaufnebenkosten · SOLL-Miete {{ soll_qm|num }} €/m²</div></div>
-    {% if zeige_miete %}<div class="card"><div class="v">{{ markt.miete.mittel|num }} €/m²</div><div class="k">{{ markt.miete.label }}</div><div class="s">Ø aus: {{ markt.miete.quellen|map(attribute='name')|join(', ') }}</div></div>{% endif %}
+    {% if zeige_miete %}<div class="card"><div class="v">{{ markt.miete.von|num }}–{{ markt.miete.bis|num }} €/m²</div><div class="k">{{ markt.miete.label }}</div><div class="s">Quellen: {{ markt.miete.quellen_text }} (2026)</div></div>{% endif %}
   </div>
   <p class="disclaimer">{{ f.lage.quellen }}</p>
   {{ foot(4) }}

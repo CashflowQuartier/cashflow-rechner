@@ -66,8 +66,8 @@ lage:
     - {wert: "70.812", label: Beschäftigte am Arbeitsort, sub: "über 70.000 – erstmals seit 40 Jahren"}
     - {wert: "> 20 Mio.", label: Besucher pro Jahr, sub: Neue Mitte Oberhausen}
     - {wert: "21 Min.", label: nach Düsseldorf, sub: "ICE ab Oberhausen Hbf · Essen 16 Min."}
-  # Marktvergleich: Ø aller Quellen. Box wird nur gezeigt, wenn Ø Kaufpreis > unser Kaufpreis/m² (exkl. KNK)
-  # bzw. Ø Miete >= SOLL-Miete. Homeday-Preisatlas immer mit aufnehmen.
+  # Marktvergleich: alle recherchierten Quellen inkl. Homeday eintragen – der Generator filtert nach den
+  # Darstellungsregeln (Kauf: Quellen unter unserem Preis raus; Miete: Ausreißer > 15 % unter SOLL raus, Spanne).
   preise:
     kauf:
       label: Ø Angebotspreis Eigentumswohnung Osterfeld
@@ -76,7 +76,7 @@ lage:
         - {name: LL Immobilien (Osterfeld, 2026), wert: 2250}
         - {name: Engel & Völkers (Osterfeld-Ost, 2026), wert: 2752}
     miete:
-      label: Ø Angebotsmiete Osterfeld
+      label: Angebotsmieten Osterfeld
       quellen:
         - {name: Homeday Preisatlas (Freiligrathstraße 8, 10/2026), wert: 6.40}
         - {name: ImmoScout24 (Osterfeld-West, Q2/2026), wert: 7.92}

@@ -58,10 +58,11 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
 ## Darstellungsregeln (verbindlich)
 - **Positiv darstellen:** Ist eine Markt- oder Standortkennzahl negativ (z. B. Bevölkerungsprognose, Beschäftigtenentwicklung,
   Preistrend), wird sie weggelassen und nicht erwähnt. Ausnahme: Die Zahlen der Käuferrechnung (Cashflow, Steuer, Bilanz) bleiben vollständig.
-- **Marktvergleich Seite 4:** Ø-Angebotspreis und Ø-Angebotsmiete immer aus mehreren Quellen mitteln, den **Homeday-Preisatlas
-  für die konkrete Adresse** (`homeday.de/de/preisatlas/<stadt>/<straße+nr,+plz>?marketing_type=sell|rent&property_type=apartment`,
-  per Playwright im Higgsfield-Sandbox, da direkt gesperrt) immer einbeziehen. Quellen und Werte in `facts.yaml → lage.preise`.
-  Der Generator blendet die Kauf-Box aus, wenn der Ø nicht über unserem Kaufpreis/m² (exkl. KNK) liegt, und die Miet-Box, wenn der Ø unter der SOLL-Miete liegt.
+- **Marktvergleich Seite 4:** Angebotspreise und -mieten aus mehreren Quellen recherchieren, den **Homeday-Preisatlas für die
+  konkrete Adresse** (`homeday.de/de/preisatlas/<stadt>/<straße+nr,+plz>?marketing_type=sell|rent&property_type=apartment`,
+  per Playwright im Higgsfield-Sandbox, da direkt gesperrt) immer abfragen. Alle Quellen in `facts.yaml → lage.preise` eintragen; der Generator filtert:
+  - Kauf: Quellen **unter** unserem Kaufpreis/m² (exkl. KNK) fliegen raus; gezeigt wird der Ø der übrigen. Bleibt keine übrig → Box aus.
+  - Miete: Quellen mehr als 15 % unter der SOLL-Miete fliegen raus; gezeigt wird die Spanne (min–max). Box nur, wenn die SOLL-Miete in der Spanne liegt.
 - **Mietrecht pro Projekt recherchieren:** Gilt in der Gemeinde eine abgesenkte Kappungsgrenze (z. B. 15 % statt 20 % in 3 Jahren)
   oder eine Mietpreisbremse (Mieterschutzverordnung des Bundeslandes, Anlage mit Gemeindeliste)? Ergebnis in `facts.yaml → mietrecht`
   eintragen. Der Generator warnt, wenn die PE-Excel mit einem anderen Erhöhungsfaktor rechnet – dann den Nutzer informieren.
