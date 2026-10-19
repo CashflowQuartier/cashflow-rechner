@@ -23,6 +23,10 @@ drive:
     - "WE 5/6 (Fr. 8, 2. OG): Flächen in der PE-Excel gegenüber TE vertauscht – vor Teaser klären."
     - "WE 17 umfasst laut PE-Excel auch TE-Nr. 18 (Baustr. 21A EG Mitte)."
 
+# Zusätzliche Maßnahmen am Gemeinschaftseigentum (ergänzt die Liste aus der PE-Excel)
+weg_zusatz:
+  - Umrüstung auf Wärmepumpe
+
 objekt:
   ort: 46117 Oberhausen-Osterfeld
   stadt: Oberhausen
@@ -30,7 +34,7 @@ objekt:
   baujahr: 1966
   anlage: 3 MFH, 28 WE (WEG seit 1983)
   bauweise: Massivbau, Satteldach
-  heizung: Gas-Zentralheizung (Kessel 2021)
+  heizung: Gas-Zentralheizung (Kessel 2021), Umrüstung auf Wärmepumpe geplant
   keller: voll unterkellert
   weitere:
     Außenflächen: ca. 300 m² Hof/Garten

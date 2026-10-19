@@ -88,6 +88,7 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
 - Titel: Straße · Wohnungsbezeichnung · Stadt (wird automatisch aus der Adresse in der PE-Excel gebildet).
 - Seiten (7): 1 Cover · 2 Wohnung (Ist-/Soll-Bilder, Wohnungs- und Objektdaten, Kaufpreis) · 3 Cashflow, Steuerrechnung, Vermögensbilanz
   (10 Jahre, 3 % Wertsteigerung auf Kaufpreis exkl. KNK, Einsatz = Cashflow Monat 1 × 12 × 10) · 4 Lage · 5 Konzept, Subvention, SEV-Vertrag · 6 Konzept-Zusammenfassung (ohne EK finanzierbar, Marktmiete, keine Sondervermietung, Break-even-Miete, Portfolio-Aufbau) · 7 Team, Kundenstimmen, Links mit Icons.
+- Zusätzliche Maßnahmen am Gemeinschaftseigentum, die nicht in der PE-Excel stehen (z. B. Umrüstung auf Wärmepumpe), in `facts.yaml → weg_zusatz` eintragen; sie erscheinen auf dem Cover in der Liste „Arbeiten zum Gemeinschaftseigentum“.
 - Firmenweite Angaben (Team, Links, Kundenstimmen, Portfolio-Beispiele, Kontakt) stehen in `teaser_generator/config/cfq.yaml`; projektbezogene in `projects/<slug>/facts.yaml`.
 - Bilder werden im Generator exakt auf das Rahmenformat zugeschnitten und als `<img>` eingebettet – nie per CSS-Hintergrund (Apple Vorschau verzerrt sonst).
 - Die Lage-Seite kommt aus `facts.yaml` → `lage`. Für jedes neue Projekt neu recherchieren: Bevölkerung, Anbindung, Arbeitgeber,
