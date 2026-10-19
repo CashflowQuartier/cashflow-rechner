@@ -62,9 +62,10 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
   Abweichungen dem Nutzer melden. Fotoordner (`Bilder/WE/Haus …/<Lage>`) nur über Haus + Geschoss + Lage + Fläche zuordnen;
   bei Widersprüchen (z. B. vertauschte Seiten) nachfragen statt raten.
 - **Ablage im Drive:** Im Projektordner je Einheit ein Ordner `WE <TE-Nr> – <Adresse laut PE-Excel>` mit den Unterordnern
-  `Ist-Bilder` und `Soll-Bilder`. Ist-Fotos per `copy_file` in `Ist-Bilder` kopieren. PDFs und erzeugte Soll-Bilder kann der
-  Drive-Connector nur mit Base64-Inhalt hochladen (für Dateien dieser Größe nicht praktikabel) → per `SendUserFile` ausliefern
-  und den Zielordner nennen.
+  `Ist-Bilder` und `Soll-Bilder`. Ist-Fotos per `copy_file` in `Ist-Bilder` kopieren. Soll-Bilder und Teaser-PDF hochladen mit
+  `python -m teaser_generator.drive_upload <ordner-id> <dateien…>` (Soll-Bilder → `Soll-Bilder`, PDF → WE-Ordner).
+  Das braucht `CFQ_DRIVE_UPLOAD_URL`/`CFQ_DRIVE_UPLOAD_TOKEN` in der Umgebung (Einrichtung: `tools/DRIVE_UPLOAD.md`).
+  Fehlen sie, Dateien per `SendUserFile` ausliefern und den Zielordner nennen.
 - **Titelbild** ist immer eine Außenansicht des Hauses (aus `Bilder/Allgem.`), nie ein Wohnungsfoto.
 
 ## Darstellungsregeln (verbindlich)
