@@ -15,6 +15,8 @@ from PIL import Image, ImageOps
 from . import finance
 
 TEMPLATES = Path(__file__).parent / "templates"
+ASSETS = Path(__file__).parent / "assets"
+FONT_WEIGHTS = (400, 500, 600, 700, 800)
 CHROMIUM_CANDIDATES = [
     os.environ.get("CHROMIUM_PATH", ""),
     "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
@@ -62,7 +64,19 @@ def logo_data_uri(path: str | Path) -> str:
     return f"data:{mime};base64,{base64.b64encode(Path(path).read_bytes()).decode()}"
 
 
-def subvention_chart_svg(stufen, soll_qm, ist_qm, width=640, height=220) -> str:
+def font_face_css() -> str:
+    """Onest (Hausschrift der Website) als eingebettete @font-face-Regeln."""
+    rules = []
+    for w in FONT_WEIGHTS:
+        f = ASSETS / "fonts" / f"onest-latin-{w}-normal.woff2"
+        if f.exists():
+            data = base64.b64encode(f.read_bytes()).decode()
+            rules.append(f"@font-face{{font-family:'Onest';font-weight:{w};font-style:normal;"
+                         f"src:url(data:font/woff2;base64,{data}) format('woff2');}}")
+    return "\n".join(rules)
+
+
+def subvention_chart_svg(stufen, soll_qm, ist_qm, width=640, height=180) -> str:
     """Treppendiagramm: gesetzliche Miete (€/m²) je Stufe vs. SOLL-Miete, Differenz = Subvention."""
     if not stufen:
         return ""
@@ -138,7 +152,9 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         photos=[image_data_uri(x) for x in photos],
         renders=[image_data_uri(x) for x in renders],
         cover=image_data_uri(cover, 2000) if cover else None,
-        logo=logo_data_uri(logo) if logo else None,
+        logo=logo_data_uri(logo or ASSETS / "logo_navy.png"),
+        logo_white=logo_data_uri(ASSETS / "logo_white.png"),
+        font_css=font_face_css(),
     )
 
 
