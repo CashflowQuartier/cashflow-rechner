@@ -145,3 +145,65 @@ def projektion(u: dict, p: Params, jahre: int = 10) -> list[Jahreszeile]:
         bew = (u["hv"] + u["mv"] + u["sonstige"] + u["ruecklage"]) * 12
         rows.append(Jahreszeile(j, miete * 12, zins_j, tilg_j, bew, afa_m * 12, steuer_j, schuld))
     return rows
+
+
+@dataclass
+class Steuerrechnung:
+    """Monatliche Steuerrechnung (Anlage V vereinfacht), identisch zur Formel in Spalte AX."""
+    miete: float
+    zins: float
+    afa: float
+    werbungskosten: float
+    hausgeld_nicht_umlagefaehig: float
+    grenzsteuer: float
+
+    @property
+    def ergebnis(self):
+        return self.miete - self.zins - self.afa - self.werbungskosten - self.hausgeld_nicht_umlagefaehig
+
+    @property
+    def ersparnis(self):
+        return -self.ergebnis * self.grenzsteuer
+
+
+def steuerrechnung(u: dict, p: Params) -> Steuerrechnung:
+    m = monat_jahr1(u, p)
+    return Steuerrechnung(m.miete, m.zins, m.afa, WERBUNGSKOSTEN_PAUSCHAL, m.hv + m.mv + m.sonstige, p.grenzsteuer)
+
+
+@dataclass
+class Vermoegensbilanz:
+    """Vereinfachte 10-Jahres-Bilanz: Wertsteigerung + Tilgung vs. Gesamtinvest und eingesetzte Liquidität."""
+    basis_wert: float
+    wertsteigerung_pa: float
+    jahre: int
+    gesamtinvest: float
+    tilgung: float
+    restschuld: float
+    cf_monat: float
+
+    @property
+    def wert_ende(self):
+        return self.basis_wert * (1 + self.wertsteigerung_pa) ** self.jahre
+
+    @property
+    def gewinn(self):
+        return self.wert_ende + self.tilgung - self.gesamtinvest
+
+    @property
+    def liquiditaet(self):
+        """Eigener Einsatz über die Laufzeit (negativ = Zuzahlung), vereinfacht: Monat 1 × 12 × Jahre."""
+        return round(self.cf_monat, 2) * 12 * self.jahre
+
+
+def vermoegensbilanz(u: dict, p: Params, wertsteigerung_pa: float = 0.03, jahre: int = 10) -> Vermoegensbilanz:
+    proj = projektion(u, p, jahre)
+    return Vermoegensbilanz(
+        basis_wert=u.get("kaufpreis_netto") or u["kaufpreis"],
+        wertsteigerung_pa=wertsteigerung_pa,
+        jahre=jahre,
+        gesamtinvest=u["kaufpreis"],
+        tilgung=sum(r.tilgung for r in proj),
+        restschuld=proj[-1].restschuld,
+        cf_monat=monat_jahr1(u, p).cf_nach_steuer,
+    )

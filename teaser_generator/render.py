@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import mimetypes
+import re
 import os
 import shutil
 import subprocess
@@ -103,6 +104,33 @@ def subvention_chart_svg(stufen, soll_qm, ist_qm, width=640, height=180) -> str:
     return "".join(parts)
 
 
+LAGE_ABK = [(r"\bre\.?$", "rechts"), (r"\bli\.?$", "links"), (r"\bre\.", "rechts"), (r"\bli\.", "links")]
+
+
+def wohnungstitel(adresse: str, stadt: str) -> dict:
+    """'Freiligrathstr. 8 EG re.' -> Straße 'Freiligrathstraße 8', Wohnung 'EG rechts', Stadt."""
+    m = re.match(r"^(.*?\d+\s?[a-zA-Z]?)\s+(.*)$", adresse.strip())
+    strasse, lage = (m.group(1), m.group(2)) if m else (adresse, "")
+    strasse = re.sub(r"str\.(?=\s|$)", "straße", strasse)
+    for pat, rep in LAGE_ABK:
+        lage = re.sub(pat, rep, lage)
+    lage = lage.strip()
+    return {"strasse": strasse, "wohnung": f"Wohnung {lage}" if lage else "Wohnung", "stadt": stadt,
+            "voll": " · ".join(x for x in (strasse, f"Wohnung {lage}" if lage else "", stadt) if x)}
+
+
+def team_bilder(team: list[dict]) -> list[dict]:
+    out = []
+    for t in team or []:
+        t = dict(t)
+        bild = t.get("bild")
+        pfad = (ASSETS / "team" / bild) if bild and not Path(bild).is_absolute() else (Path(bild) if bild else None)
+        t["foto"] = image_data_uri(pfad, 500, 80) if pfad and pfad.exists() else None
+        t["initialen"] = "".join(w[0] for w in t["name"].split()[:2]).upper()
+        out.append(t)
+    return out
+
+
 def build_context(project, unit, facts: dict, photos: list[str], renders: list[str], cover: str | None,
                   logo: str | None = None) -> dict:
     p = project.params
@@ -155,6 +183,10 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         logo=logo_data_uri(logo or ASSETS / "logo_navy.png"),
         logo_white=logo_data_uri(ASSETS / "logo_white.png"),
         font_css=font_face_css(),
+        titel=wohnungstitel(u["adresse"], facts.get("objekt", {}).get("stadt", "")),
+        steuer=finance.steuerrechnung(u, p),
+        bilanz=finance.vermoegensbilanz(u, p),
+        team=team_bilder(facts.get("team")),
     )
 
 

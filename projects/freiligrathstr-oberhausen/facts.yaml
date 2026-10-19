@@ -1,44 +1,98 @@
 # Objektfakten für die Teaser – aus den Unterlagen im Drive-Ordner
 # "PE - IR - Freiligrathstrasse 8-10, Oberhausen" (Exposé Sterzing, Baubeschreibung,
-# Energieausweise, Mieterliste, Besichtigungsnotizen). Zahlen zu Preisen, Subvention,
-# Rückstellungen und Cashflow kommen NICHT von hier, sondern aus der PE-Excel.
+# Energieausweise, Mieterliste, Besichtigungsnotizen) und einer Web-Recherche (Quellen unten).
+# Zahlen zu Preisen, Subvention, Rückstellungen und Cashflow kommen NICHT von hier, sondern aus der PE-Excel.
 stand: Oktober 2026
 
 anbieter:
   name: Cashflow Quartier
-  kontakt: Ihr Ansprechpartner bei Cashflow Quartier
+  kontakt: kontakt@cashflowquartier.com · Alte Freiheit 16–18, 42103 Wuppertal
+  email: kontakt@cashflowquartier.com
+  adresse: Alte Freiheit 16–18, 42103 Wuppertal
+  website: https://www.cashflowquartier.com
+  google:
+    sterne: "4,9"
+    anzahl: über 200
+    link: https://www.google.com/search?q=Jan-Moritz+Becker+Rezensionen
+  links:
+    - {label: Kundenstimmen, text: cashflowquartier.com/referenzen, url: "https://www.cashflowquartier.com/referenzen"}
+    - {label: Instagram, text: "@janmoritzbecker", url: "https://www.instagram.com/janmoritzbecker/"}
+    - {label: TikTok, text: "@janmoritzbecker", url: "https://www.tiktok.com/@janmoritzbecker"}
+    - {label: YouTube, text: "@janmoritzbecker", url: "https://www.youtube.com/@janmoritzbecker"}
+    # Facebook und Podcast (Spotify): Links noch offen – hier ergänzen
+  erstgespraech: https://zpmb0e7ydhg.typeform.com/to/nMUdIKKC
 
-drive:
-  ordner: PE - IR - Freiligrathstrasse 8-10, Oberhausen
-  pe_excel: intern/20260915 - PE Freiligrathstr..xlsx
+team:
+  - {name: Jan-Moritz Becker, rolle: Ankauf & Projektentwicklung, bereich: Ankauf, bild: jan.jpg}
+  - {name: Michelle, rolle: Vertriebsassistenz, bereich: Vertrieb, bild: michelle.jpg}
+  - {name: Jannis, rolle: Verkauf, bereich: Vertrieb, bild: jannis.jpg}
+  - {name: Milan Wiesemann, rolle: Verkauf, bereich: Vertrieb, bild: milan.jpg}
+  - {name: Joell, rolle: Verkauf, bereich: Vertrieb, bild: joell.jpg}
+  - {name: Salome, rolle: Verwaltung (GF CQ Property Management), bereich: Verwaltung, bild: salome.jpg}
+  - {name: Davyd, rolle: Verwaltung, bereich: Verwaltung, bild: davyd.jpg}
+  - {name: Robin, rolle: WEG- & SEV-Verwaltung, bereich: Verwaltung}
+
+testimonials:
+  - {text: "Rundum zufrieden, sehr kompetentes Beratungsteam, schnell, flexibel. Erste Immobilie ohne Eigenkapital diese Woche gekauft, dank top Beratung.", name: Bianca Ko, quelle: Google-Bewertung}
+  - {text: "Sehr professionelle Abwicklung & super transparente Kommunikation im gesamten Prozess. Ich hoffe, es bleibt nicht nur bei diesem ersten Objekt.", name: Julian M., quelle: Google-Bewertung}
+  - {text: "Sowohl meine Frau als auch ich haben keinen Aufwand mit der Immobilie. Das ist wie in einen ETF zu investieren.", name: Philipp Rossmanith, quelle: Immobilieninvestor}
 
 objekt:
   ort: 46117 Oberhausen-Osterfeld
+  stadt: Oberhausen
   adressen: Freiligrathstr. 8 + 10, Baustr. 21A, 46117 Oberhausen
   baujahr: 1966
-  anlage: 3 Mehrfamilienhäuser, 28 Eigentumswohnungen (seit 1983 nach WEG geteilt), je EG bis 3. OG
-  bauweise: Massivbau, Satteldach mit Ziegeleindeckung, Kunststofffenster
-  heizung: Gas-Zentralheizung, neuer Heizkessel 2021
-  keller: alle Häuser voll unterkellert
+  anlage: 3 MFH, 28 WE (WEG seit 1983)
+  bauweise: Massivbau, Satteldach
+  heizung: Gas-Zentralheizung (Kessel 2021)
+  keller: voll unterkellert
   weitere:
-    Außenflächen: ca. 300 m² Hof/Garten als Gemeinschaftsfläche
-  kurzbeschreibung: >-
-    Solide Wohnanlage aus den 1960er-Jahren in einem bei Familien gefragten, innenstadtnahen
-    Stadtteil von Oberhausen. Die Wohnungen sind vermietet, die Mieten liegen deutlich unter
-    Marktniveau – genau hier setzt unser Konzept an.
-  lage:
-    - >-
-      Osterfeld ist ein innenstadtnaher, bei Familien gefragter Stadtteil von Oberhausen mit
-      gepflegter Nachbarschaftsstruktur in reinem Wohngebiet.
-    - >-
-      In unmittelbarer Umgebung: Kindergärten und Schulen, Supermärkte, Bäcker, Drogerien,
-      Apotheken, Haus- und Kinderärzte sowie Restaurants und Cafés.
-    - >-
-      Naherholung bietet der Revierpark Vonderort an der Stadtgrenze zu Bottrop mit Wiesen,
-      See und Sportangeboten. Düsseldorf, Essen und Bochum erreichen Sie in ca. 20–25 Minuten,
-      Dortmund in ca. 40 Minuten Fahrzeit.
-    - >-
-      Marktmieten im Umfeld laut ImmobilienScout24: 7,78–12,90 €/m², im Mittel 10,34 €/m².
+    Außenflächen: ca. 300 m² Hof/Garten
+
+lage:
+  titel: Oberhausen – mitten in der Metropole Ruhr
+  intro: >-
+    Die Lage ist das Wichtigste bei einer Immobilie. Oberhausen liegt im Herzen der Metropole Ruhr
+    mit über 5 Millionen Einwohnern – mit direktem Autobahnanschluss, ICE-Halt und einem der größten
+    Freizeit- und Einkaufsstandorte Deutschlands, der Neuen Mitte.
+  kennzahlen:
+    - {wert: "213.355", label: Einwohner Oberhausen, sub: "+ rund 4.000 seit 2020"}
+    - {wert: "70.812", label: Beschäftigte am Arbeitsort, sub: "über 70.000 – erstmals seit 40 Jahren"}
+    - {wert: "> 20 Mio.", label: Besucher pro Jahr, sub: Neue Mitte Oberhausen}
+    - {wert: "21 Min.", label: nach Düsseldorf, sub: "ICE ab Oberhausen Hbf · Essen 16 Min."}
+  preise:
+    kauf: {wert: "2.250 €/m²", label: "Ø Angebotspreis Eigentumswohnung Osterfeld", quelle: "LL Immobilien 2026; Stadt gesamt Ø 2.067–2.171 €/m² (Immowelt 09/2026, Immoportal 08/2026, +3,4 % zum Vorjahr)"}
+    miete: {wert: "7,92–9,69 €/m²", label: "Angebotsmieten Osterfeld", quelle: "ImmoScout24 Q2/2026, Engel & Völkers Q3/2026"}
+  abschnitte:
+    - titel: Bevölkerung
+      punkte:
+        - "213.355 Einwohner (IT.NRW, 11/2025) – seit dem Tiefpunkt 2020 um rund 4.000 gewachsen."
+        - "Stadtbezirk Osterfeld: rund 38.000 Einwohner auf 10,8 km²."
+        - "Prognose der Stadt bis 2040: weitgehend stabil (−1,7 %), getragen von Zuzug."
+    - titel: Anbindung
+      punkte:
+        - "A42 mit den Anschlussstellen Oberhausen-Neue Mitte und Bottrop-Süd direkt am Stadtteil; über die A516 zum Kreuz Oberhausen (A2/A3)."
+        - "Bahnhof Oberhausen-Osterfeld Süd (RE 44); ab Oberhausen Hbf in 16 Min. nach Essen und 21 Min. nach Düsseldorf."
+        - "Flughafen Düsseldorf in rund 30 Autominuten."
+    - titel: Arbeitgeber
+      punkte:
+        - "Everllence (ehem. MAN Energy Solutions) mit rund 2.000 Beschäftigten am Standort."
+        - "Stadtverwaltung (~2.800), AMEOS Kliniken (~2.100), Ev. Krankenhaus (~1.350), EVO, Fraunhofer UMSICHT."
+        - "Metropole Ruhr: rund 1,83 Mio. sozialversicherungspflichtig Beschäftigte im direkten Umfeld."
+    - titel: Neue Mitte & Investitionen
+      punkte:
+        - "Westfield Centro: 125.000 m² Verkaufsfläche, über 250 Shops – die Neue Mitte zieht über 20 Mio. Besucher pro Jahr an."
+        - "Karls Erlebnis-Dorf (eröffnet 07/2026, ca. 45 Mio. €), Topgolf (2022, ca. 50 Mio. €), Casino, Steakhäuser und Restaurant-Promenade."
+        - "Rudolf Weber-ARENA mit bis zu 13.000 Plätzen; Gasometer mit über 1 Mio. Besuchern pro Ausstellung."
+        - "2026: 15,2 Mio. € Städtebauförderung (Platz 2 in NRW), Umbau Marktstraße (~63 Mio. €), neues Quartier „The LOOP“ für ca. 3.500 Bewohner."
+    - titel: Osterfeld
+      punkte:
+        - "Gewachsener Stadtteil mit Nahversorgung, Schulen und Kitas; neuer Multifunktionskomplex an der Gesamtschule (~15 Mio. €)."
+        - "Grün vor der Tür: Revierpark Vonderort (2020–23 revitalisiert) und OLGA-Park."
+  quellen: >-
+    Quellen: IT.NRW 11/2025; Stadt Oberhausen 2025/2026; Bundesagentur für Arbeit 12/2024; Unibail-Rodamco-Westfield 2019;
+    tageskarte.io 2026; EAP-Magazin 2022; DB-Fahrplan 2026; Immowelt, Immoportal, LL Immobilien, ImmoScout24, Engel & Völkers 2026
+    (Angebotspreise). Der Homeday-Preisatlas weist für Oberhausen derzeit keine Wohnungspreise aus.
 
 haeuser:
   Freiligrathstr. 8:

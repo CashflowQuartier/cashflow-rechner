@@ -34,7 +34,9 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
    Nur belegte Fakten verwenden, nichts erfinden. Vorlage: `projects/freiligrathstr-oberhausen/facts.yaml`.
 5. **Fotos je Wohnung**: aus `Bilder/WE/Haus Nr. X/<Lage>` laden, bei Bedarf als Kontaktabzug ansehen und auswählen
    (Wohnzimmer zuerst, dann Küche und Bad). Titelbild: eine Außenansicht aus `Bilder/Allgem.`.
-6. **Renovierungs-Visualisierungen**, wenn Reno-Rückstellung SE > 5.000 €: mit Higgsfield `generate_image_batch`
+6. **Renovierungs-Visualisierungen**, wenn Reno-Rückstellung SE > 5.000 €. **Vorher den Nutzer fragen:** Die Freigabe für
+   Higgsfield (kostet Credits) gilt immer nur für eine Wohnung bzw. einen Teaser und muss für jede weitere neu eingeholt werden.
+   Dann mit Higgsfield `generate_image_batch`
    (Modell `gpt_image_2_5`, quality high, 2k), je ein Bild für Wohnzimmer, Küche und Bad. Pflicht im Prompt:
    leer, neuer **brauner Vinylboden**, **weiße Wände**, **weiße Türen und Zargen**, **neue Schalter/Steckdosen**,
    **neuer Fliesenspiegel in der Küche**, **neues Bad**, einfacher Mietstandard, Altbau der 1960er.
@@ -52,6 +54,14 @@ Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
    Danach mit `pdftoppm -r 80 -png` rendern und jede Seite ansehen (Überläufe, abgeschnittene Tabellen).
 8. **Ausliefern**: PDF per `SendUserFile` schicken. Auf Wunsch per `mcp__Google_Drive__create_file` in den
    Ordner `folgt - Vertriebsordner` hochladen, aber nur nach Bestätigung durch den Nutzer.
+
+## Aufbau & Tonalität des Teasers
+- Ansprache immer mit **„du“**, wie auf www.cashflowquartier.com. Design: Onest, Navy #050D2B, Gold #E9B33F.
+- Titel: Straße · Wohnungsbezeichnung · Stadt (wird automatisch aus der Adresse in der PE-Excel gebildet).
+- Seiten: 1 Cover · 2 Wohnung (Ist-/Soll-Bilder, Wohnungs- und Objektdaten, Kaufpreis) · 3 Cashflow, Steuerrechnung, Vermögensbilanz
+  (10 Jahre, 3 % Wertsteigerung auf Kaufpreis exkl. KNK, Einsatz = Cashflow Monat 1 × 12 × 10) · 4 Lage · 5 Konzept, Subvention, SEV-Vertrag · 6 Team und Kundenstimmen.
+- Die Lage-Seite kommt aus `facts.yaml` → `lage`. Für jedes neue Projekt neu recherchieren: Bevölkerung, Anbindung, Arbeitgeber,
+  Investitionen, Angebotspreise und -mieten, jeweils mit Quellen. Der Homeday-Preisatlas hat für kleinere Städte oft keine Wohnungsdaten.
 
 ## Dem Nutzer immer melden
 - welche PE-Datei verwendet wurde,
