@@ -34,9 +34,13 @@ portfolio_beispiele:
 
 team:
   - {name: Jan-Moritz Becker, rolle: Ankauf & Projektentwicklung, bild: jan.jpg,
-     text: "Gründer und Investor. Bankausbildung, VWL-Studium und über 70 selbst finanzierte Wohneinheiten – er sucht die Objekte aus und entwickelt sie."}
+     text: "Gründer und Investor mit über 70 selbst finanzierten Wohneinheiten. Er sucht die Objekte aus und entwickelt sie."}
+  - {name: Albert, rolle: Ankauf, bild: albert.jpg,
+     text: "Head of Investment. Er skaliert unseren Ankauf, findet neue Objekte und baut das Angebot für unsere Investoren aus."}
   - {name: Michelle, rolle: Vertriebsassistenz, bild: michelle.jpg,
      text: "Gelernte Immobilienkauffrau. Sie bereitet unsere Immobilien auf und sorgt dafür, dass vom Exposé bis zum Notar alles sauber läuft."}
+  - {name: Alex, rolle: Finanzierung, bild: alex.jpg,
+     text: "Head of Finance. Er strukturiert deine Finanzierung so, dass du ohne Eigenkapital kaufen kannst – schnell, sauber, präzise."}
   - {name: Jannis, rolle: Verkauf, bild: jannis.jpg,
      text: "Holt aus deiner Bonität das Bestmögliche heraus und achtet darauf, dass du trotz Finanzierung ruhig schlafen kannst."}
   - {name: Milan Wiesemann, rolle: Verkauf, bild: milan.jpg,
