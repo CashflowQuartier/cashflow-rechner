@@ -90,9 +90,11 @@ class Project:
     def unit(self, key: str) -> dict:
         """Einheit über WE-Nr., Einheit-Nr. oder (Teil der) Adresse finden."""
         k = _norm(key)
-        for u in self.units:
-            if k in (_norm(_fmt_num(u.get("we_nr"))), _norm(_fmt_num(u.get("einheit")))):
-                return u
+        # zuerst Nummer laut Teilungserklärung (Spalte "Einheit"), dann interne PE-Nummer
+        for feld in ("einheit", "we_nr"):
+            for u in self.units:
+                if k == _norm(_fmt_num(u.get(feld))):
+                    return u
         hits = [u for u in self.units if k in _norm(u["adresse"])]
         if len(hits) == 1:
             return hits[0]

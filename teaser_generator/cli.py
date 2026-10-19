@@ -23,7 +23,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--pe", required=True, help="Pfad zur PE-Excel")
     ap.add_argument("--facts", help="facts.yaml des Projekts")
-    ap.add_argument("--unit", help="WE-Nr., Einheit-Nr. oder Adresse (z. B. 'Freiligrathstr. 8 EG re.')")
+    ap.add_argument("--unit", help="WE-Nr. laut Teilungserklärung (= PE-Spalte 'Einheit'), interne PE-Nr. oder Adresse")
     ap.add_argument("--cover", help="Titelbild (Außenansicht)")
     ap.add_argument("--photos", nargs="*", default=[], help="Ist-Fotos der Wohnung")
     ap.add_argument("--renders", nargs="*", default=[], help="Visualisierungen renoviert")
@@ -36,7 +36,7 @@ def main(argv=None):
     project = pe_excel.load(a.pe)
     if a.list:
         for u in project.units:
-            print(f"WE {int(u['we_nr']):>3}  {u['adresse']:<32} {u['flaeche']:>6.2f} m²  KP {u['kaufpreis']:>9,.0f} €  "
+            print(f"WE {int(u['einheit']):>2} (PE {int(u['we_nr'])})  {u['adresse']:<32} {u['flaeche']:>6.2f} m²  KP {u['kaufpreis']:>9,.0f} €  "
                   f"Subv. {u['subvention']:>8,.0f} €  Reno SE {u['reno_se'] or 0:>8,.0f} €  {u['status']}")
         return 0
     if not (a.unit and a.facts and a.out):

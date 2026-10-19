@@ -182,7 +182,7 @@
 {# ================= Seite 1: Cover ================= #}
 <section class="page cover">
   <div class="topbar"><img src="{{ logo }}" alt="{{ f.anbieter.name }}"><span class="pill">Exklusives Kapitalanlage-Angebot</span></div>
-  <h1><span class="ul">{{ titel.strasse }} · {{ titel.wohnung }} · {{ titel.stadt }}</span></h1>
+  <h1{% if titel.voll|length > 44 %} style="font-size:{{ [20 * 44 / titel.voll|length, 15]|max|round(1) }}pt"{% endif %}><span class="ul">{{ titel.strasse }} · {{ titel.wohnung }} · {{ titel.stadt }}</span></h1>
   <div class="sub">Eigentumswohnung · {{ flaeche|num }} m² · {{ f.objekt.ort }} · Baujahr {{ f.objekt.baujahr }}<br>Marktmiete ab Tag 1 – ohne Kaufnebenkosten, ohne Renovierungsrisiko.</div>
   <div class="hero"><img src="{{ cover or (photos[0] if photos else '') }}" alt="Außenansicht"></div>
   <div class="kpis">
@@ -215,7 +215,7 @@
   <div class="eyebrow">Deine Wohnung</div>
   <h2><span class="ul">Heute und nach der Renovierung.</span></h2>
   <p class="lead">{{ flaeche|num }} m² · {{ 'vermietet' if vermietet else u.status }}. Oben siehst du den aktuellen Zustand vom Besichtigungstermin, darunter den Standard, den wir nach einem Mieterwechsel aus der Renovierungsrückstellung umsetzen.</p>
-  <div class="pairs">
+  <div class="pairs" style="grid-template-columns: repeat({{ [photos|length, 3]|min }}, 1fr)">
     {% for i in range([photos|length, 3]|min) %}
     <div class="pair">
       <div class="ph"><img src="{{ photos[i] }}" alt="Ist-Zustand"><span class="cap">Ist-Zustand</span></div>
@@ -229,7 +229,7 @@
       <h3 style="margin-top:0">Wohnungsdaten</h3>
       <table class="facts">
         <tr><td>Lage</td><td>{{ titel.wohnung|replace('Wohnung ','') }}</td></tr>
-        <tr><td>WE-Nr.</td><td>{{ u.we_nr|int }}</td></tr>
+        <tr><td>WE-Nr.</td><td>{{ we_nr }}</td></tr>
         <tr><td>Wohnfläche</td><td class="num">{{ flaeche|num }} m²</td></tr>
         <tr><td>MEA</td><td class="num">{{ (u.mea*1000)|num(2) }} / 1.000</td></tr>
         <tr><td>Status</td><td>{{ u.status }}</td></tr>

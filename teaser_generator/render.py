@@ -136,6 +136,12 @@ def wohnungstitel(adresse: str, stadt: str) -> dict:
             "voll": " · ".join(x for x in (strasse, f"Wohnung {lage}" if lage else "", stadt) if x)}
 
 
+def spalten_faktor(photos: list) -> float:
+    """Bei weniger als 3 Fotos werden die Spalten breiter – Seitenverhältnis entsprechend anpassen."""
+    n = max(1, min(len(photos), 3))
+    return ((182 - 3.5 * (n - 1)) / n) / 58.3
+
+
 def icon_svg(name: str) -> str:
     if name in EINGEBAUTE_ICONS:
         return EINGEBAUTE_ICONS[name]
@@ -229,12 +235,14 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         weg=project.weg_massnahmen,
         weg_summe=project.weg_summe,
         se=project.se_massnahmen,
-        photos=[image_data_uri(x, 1400, ratio=IST_RATIO) for x in photos],
-        renders=[image_data_uri(x, 1400, ratio=SOLL_RATIO) for x in renders],
+        photos=[image_data_uri(x, 1400, ratio=IST_RATIO * spalten_faktor(photos)) for x in photos],
+        renders=[image_data_uri(x, 1400, ratio=SOLL_RATIO * spalten_faktor(photos)) for x in renders],
         cover=image_data_uri(cover, 2000, ratio=HERO_RATIO, fokus_y=0.6) if cover else None,
         logo=logo_data_uri(logo or ASSETS / "logo_navy.png"),
         logo_white=logo_data_uri(ASSETS / "logo_white.png"),
         font_css=font_face_css(),
+        # WE-Nr. = Nummer laut Teilungserklärung (PE-Excel-Spalte "Einheit"), nicht die interne PE-Nummer
+        we_nr=int(u["einheit"]) if u.get("einheit") else int(u["we_nr"]),
         titel=wohnungstitel(u["adresse"], facts.get("objekt", {}).get("stadt", "")),
         steuer=finance.steuerrechnung(u, p),
         bilanz=finance.vermoegensbilanz(u, p),
