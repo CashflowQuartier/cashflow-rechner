@@ -1,61 +1,79 @@
 ---
 name: wohnungs-teaser
-description: Erstellt Verkaufs-Teaser (PDF) für einzelne WEG-Wohnungen eines Cashflow-Quartier-Projekts aus dem Google-Drive-Projektordner. Verwenden, wenn der Nutzer einen Drive-Ordner / eine Immobilie nennt und Teaser, Exposé-Kurzfassung oder Verkaufsunterlagen für eine oder mehrere Wohnungen haben will.
+description: Erstellt Verkaufs-Teaser (7-seitiges PDF im Cashflow-Quartier-Design) für einzelne WEG-Wohnungen aus einem Google-Drive-Projektordner – inklusive Renovierungs-Visualisierungen, Cashflow- und Steuerrechnung, Lage-Recherche und Ablage im Drive. Verwenden, sobald der Nutzer einen Projektordner („PE - …“) und eine oder mehrere Wohnungen (WE-Nummer) nennt und einen Teaser, ein Exposé oder Verkaufsunterlagen möchte – z. B. „Teaser für PE - IR - Freiligrathstrasse, WE 3“.
 ---
 
-# Wohnungs-Teaser aus dem Drive-Projektordner
+# Wohnungs-Teaser
 
-Der Nutzer nennt einen Projektordner in der geteilten Ablage „Cashflow Quartier → Projektentwicklung“
-(z. B. „PE - IR - Freiligrathstrasse 8-10, Oberhausen“) und optional einzelne Wohnungen.
-Ergebnis: ein PDF pro Wohnung, erzeugt mit `python -m teaser_generator.cli`.
+**Eingabe des Nutzers:** Projektordner (Name im Drive, z. B. „PE - IR - Freiligrathstrasse 8-10, Oberhausen“) + Wohnung(en) als
+**WE-Nummer laut Teilungserklärung**. Mehr braucht es nicht – alles andere holt sich dieser Skill selbst.
 
-## Produktlogik (nicht verändern ohne Rücksprache)
-- Produkt = nach WEG geteilte, meist vermietete Wohnung.
-- **SOLL-Miete** = marktgerechte Miete (PE-Excel). Die Differenz Ist → SOLL wird per **Mietsubvention**
-  bezahlt, und zwar so lange, wie gesetzliche Mieterhöhungen (Kappungsgrenze 20 % / 3 Jahre) brauchen.
-- **Renovierungsrückstellung SE** pro Einheit: Budget für den Auszug des Bestandsmieters.
-- **Sanierung WEG**: Rückstellung für Maßnahmen am Gemeinschaftseigentum (anteilig nach MEA). Falls vorhanden → in den Teaser.
-- **Kaufnebenkosten übernimmt CFQ**: beurkundeter Kaufpreis = Gesamtinvest des Käufers.
-- Alle Zahlen (Preise, Subvention, Rückstellungen, Cashflow-Parameter) kommen **ausschließlich aus der PE-Excel** („PE - …xlsx“).
-  Die Formeln in `teaser_generator/finance.py` bilden die Excel exakt nach. Nach jeder Änderung prüfen, ob
-  Brutto-CF, Steuer und Netto-CF weiterhin mit den Spalten AV/AX/AY übereinstimmen.
+**Ergebnis je Wohnung:** `out/<slug>/Teaser_WE<NN>_<Straße><Nr>_<Lage>.pdf` (7 Seiten), Ist-Fotos im Drive-Ordner
+`WE <Nr> – …/Ist-Bilder`, Soll-Bilder + PDF hochgeladen bzw. im Chat ausgeliefert.
 
-## Ablauf
-1. **Ordner finden**: `mcp__Google_Drive__search_files` mit `title contains '<Name>' and mimeType = 'application/vnd.google-apps.folder'`,
-   danach Unterordner per `parentId = '<id>'` auflisten. Typische Struktur:
-   `intern/` (PE-Excel, Exposé, ValuePaper), `Projektübersicht/` (`Bilder/WE/Haus …/<Lage>`, `Bilder/Allgem.`, `MV/`, `E-Ausweis/`, `Pläne:Wohnfläche/`, `TE/`), Baubeschreibung.
-   Gibt es mehrere PE-Dateien, die **neueste** „PE - …“ (Änderungsdatum) nehmen und dem Nutzer nennen.
-2. **Dateien laden**: `mcp__Google_Drive__download_file_content` liefert JSON mit base64 in `content`. Große Antworten
-   landen automatisch als Datei in `tool-results/`. Dekodieren: `jq -r .content <datei> | base64 -d > <ziel>`.
-   Alles nach `$SCRATCH/<projekt>/` legen (Scratchpad), **nicht ins Repo** (Mieterfotos = personenbezogen).
-3. **Einheiten prüfen**: `python -m teaser_generator.cli --pe <pe.xlsx> --list`.
-4. **Fakten**: Gibt es `projects/<slug>/facts.yaml` noch nicht, wird sie aus Exposé, Baubeschreibung, Energieausweisen,
-   Mieterliste und Besichtigungsnotizen erstellt. Das kann ein Subagent mit `read_file_content` übernehmen.
-   Nur belegte Fakten verwenden, nichts erfinden. Vorlage: `projects/freiligrathstr-oberhausen/facts.yaml`.
-5. **Fotos je Wohnung**: aus `Bilder/WE/Haus Nr. X/<Lage>` laden, bei Bedarf als Kontaktabzug ansehen und auswählen
-   (Wohnzimmer zuerst, dann Küche und Bad). Titelbild: eine Außenansicht aus `Bilder/Allgem.`.
-6. **Renovierungs-Visualisierungen**, wenn Reno-Rückstellung SE > 5.000 €. Higgsfield ist vom Nutzer generell freigegeben
-   (Stand 10/2026) – nicht mehr pro Wohnung nachfragen. Dann mit Higgsfield `generate_image_batch`
-   (Modell `gpt_image_2_5`, quality high, 2k), je ein Bild für Wohnzimmer, Küche und Bad. Pflicht im Prompt:
-   leer, neuer **brauner Vinylboden**, **weiße Wände**, **weiße Türen und Zargen**, **neue Schalter/Steckdosen**,
-   **neuer Fliesenspiegel in der Küche**, **neues Bad**, einfacher Mietstandard, Altbau der 1960er.
-   Ist-Fotos lassen sich aus dieser Umgebung nicht hochladen (upload.higgsfield.ai ist gesperrt). Deshalb nur
-   Text-Prompts, die den Raum anhand der Ist-Fotos beschreiben (Fensterform, Raumform).
-   Herunterladen geht ebenfalls nicht direkt (cloudfront gesperrt). Umweg: `sandbox_exec` lädt die Bilder per curl,
-   verkleinert sie auf ≤ 1400 px (`convert … -quality 80`) und gibt sie über `image_paths` zurück (≤ 512 KiB gesamt).
-   Die Rückgabe landet als `mcp-Higgsfield-blob-*.jpg` in `tool-results/`.
-7. **PDF erzeugen**:
-   ```
-   python -m teaser_generator.cli --pe <pe.xlsx> --facts projects/<slug>/facts.yaml --unit <WE-Nr> \
-     --cover <aussen.jpg> --photos <wohnen> <kueche> <bad> --renders <reno_wohnen> <reno_kueche> <reno_bad> \
-     --out out/<slug>/Teaser_WE<nr>.pdf
-   ```
-   Danach mit `pdftoppm -r 80 -png` rendern und jede Seite ansehen (Überläufe, abgeschnittene Tabellen).
-8. **Ausliefern**: PDF per `SendUserFile` schicken. Auf Wunsch per `mcp__Google_Drive__create_file` in den
-   Ordner `folgt - Vertriebsordner` hochladen, aber nur nach Bestätigung durch den Nutzer.
+Freigaben des Nutzers (Stand 10/2026): Higgsfield-Bildgenerierung generell erlaubt – nicht nachfragen.
+Ansprache im Teaser immer „du“. Mit dem Nutzer auf Deutsch kommunizieren.
 
-## Projekt-Teaser (ein PDF für alle Einheiten)
-Wenn der Nutzer einen Teaser „für alle Einheiten“ will: allgemeine Infos + Beispielrechnung einer Wohnung + Preisliste.
+Weitere Dateien dieses Skills – bei Bedarf lesen:
+- `references/regeln.md` – verbindliche Produkt-, Darstellungs- und Zuordnungsregeln (**vor dem ersten Teaser einer Sitzung lesen**)
+- `references/neues-projekt.md` – Projekt zum ersten Mal: facts.yaml anlegen, Lage- und Mietrecht-Recherche
+- `references/bilder.md` – Fotos auswählen, Visualisierungen erzeugen und herunterladen (Higgsfield)
+
+Code: `teaser_generator/` (Generator), `tools/` (Hilfsskripte), Firmen-Konfiguration `teaser_generator/config/cfq.yaml`,
+Projekte `projects/<slug>/facts.yaml`. Arbeitsdateien (Excel, Fotos, Renders) nur im Scratchpad, **nie ins Repo**
+(personenbezogene Mieterdaten). Unten steht `$S` für das Scratchpad-Verzeichnis der Sitzung.
+
+## Ablauf (Checkliste)
+
+### 1. Projekt erkennen
+- Gibt es `projects/<slug>/facts.yaml` mit `drive.ordner` = genannter Ordner? → **bekanntes Projekt** (Schritt 2 überspringen
+  bis auf PE-Excel laden). Sonst → **neues Projekt**: zuerst `references/neues-projekt.md` abarbeiten.
+- Drive-Ordner suchen: `search_files` mit `title contains '<Teil des Namens>' and mimeType = 'application/vnd.google-apps.folder'`.
+
+### 2. PE-Excel laden und Einheit prüfen
+- Neueste Datei „… PE …xlsx“ im Projektordner (meist `intern/`) per `download_file_content` laden, dann
+  `python tools/drive_decode.py $S/drive <file-id>` → `$S/drive/<id>.xlsx`.
+- `python -m teaser_generator.cli --pe <xlsx> --list` → Zeile `WE <Nr> (PE <interne Nr>)` der gewünschten Wohnung.
+  **WE-Nr. = Spalte „Einheit“ = Nummer laut Teilungserklärung.** Status (vermietet/frei), Fläche, Reno-Rückstellung notieren.
+- `drive.hinweise_te` in facts.yaml beachten (bekannte Abweichungen zwischen TE und Excel). Betrifft eine Abweichung die Wohnung
+  → **erst beim Nutzer nachfragen**, keinen Teaser erstellen.
+
+### 3. Fotos
+- Ordner `Projektübersicht/Bilder/WE/Haus Nr. <X>/<Lage>` suchen; Zuordnung nur über Haus + Geschoss + Lage (+ Fläche),
+  nie über Nummern in Ordnernamen. Fehlt ein Fotoordner oder ist die Zuordnung unklar → Nutzer fragen.
+- Alle Fotos laden → `python tools/drive_decode.py $S/units/we<Nr> <ids…>` → `python tools/contact_sheet.py $S/units/we<Nr> $S/we<Nr>_sheet.jpg`
+  → Kontaktabzug ansehen und 2–3 Fotos wählen (Reihenfolge: Wohnen, Küche, Bad; sonst Schlafzimmer). **Keine Fotos mit Personen.**
+- Titelbild = Außenansicht des Hauses aus `Bilder/Allgem.`; für bekannte Projekte steht die Drive-ID in `facts.yaml → drive.titelbild_id`.
+
+### 4. Visualisierungen (nur wenn Reno-Rückstellung SE > 5.000 €)
+Je gewähltem Ist-Foto ein passendes Soll-Bild – Details, Prompt-Vorlage und Download-Weg in `references/bilder.md`.
+
+### 5. PDF bauen und prüfen
+```
+python -m teaser_generator.cli --pe <xlsx> --facts projects/<slug>/facts.yaml --unit <WE-Nr> \
+  --cover <aussen.jpg> --photos <ist1> <ist2> <ist3> --renders <soll1> <soll2> <soll3> \
+  --out out/<slug>/Teaser_WE<NN>_<Straße><Nr>_<Lage>.pdf
+```
+- `--photos` und `--renders` in derselben Reihenfolge (Paare). Warnungen des Generators (z. B. Kappungsgrenze) an den Nutzer weitergeben.
+- **Jede Seite ansehen**: `pdftoppm -r 50 -png <pdf> $S/prev` und als Raster prüfen – nichts darf in die Fußzeile ragen,
+  keine abgeschnittenen Köpfe/Tabellen, Titel einzeilig. Bei Problemen Template anpassen, nicht die Zahlen.
+
+### 6. Ablage im Drive
+- WE-Ordner `WE <Nr> – <Adresse>` im Projektordner (IDs in `facts.yaml → drive.einheiten`, sonst per `search_files`
+  `title contains 'WE <Nr> '` suchen; fehlt er: Ordner + Unterordner `Ist-Bilder`, `Soll-Bilder` anlegen).
+- Ist-Fotos: `copy_file` in `Ist-Bilder`, Titel `WE<NN>_Ist_<Raum>.jpeg`.
+- Soll-Bilder + PDF: wenn `CFQ_DRIVE_UPLOAD_URL`/`CFQ_DRIVE_UPLOAD_TOKEN` gesetzt sind:
+  `python -m teaser_generator.drive_upload <soll-id> <soll-bilder…>` und `… <we-ordner-id> <pdf>`.
+  Sonst: per `SendUserFile` ausliefern und Zielordner nennen (Einrichtung des Uploads: `tools/DRIVE_UPLOAD.md`).
+- Neue Ordner-IDs in `facts.yaml → drive.einheiten` nachtragen.
+
+### 7. Abschluss
+- Code-/Konfigurationsänderungen committen und pushen (Arbeitsdateien bleiben im Scratchpad).
+- Dem Nutzer kurz melden: verwendete PE-Datei, gewählte Fotos, Besonderheiten (leer stehend, fehlende Fotos/Daten,
+  Abweichungen TE ↔ Excel, Generator-Warnungen), Ablageort. Visualisierungen sind KI-Beispielbilder (im PDF gekennzeichnet).
+
+## Variante: Projekt-Teaser (ein PDF für alle Einheiten)
+Wenn der Nutzer einen Teaser „für alle Einheiten“ bzw. das ganze Projekt will: allgemeine Infos + Beispielrechnung einer Wohnung + Preisliste.
 ```
 python -m teaser_generator.cli --pe <pe.xlsx> --facts projects/<slug>/facts.yaml --projekt --unit <Beispiel-WE> \
   --cover <aussen.jpg> --galerie <bild1> <bild2> <bild3> --out out/<slug>/Teaser_<Projekt>.pdf
@@ -64,48 +82,5 @@ Seiten: Cover · Projekt (Galerie, Häuserübersicht, Objektdaten) · Sanierung 
 Preisliste (hausweise, automatisch auf Seiten verteilt) · Lage · Zusammenfassung · Team. Projekttexte stehen in `facts.yaml → projekt`
 (Vorlage: `projects/tannenbergstr-eschweiler/facts.yaml`).
 `--whitelabel` erzeugt dieselbe Mappe ohne Logo, Kontaktdaten, Team-Seite, CFQ-Kennzahlen/Zitate und in neutralen Farben
-(Dateiname mit `_WhiteLabel`). Danach per `pdftotext … | grep -i cashflow` prüfen, dass kein Branding übrig ist. Die Seiten 3–7 des Wohnungs-Teasers sind als `templates/_seite_*.html` für beide Teaser gemeinsam.
-
-## Zuordnung & Ablage (verbindlich)
-- **WE-Nummer = Nummer laut Teilungserklärung** (in der PE-Excel Spalte „Einheit“, 1…n), NICHT die Spalte „WE-Nr.“ der
-  PE-Excel (interne Nummer, z. B. 33–60). Teaser, Ordner und Dateinamen verwenden immer die TE-Nummer.
-- **WE-Nummern nie aus Ordnernamen übernehmen.** Maßgeblich sind PE-Excel und Teilungserklärung (Ordner `Projektübersicht/TE`).
-  Vor dem ersten Teaser eines Projekts WE-Nr., Haus, Geschoss, Lage (li./re./mitte) und Fläche aus beiden abgleichen und
-  Abweichungen dem Nutzer melden. Fotoordner (`Bilder/WE/Haus …/<Lage>`) nur über Haus + Geschoss + Lage + Fläche zuordnen;
-  bei Widersprüchen (z. B. vertauschte Seiten) nachfragen statt raten.
-- **Ablage im Drive:** Im Projektordner je Einheit ein Ordner `WE <TE-Nr> – <Adresse laut PE-Excel>` mit den Unterordnern
-  `Ist-Bilder` und `Soll-Bilder`. Ist-Fotos per `copy_file` in `Ist-Bilder` kopieren. Soll-Bilder und Teaser-PDF hochladen mit
-  `python -m teaser_generator.drive_upload <ordner-id> <dateien…>` (Soll-Bilder → `Soll-Bilder`, PDF → WE-Ordner).
-  Das braucht `CFQ_DRIVE_UPLOAD_URL`/`CFQ_DRIVE_UPLOAD_TOKEN` in der Umgebung (Einrichtung: `tools/DRIVE_UPLOAD.md`).
-  Fehlen sie, Dateien per `SendUserFile` ausliefern und den Zielordner nennen.
-- **Titelbild** ist immer eine Außenansicht des Hauses (aus `Bilder/Allgem.`), nie ein Wohnungsfoto.
-
-## Darstellungsregeln (verbindlich)
-- **Positiv darstellen:** Ist eine Markt- oder Standortkennzahl negativ (z. B. Bevölkerungsprognose, Beschäftigtenentwicklung,
-  Preistrend), wird sie weggelassen und nicht erwähnt. Ausnahme: Die Zahlen der Käuferrechnung (Cashflow, Steuer, Bilanz) bleiben vollständig.
-- **Marktvergleich Seite 4:** Angebotspreise und -mieten aus mehreren Quellen recherchieren, den **Homeday-Preisatlas für die
-  konkrete Adresse** (`homeday.de/de/preisatlas/<stadt>/<straße+nr,+plz>?marketing_type=sell|rent&property_type=apartment`,
-  per Playwright im Higgsfield-Sandbox, da direkt gesperrt) immer abfragen. Alle Quellen in `facts.yaml → lage.preise` eintragen; der Generator filtert:
-  - Kauf: Quellen **unter** unserem Kaufpreis/m² (exkl. KNK) fliegen raus; gezeigt wird der Ø der übrigen. Bleibt keine übrig → Box aus.
-  - Miete: Quellen mehr als 15 % unter der SOLL-Miete fliegen raus; gezeigt wird die Spanne (min–max). Box nur, wenn die SOLL-Miete in der Spanne liegt.
-- **Mietrecht pro Projekt recherchieren:** Gilt in der Gemeinde eine abgesenkte Kappungsgrenze (z. B. 15 % statt 20 % in 3 Jahren)
-  oder eine Mietpreisbremse (Mieterschutzverordnung des Bundeslandes, Anlage mit Gemeindeliste)? Ergebnis in `facts.yaml → mietrecht`
-  eintragen. Der Generator warnt, wenn die PE-Excel mit einem anderen Erhöhungsfaktor rechnet – dann den Nutzer informieren.
-- **SEV-Vertrag:** Subvention und Renovierungsrückstellung stehen laut Kaufvertrag dem Käufer zu und werden per SEV-Vertrag als zinsloses
-  Darlehen an die Verwaltung gegeben. Renovierungen beauftragt CFQ und bezahlt sie aus der Rückstellung; die Rechnung lautet auf den
-  Eigentümer, der sie steuerlich absetzen kann.
-
-## Aufbau & Tonalität des Teasers
-- Ansprache immer mit **„du“**, wie auf www.cashflowquartier.com. Design: Onest, Navy #050D2B, Gold #E9B33F.
-- Titel: Straße · Wohnungsbezeichnung · Stadt (wird automatisch aus der Adresse in der PE-Excel gebildet).
-- Seiten (7): 1 Cover · 2 Wohnung (Ist-/Soll-Bilder, Wohnungs- und Objektdaten, Kaufpreis) · 3 Cashflow, Steuerrechnung, Vermögensbilanz
-  (10 Jahre, 3 % Wertsteigerung auf Kaufpreis exkl. KNK, Einsatz = Cashflow Monat 1 × 12 × 10) · 4 Lage · 5 Konzept, Subvention, SEV-Vertrag · 6 Konzept-Zusammenfassung (ohne EK finanzierbar, Marktmiete, keine Sondervermietung, Break-even-Miete, Portfolio-Aufbau) · 7 Team, Kundenstimmen, Links mit Icons.
-- Firmenweite Angaben (Team, Links, Kundenstimmen, Portfolio-Beispiele, Kontakt) stehen in `teaser_generator/config/cfq.yaml`; projektbezogene in `projects/<slug>/facts.yaml`.
-- Bilder werden im Generator exakt auf das Rahmenformat zugeschnitten und als `<img>` eingebettet – nie per CSS-Hintergrund (Apple Vorschau verzerrt sonst).
-- Die Lage-Seite kommt aus `facts.yaml` → `lage`. Für jedes neue Projekt neu recherchieren: Bevölkerung, Anbindung, Arbeitgeber,
-  Investitionen, Angebotspreise und -mieten, jeweils mit Quellen. Der Homeday-Preisatlas hat für kleinere Städte oft keine Wohnungsdaten.
-
-## Dem Nutzer immer melden
-- welche PE-Datei verwendet wurde,
-- Wohnungen ohne Fotos, Mietvertrag oder Fakten (dort steht dann „–“),
-- dass die Visualisierungen KI-Beispielbilder sind (im PDF gekennzeichnet).
+(Dateiname mit `_WhiteLabel`). Danach per `pdftotext … | grep -i cashflow` prüfen, dass kein Branding übrig ist.
+Die Seiten 3–7 des Wohnungs-Teasers liegen als `templates/_seite_*.html` (+ `_style.css`) und gelten für beide Teaser.

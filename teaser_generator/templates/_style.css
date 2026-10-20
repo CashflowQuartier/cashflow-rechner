@@ -130,16 +130,16 @@
   .vs .aus { background: var(--gold); }
 
   /* Team */
-  .team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm 3.5mm; }
-  .member .foto { height: 30mm; border-radius: var(--r-md); overflow: hidden; background: var(--gray); }
-  .member .d { font-size: 7.3pt; color: var(--muted); line-height: 1.35; margin-top: .8mm; }
-  .member .ini { height: 30mm; border-radius: var(--r-md); background: var(--gray); display: flex; align-items: center; justify-content: center;
+  .team { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm 3mm; }
+  .member .foto { aspect-ratio: 1 / 1; height: auto; border-radius: var(--r-md); overflow: hidden; background: var(--gray); }
+  .member .d { font-size: 6.6pt; color: var(--muted); line-height: 1.35; margin-top: .8mm; }
+  .member .ini { aspect-ratio: 1 / 1; height: auto; border-radius: var(--r-md); background: var(--gray); display: flex; align-items: center; justify-content: center;
     font-size: 20pt; font-weight: 600; color: rgba(5,13,43,.35); }
-  .member .n { font-weight: 600; font-size: 9.4pt; margin-top: 1.8mm; line-height: 1.2; }
+  .member .n { font-weight: 600; font-size: 9pt; margin-top: 1.4mm; line-height: 1.2; }
   .member .r { font-size: 7.8pt; color: var(--gold); font-weight: 600; }
   .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
   .quote { background: var(--gray); border-radius: var(--r-md); padding: 3.2mm 4mm; font-size: 7.9pt; line-height: 1.42; }
-  .quotes.compact .quote { font-size: 7.5pt; padding: 2.8mm 3.6mm; }
+  .quotes.compact .quote { font-size: 7.2pt; padding: 2.2mm 3.2mm; line-height: 1.35; }
   .quote .stars { color: var(--gold); letter-spacing: 1px; font-size: 9pt; }
   .quote .who { margin-top: 1.6mm; font-weight: 600; font-size: 8pt; }
   .quote .who span { font-weight: 400; color: var(--muted); }

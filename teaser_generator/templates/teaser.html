@@ -38,7 +38,7 @@
     <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
       <div class="t">Renovierungsrückstellung</div>
       <div class="v num">{{ reno_se|eur }}</div>
-      <ul><li>für deine Wohnung bei Mieterwechsel</li>{% for m in se %}<li>{{ m.name|replace('Fussbodenheizung','Fußbodenheizung') }}{% if m.name|lower == 'bad' %} komplett neu{% endif %}</li>{% endfor %}</ul></div></div>
+      <ul><li>für deine Wohnung {{ "bei Mieterwechsel" if vermietet else "vor der Neuvermietung" }}</li>{% for m in se %}<li>{{ m.name|replace('Fussbodenheizung','Fußbodenheizung') }}{% if m.name|lower == 'bad' %} komplett neu{% endif %}</li>{% endfor %}</ul></div></div>
     <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
       <div class="t">Kaufnebenkosten übernommen</div>
       <div class="v num">{{ u.knk|eur }}</div>
@@ -53,7 +53,7 @@
   {{ topbar('Die Wohnung') }}
   <div class="eyebrow">Deine Wohnung</div>
   <h2><span class="ul">Heute und nach der Renovierung.</span></h2>
-  <p class="lead">{{ flaeche|num }} m² · {{ 'vermietet' if vermietet else u.status }}. Oben siehst du den aktuellen Zustand vom Besichtigungstermin, darunter den Standard, den wir nach einem Mieterwechsel aus der Renovierungsrückstellung umsetzen.</p>
+  <p class="lead">{{ flaeche|num }} m² · {{ 'vermietet' if vermietet else u.status }}. Oben siehst du den aktuellen Zustand vom Besichtigungstermin, darunter den Standard, den wir {{ "nach einem Mieterwechsel" if vermietet else "vor der Neuvermietung" }} aus der Renovierungsrückstellung umsetzen.</p>
   <div class="pairs" style="grid-template-columns: repeat({{ [photos|length, 3]|min }}, 1fr)">
     {% for i in range([photos|length, 3]|min) %}
     <div class="pair">

@@ -13,7 +13,7 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from PIL import Image, ImageOps
 
-from . import finance
+from . import finance, pe_excel
 
 TEMPLATES = Path(__file__).parent / "templates"
 ASSETS = Path(__file__).parent / "assets"
@@ -30,12 +30,12 @@ CHROMIUM_CANDIDATES = [
     shutil.which("chromium-browser") or "",
     shutil.which("google-chrome") or "",
 ]
-RENO_BILDER_SCHWELLE = 5000
+RENO_BILDER_SCHWELLE = 5000  # ab dieser Reno-Rückstellung SE werden Visualisierungen gezeigt
 # Seitenverhältnisse (Breite/Höhe) der Bildrahmen im Layout – Bilder werden exakt darauf zugeschnitten
 HERO_RATIO = 182 / 98
 IST_RATIO = 58.3 / 62
 SOLL_RATIO = 58.3 / 40
-TEAM_RATIO = 42.9 / 30  # ab dieser Reno-Rückstellung SE werden Visualisierungen gezeigt
+TEAM_RATIO = 1.0  # quadratisch: Website-Porträts sind quadratisch, so wird kein Kopf abgeschnitten
 
 
 def eur(v, nachkomma=0):
@@ -159,7 +159,7 @@ def team_bilder(team: list[dict]) -> list[dict]:
         t = dict(t)
         bild = t.get("bild")
         pfad = (ASSETS / "team" / bild) if bild and not Path(bild).is_absolute() else (Path(bild) if bild else None)
-        t["foto"] = image_data_uri(pfad, 600, 80, ratio=TEAM_RATIO, fokus_y=0.25) if pfad and pfad.exists() else None
+        t["foto"] = image_data_uri(pfad, 600, 80, ratio=TEAM_RATIO, fokus_y=0.2) if pfad and pfad.exists() else None
         t["initialen"] = "".join(w[0] for w in t["name"].split()[:2]).upper()
         out.append(t)
     return out
@@ -232,7 +232,8 @@ def build_context(project, unit, facts: dict, photos: list[str], renders: list[s
         reno_se=reno_se,
         zeige_reno_bilder=reno_se > RENO_BILDER_SCHWELLE and bool(renders),
         weg_anteil=u.get("sanierung_weg") or 0,
-        weg=project.weg_massnahmen,
+        # Maßnahmen am Gemeinschaftseigentum: aus der PE-Excel plus projektbezogene Ergänzungen aus facts.yaml
+        weg=list(project.weg_massnahmen) + [pe_excel.Massnahme(n, None) for n in facts.get("weg_zusatz", [])],
         weg_summe=project.weg_summe,
         se=project.se_massnahmen,
         photos=[image_data_uri(x, 1400, ratio=IST_RATIO * spalten_faktor(photos)) for x in photos],

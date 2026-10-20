@@ -17,8 +17,8 @@
     <tr class="sum"><td colspan="4">Mietsubvention gesamt</td><td class="r">{{ subvention|eur }}</td></tr>
   </table>
 
-  <h3>Und wenn der Mieter vorher auszieht?</h3>
-  <p class="muted" style="font-size:8.8pt">Dann renoviert unsere Verwaltung die Wohnung aus der Renovierungsrückstellung von {{ reno_se|eur }} nach festen Vorgaben – {{ se|map(attribute='name')|join(', ')|replace('Fussbodenheizung','Fußbodenheizung') }} – und vermietet sie neu zur Marktmiete.</p>
+  <h3>{{ "Und wenn der Mieter vorher auszieht?" if vermietet else "Die Wohnung ist aktuell frei" }}</h3>
+  <p class="muted" style="font-size:8.8pt">{{ "Dann renoviert" if vermietet else "Vor der Neuvermietung renoviert" }} unsere Verwaltung die Wohnung aus der Renovierungsrückstellung von {{ reno_se|eur }} nach festen Vorgaben – {{ se|map(attribute='name')|join(', ')|replace('Fussbodenheizung','Fußbodenheizung') }} – und vermietet sie neu zur Marktmiete.</p>
 
   <h3>So ist es rechtlich geregelt – der SEV-Vertrag</h3>
   <div class="flow">

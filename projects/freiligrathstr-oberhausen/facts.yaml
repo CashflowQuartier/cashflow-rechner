@@ -11,16 +11,23 @@ drive:
   projektordner_id: 1v6qlIBdmANF-Of7ucvxxv8nZFyd4LmNM
   pe_excel: intern/20260915 - PE Freiligrathstr..xlsx
   teilungserklaerung: Projektübersicht/TE/Teilungserklärung.pdf
+  pe_excel_id: 1U3EuWzpNNfxqk1_kwlf-r0DdavaK29OY
+  titelbild_id: 1-xt5Qc-KtF2xIwjr9M8yColZwWM2bxzq  # IMG_8648.JPG, Außenansicht Freiligrathstr.
   # WE-Ordner (Nummer laut Teilungserklärung) – je Ordner Unterordner Ist-Bilder / Soll-Bilder.
   # Weitere Ordner-IDs per search_files (parentId = projektordner_id, title contains 'WE ') ermitteln.
   einheiten:
     1: {ordner: 1bs8ZzYd6N_aQ1zLy49hlhcEZaCw9Y3PC, ist: 11AnGPMCg5r1K1JeZHtmeBOyHxl1l-_Hj, soll: 1cRCRgIW7T_-1y9vhsimwGgxBDG-V-kUk}
+    4: {ordner: 1PAz1DifjTiRD8PFwcixZeSSketOWVss3, ist: 1-8wamZvyoGGwFKnn5j7DYNrWFBTfkLXP, soll: 1gvVb0UXyL9OMElG2uYWPq4jsRpsGw3ak}
     8: {ordner: 185uNPsO0hGbAquMuz8cjWltCc4d2H_mB, ist: 1A741RkJ5dK7LjOD8CSu2Fc5jZ968VmPM, soll: 1LM9iReUBgLL26D_1iiXwMhbpTrYRW35n}
     11: {ordner: 154w1Vicbu-PSQB0VYGTwYXUxPPB8aoNu, ist: 1cHtRo5ppSeJ_adJkTvlCE4Q7rIvCbrZB, soll: 1_klldon1pA7DM70FJrWnT5cBIe2_zOZf}
     16: {ordner: 19J_xbZ01sxJq4RegFebeZr0Bs2Cqfw54, ist: 1v8OAkW2upgY91uKSrXyo41SGRqpzVLAQ, soll: 1yyfGNJG_ihamAw8y2LEZHV9UwMl-bxIA}
   hinweise_te:
     - "WE 5/6 (Fr. 8, 2. OG): Flächen in der PE-Excel gegenüber TE vertauscht – vor Teaser klären."
     - "WE 17 umfasst laut PE-Excel auch TE-Nr. 18 (Baustr. 21A EG Mitte)."
+
+# Zusätzliche Maßnahmen am Gemeinschaftseigentum (ergänzt die Liste aus der PE-Excel)
+weg_zusatz:
+  - Umrüstung auf Wärmepumpe
 
 objekt:
   ort: 46117 Oberhausen-Osterfeld
@@ -29,7 +36,7 @@ objekt:
   baujahr: 1966
   anlage: 3 MFH, 28 WE (WEG seit 1983)
   bauweise: Massivbau, Satteldach
-  heizung: Gas-Zentralheizung (Kessel 2021)
+  heizung: Gas-Zentralheizung (Kessel 2021), Umrüstung auf Wärmepumpe geplant
   keller: voll unterkellert
   weitere:
     Außenflächen: ca. 300 m² Hof/Garten
