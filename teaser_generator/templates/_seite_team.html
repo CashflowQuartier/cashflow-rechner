@@ -1,0 +1,32 @@
+{# ================= Seite 7: Team & Vertrauen ================= #}
+<section class="page">
+  {{ topbar('Wer wir sind') }}
+  <div class="eyebrow">Alles aus einer Hand</div>
+  <h2><span class="ul">Dein Team bei Cashflow Quartier.</span></h2>
+  <p class="lead" style="margin-bottom:3mm">Ankauf, Finanzierung, Verkauf und Verwaltung – nichts wird an Dritte weitergereicht. Dasselbe Team begleitet dich vom ersten Gespräch bis zur laufenden Verwaltung.</p>
+  <div class="team">
+    {% for t in team %}
+    <div class="member">
+      {% if t.foto %}<div class="foto"><img src="{{ t.foto }}" alt="{{ t.name }}"></div>{% else %}<div class="ini">{{ t.initialen }}</div>{% endif %}
+      <div class="n">{{ t.name }}</div><div class="r">{{ t.rolle }}</div>
+      {% if t.text %}<div class="d">{{ t.text }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <a class="rating" href="{{ f.anbieter.google.link }}" style="margin-top:2.5mm; padding: 2.6mm 5mm">
+    <div class="score">{{ f.anbieter.google.sterne }}</div>
+    <div class="txt"><b>★★★★★</b><br>{{ f.anbieter.google.anzahl }} Google-Rezensionen</div>
+    <span class="cta">Alle Kundenstimmen ansehen →</span>
+  </a>
+  <div class="quotes compact">
+    {% for q in f.testimonials %}<div class="quote"><div class="stars">★★★★★</div>„{{ q.text }}“<div class="who">{{ q.name }} <span>· {{ q.quelle }}</span></div></div>{% endfor %}
+  </div>
+
+  <h3 style="margin-top:2.5mm">Folge uns & mehr erfahren</h3>
+  <div class="links">
+    {% for l in links %}<a href="{{ l.url }}"><span class="ico">{{ l.svg|safe }}</span><span><span class="l">{{ l.label }}</span><span class="u">{{ l.text }}</span></span></a>{% endfor %}
+    <a href="{{ f.anbieter.erstgespraech }}" style="background:var(--gold)"><span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><span><span class="l">Gespräch vereinbaren</span><span class="u" style="color:var(--navy)">Fragen zur Wohnung?</span></span></a>
+  </div>
+  {{ foot(seite_nr.team) }}
+</section>

@@ -1,0 +1,126 @@
+# Objektfakten für den Projekt-Teaser – aus den Unterlagen im Drive-Ordner
+# "1. PE - Interesse / Tannenbergstr. Eschweiler" (Exposé Wolf Capital 11/2024, Teilungserklärungen 1999,
+# Mieterliste 10/2026, Angebot Novus Bau 15.10.2026, PAUL-Net-Zero-Vergleich 19.10.2026) und einer Web-Recherche.
+# Zahlen zu Preisen, Subvention, Rückstellungen und Cashflow kommen NICHT von hier, sondern aus der PE-Excel.
+stand: Oktober 2026
+
+drive:
+  ordner: 1. PE - Interesse / Tannenbergstr. Eschweiler
+  projektordner_id: 12FMG9I0bF9KOLCsE1njN6Rvh0miWFSB7
+  pe_excel: 20261015 - PE Eschweiler.xlsx
+  teilungserklaerungen: 2_Amtliche Unterlagen/2.4_Teilungserklärungen (3 TEs vom 23.11.1999, UR-Nr. 2231–2233/1999)
+  hinweise_te:
+    - "Drei WEGs: Tannenbergstr. 6–28 (Häuserzeilen A/B/C mit je eigener Nummerierung 1–18 + Nr. 19–21), Haldenstr. 2 + Tannenbergstr. 36/38 (Nr. 1–19), Haldenstr. 1 (Nr. 1–9)."
+    - "Abschriften ohne Aufteilungspläne: Geschoss und Lage (links/rechts) stehen nicht in der TE – WE-Nummern deshalb noch nicht in die PE übernommen."
+    - "Flächen TE ≠ PE/Mieterliste, v. a. DG (TE 42,97–52,36 m², PE 37,07–39,07 m²), Tannenbergstr. 12 (TE 95,68, PE 110) und 28 (TE 84,07, PE 91,74)."
+
+objekt:
+  ort: 52249 Eschweiler-Wilhelmshöhe
+  stadt: Eschweiler
+  daten:
+    Adressen: Tannenbergstr. 6–28, 36, 38 · Haldenstr. 1, 2
+    Bauweise: zweigeschossige Klinker-Mehrfamilienhäuser mit Satteldach
+    Aufteilung: nach WEG geteilt seit 1999 (3 Gemeinschaften)
+    Modernisierung: "Heizung, Versorgungsleitungen und Großteil der Elektrik 2000 erneuert, Bäder 2002 saniert"
+    Heizung: Gas-Zentralheizung, künftig Wärmepumpen (PAUL Net Zero)
+    Stellplätze: vor den Gebäuden
+    Grundstücke: ca. 7.800 m² (Gemarkung Weisweiler)
+
+projekt:
+  titel: Tannenbergstraße & Haldenstraße
+  untertitel: Vermietete Eigentumswohnungen – Marktmiete ab Tag 1, ohne Kaufnebenkosten, mit neuem Dach und neuer Wärme.
+  headline: Ein ganzes Quartier – Wohnung für Wohnung.
+  intro: >-
+    Die Häuser in der Tannenbergstraße und der Haldenstraße bilden ein gewachsenes Wohnquartier im Osten von Eschweiler.
+    Kompakte Zwei- und Dreizimmerwohnungen, fast alle vermietet, bereits nach WEG geteilt. Wir sanieren Dach, Giebel,
+    Treppenhäuser, Zähleranlage und Heizung – und du kaufst die Wohnung, die zu dir passt.
+  sanierung_intro: >-
+    Wir legen die Basis für die nächsten Jahrzehnte: Die Maßnahmen am Gemeinschaftseigentum sind im Kaufpreis bereits
+    enthalten und als Rückstellung hinterlegt – du musst dafür nichts zusätzlich einplanen.
+  sanierung:
+    - {name: Neues Dach, text: "Neueindeckung mit Betondachsteinen, neue Unterspannbahn, Lattung und Regenrinnen."}
+    - {name: Fassade, text: "Sanierung der Fassaden – für ein gepflegtes Erscheinungsbild und einen besseren Wärmeschutz."}
+    - {name: Gedämmte Giebel, text: "Wärmedämmverbundsystem mit 12 cm Dämmung und weißem Silikonharzputz an den sechs Giebelwänden."}
+    - {name: Treppenhäuser, text: "Renovierung der Treppenhäuser – der erste Eindruck für Mieter und Interessenten."}
+    - {name: Zählerzentralisierung, text: "Zentrale, moderne Zähleranlage statt verteilter Einzelzähler."}
+    - {name: Wärmepumpe statt Gas, text: "Wärmepumpen mit Ökostrom (PAUL Net Zero) statt Gas-Zentralheizung – ohne Investition der Eigentümer."}
+  weg_hinweis: "Die Wärmepumpen laufen als Wärmeliefervertrag und sind nicht Teil der Rückstellung."
+  energie:
+    vorher: H
+    nachher: C
+    nachher_label: mindestens
+    kurz: Wärmepumpen statt Gas – Energieklasse H → mindestens C
+    punkte:
+      - "Endenergie rund −70 %: z. B. 257 → 73 kWh/(m²·a) in der Tannenbergstr. 6–10."
+      - "CO2 der Heizung praktisch null – kein Vermieteranteil am CO2-Preis, GEG (65 % erneuerbar) erfüllt."
+      - "Einbau, Wartung und Störungsdienst übernimmt PAUL, Wärmepreis für 15 Jahre vereinbart."
+    quelle: "Quelle: Angebot PAUL Tech AG vom 16.10.2026 / Vergleichsrechnung Kola NetZero vom 19.10.2026, unverbindliche Schätzung."
+  reno_je_qm: 400
+  reno_standard: [neuer Vinylboden, weiße Wände, Türen und Zargen, neue Schalter und Steckdosen, Fliesenspiegel in der Küche, neues Bad]
+  preisliste_hinweis: "Lage und Flächen laut Mieterliste/PE; maßgeblich für Nummer, Fläche und Miteigentumsanteil ist die Teilungserklärung."
+
+mietrecht:
+  kappungsgrenze: 0.20
+  mietpreisbremse: false
+  hinweis: "Eschweiler ist nicht in der Mieterschutzverordnung NRW (MietSchVO NRW vom 28.01.2025) aufgeführt: Es gilt die allgemeine Kappungsgrenze von 20 % in 3 Jahren, eine Mietpreisbremse besteht nicht."
+
+lage:
+  titel: Eschweiler – wachsende Stadt zwischen Aachen und Köln
+  intro: >-
+    Eschweiler wächst: Über 57.500 Menschen leben hier, Tendenz steigend. Aachen liegt direkt vor der Tür, Köln ist mit dem
+    Regionalexpress in rund 40 Minuten erreichbar – und mit Indesee und Milliarden-Strukturmitteln wird das Rheinische Revier
+    zur Zukunftsregion.
+  kennzahlen:
+    - {wert: "57.534", label: Einwohner Eschweiler, sub: "+ über 1.000 innerhalb eines Jahres (IT.NRW)"}
+    - {wert: "ca. 40 Min.", label: nach Köln Hbf, sub: "RE 1 / RE 9 ab Eschweiler Hbf im Halbstundentakt"}
+    - {wert: "14 km", label: bis Aachen, sub: "Luftlinie · RWTH und Uniklinik in Pendeldistanz"}
+    - {wert: "14,8 Mrd. €", label: Strukturmittel Rheinisches Revier, sub: "bis 2038 · über 950 Projekte bewilligt"}
+  preise:
+    kauf:
+      label: Ø Angebotspreis Eigentumswohnung Eschweiler
+      quellen:
+        - {name: Immowelt (Eschweiler, 03/2026), wert: 2361}
+        - {name: ImmoScout24 (Eschweiler, 2026), wert: 2330}
+        - {name: Engel & Völkers (Eschweiler, Q1/2026), wert: 2711}
+        - {name: immoportal (Eschweiler, 09/2026), wert: 2587}
+        - {name: Homeday Preisatlas (Eschweiler, Q2/2026), wert: 2400}
+        - {name: wohnungsboerse.net (Eschweiler, 2025), wert: 2301}
+        - {name: miete-aktuell (Weisweiler, 2025), wert: 2295}
+    miete:
+      label: Angebotsmieten Eschweiler
+      quellen:
+        - {name: ImmoScout24 (Eschweiler, Q2/2026), wert: 8.53}
+        - {name: Immowelt (Eschweiler, 10/2026), wert: 9.00}
+        - {name: Engel & Völkers (Eschweiler, Q2/2026), wert: 9.95}
+        - {name: immoportal (Eschweiler, 2026), wert: 8.77}
+        - {name: miet-check (Eschweiler, 2026), wert: 9.47}
+        - {name: ohne-makler (Eschweiler, 2026), wert: 9.35}
+        - {name: miete-aktuell (Weisweiler, 2026), wert: 9.08}
+  abschnitte:
+    - titel: Bevölkerung
+      punkte:
+        - "57.534 Einwohner (IT.NRW, 31.12.2024) – über 1.000 mehr als ein Jahr zuvor."
+        - "Zweitgrößte Stadt der Städteregion Aachen mit 15 Stadtteilen."
+    - titel: Anbindung
+      punkte:
+        - "A4 Aachen–Köln mit den Anschlussstellen Eschweiler-West, Eschweiler-Ost und Weisweiler direkt im Stadtgebiet."
+        - "euregiobahn RB 20 ab Bahnhof Eschweiler-Weisweiler ohne Umstieg nach Aachen Hbf."
+        - "RE 1 und RE 9 ab Eschweiler Hbf im Halbstundentakt, nach Köln Hbf in rund 40 Minuten."
+    - titel: Arbeitgeber
+      punkte:
+        - "St.-Antonius-Hospital als größter Arbeitgeber der Stadt mit rund 1.300 Beschäftigten."
+        - "Industrie- und Gewerbepark Eschweiler: rund 1.500 Beschäftigte in 35 Betrieben, in der Erweiterung weitere rund 1.300."
+        - "Uniklinik RWTH Aachen mit rund 9.000 Mitarbeitenden in Pendeldistanz."
+    - titel: Strukturwandel & Investitionen
+      punkte:
+        - "14,8 Mrd. € Strukturmittel für das Rheinische Revier bis 2038 – über 950 Projekte mit rund 3,4 Mrd. € bereits bewilligt."
+        - "Energiestandort Weisweiler: RWE baut Gasturbinen um, die Fernwärme aus der MVA Weisweiler (95 MW, 65 Mio. €) wird ab 2029 kohlefrei."
+        - "Aus dem Tagebau Inden entsteht ab 2030 der Indesee mit rund 50 geplanten Maßnahmen an den Ufern."
+    - titel: Wilhelmshöhe
+      punkte:
+        - "Ruhiges Wohnquartier im Osten der Stadt an der B 264 zwischen Eschweiler und Langerwehe, gemeinsam mit Weisweiler und Hücheln."
+        - "Blausteinsee, Indemann und die Grünroute an der Inde machen das indeland zum Naherholungsgebiet vor der Haustür."
+  quellen: >-
+    Quellen: IT.NRW 31.12.2024; MHKBD NRW (MietSchVO NRW 28.01.2025); Stadt Eschweiler Wirtschaftsförderung; Land NRW 24.09.2026;
+    RWE Power 2024/2025; indeland GmbH; DB-Fahrplan 2026; luftlinie.org; Immowelt, ImmoScout24, Engel & Völkers, immoportal, Homeday,
+    wohnungsboerse.net, miet-check, ohne-makler, miete-aktuell (Angebotspreise und -mieten 2025/2026).

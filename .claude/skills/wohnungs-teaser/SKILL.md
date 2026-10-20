@@ -71,3 +71,16 @@ python -m teaser_generator.cli --pe <xlsx> --facts projects/<slug>/facts.yaml --
 - Code-/Konfigurationsänderungen committen und pushen (Arbeitsdateien bleiben im Scratchpad).
 - Dem Nutzer kurz melden: verwendete PE-Datei, gewählte Fotos, Besonderheiten (leer stehend, fehlende Fotos/Daten,
   Abweichungen TE ↔ Excel, Generator-Warnungen), Ablageort. Visualisierungen sind KI-Beispielbilder (im PDF gekennzeichnet).
+
+## Variante: Projekt-Teaser (ein PDF für alle Einheiten)
+Wenn der Nutzer einen Teaser „für alle Einheiten“ bzw. das ganze Projekt will: allgemeine Infos + Beispielrechnung einer Wohnung + Preisliste.
+```
+python -m teaser_generator.cli --pe <pe.xlsx> --facts projects/<slug>/facts.yaml --projekt --unit <Beispiel-WE> \
+  --cover <aussen.jpg> --galerie <bild1> <bild2> <bild3> --out out/<slug>/Teaser_<Projekt>.pdf
+```
+Seiten: Cover · Projekt (Galerie, Häuserübersicht, Objektdaten) · Sanierung & Energie · Beispielrechnung · Konzept/Subvention ·
+Preisliste (hausweise, automatisch auf Seiten verteilt) · Lage · Zusammenfassung · Team. Projekttexte stehen in `facts.yaml → projekt`
+(Vorlage: `projects/tannenbergstr-eschweiler/facts.yaml`).
+`--whitelabel` erzeugt dieselbe Mappe ohne Logo, Kontaktdaten, Team-Seite, CFQ-Kennzahlen/Zitate und in neutralen Farben
+(Dateiname mit `_WhiteLabel`). Danach per `pdftotext … | grep -i cashflow` prüfen, dass kein Branding übrig ist.
+Die Seiten 3–7 des Wohnungs-Teasers liegen als `templates/_seite_*.html` (+ `_style.css`) und gelten für beide Teaser.

@@ -31,12 +31,15 @@ def main(argv=None):
     ap.add_argument("--out", help="Ziel-PDF")
     ap.add_argument("--html", help="zusätzlich HTML speichern")
     ap.add_argument("--list", action="store_true", help="Einheiten auflisten")
+    ap.add_argument("--projekt", action="store_true", help="Projekt-Teaser über alle Einheiten (Beispielwohnung = --unit)")
+    ap.add_argument("--whitelabel", action="store_true", help="Projekt-Teaser ohne Logo, Kontakt, Team und Hausfarben")
+    ap.add_argument("--galerie", nargs="*", default=[], help="Projekt-Teaser: bis zu 3 Impressionen für die Projektseite")
     a = ap.parse_args(argv)
 
     project = pe_excel.load(a.pe)
     if a.list:
         for u in project.units:
-            print(f"WE {int(u['einheit']):>2} (PE {int(u['we_nr'])})  {u['adresse']:<32} {u['flaeche']:>6.2f} m²  KP {u['kaufpreis']:>9,.0f} €  "
+            print(f"WE {int(u['einheit'] or 0):>2} (PE {int(u['we_nr'] or 0)})  {u['adresse']:<32} {u['flaeche']:>6.2f} m²  KP {u['kaufpreis']:>9,.0f} €  "
                   f"Subv. {u['subvention']:>8,.0f} €  Reno SE {u['reno_se'] or 0:>8,.0f} €  {u['status']}")
         return 0
     if not (a.unit and a.facts and a.out):
@@ -45,6 +48,15 @@ def main(argv=None):
     facts = yaml.safe_load(render.GLOBAL_CONFIG.read_text(encoding="utf-8")) or {}
     facts.update(yaml.safe_load(Path(a.facts).read_text(encoding="utf-8")) or {})
     unit = project.unit(a.unit)
+    if a.projekt:
+        from . import projekt
+        ctx = projekt.build_context(project, unit, facts, a.cover, a.galerie, a.photos, a.whitelabel)
+        html = projekt.render_html(ctx)
+        if a.html:
+            Path(a.html).write_text(html, encoding="utf-8")
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        print(f"Projekt-Teaser erstellt: {render.html_to_pdf(html, a.out)}")
+        return 0
     kappung = (facts.get("mietrecht") or {}).get("kappungsgrenze")
     if kappung and unit.get("erh1_qm") and unit.get("ist_miete"):
         faktor = unit["erh1_qm"] / (unit["ist_miete"] / unit["flaeche"])

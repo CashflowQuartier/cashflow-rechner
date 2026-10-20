@@ -21,6 +21,12 @@ python -m teaser_generator.cli --pe "PE - ….xlsx" --facts projects/<slug>/fact
 ```
 Für die PDF-Erzeugung wird Headless-Chromium verwendet (`CHROMIUM_PATH` setzen, falls nicht automatisch gefunden).
 
+Projekt-Teaser über alle Einheiten (allgemeine Infos, Beispielrechnung, Preisliste; `--whitelabel` ohne CFQ-Branding):
+```bash
+python -m teaser_generator.cli --pe "PE - ….xlsx" --facts projects/<slug>/facts.yaml --projekt --unit 1 \
+  --cover aussen.jpg --galerie a.jpg b.jpg c.jpg --out out/Teaser_Projekt.pdf
+```
+
 ## Mit Claude (Skill „wohnungs-teaser“)
 In einer neuen Claude-Code-Sitzung mit diesem Repo genügt: „Teaser für <Projektordner>, WE <Nr>“.
 Ablauf, Regeln und Recherche-Anleitung: `.claude/skills/wohnungs-teaser/` (SKILL.md + references/).

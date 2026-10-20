@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>{{ titel.voll }}</title>
+<style>
+  {{ font_css|safe }}
+  {% include "_style.css" %}
+  /* Projekt-Teaser */
+  .topbar.wl { padding-top: 2mm; }
+  .topbar.wl .crumb { text-align: left; }
+  .topbar.wl .crumb + .crumb { text-align: right; }
+  {% if whitelabel %}:root { --navy: #1f2a33; --gold: #cdb991; --muted: rgba(31,42,51,.62); --soft: rgba(31,42,51,.1); }{% endif %}
+  .kpi .v.vb { font-size: 12.5pt; line-height: 1.22; }
+  .kpi .v.vb span { font-size: 8pt; font-weight: 500; color: var(--muted); display: inline-block; width: 6.5mm; }
+  .galerie { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; margin-bottom: 4mm; }
+  .galerie .ph { height: 44mm; }
+  .galerie .ph img { display: block; width: 100%; height: 100%; }
+  table.liste { font-size: 7.3pt; }
+  table.liste td, table.liste th { padding: .95mm 1.1mm; }
+  table.liste th { font-size: 6.6pt; line-height: 1.2; vertical-align: bottom; }
+  table.liste tr.haus td { background: var(--navy); color: #fff; font-weight: 600; font-size: 7.8pt; border-bottom: none; padding: 1.3mm 1.6mm; }
+  table.liste tr.haus td span { font-weight: 400; color: rgba(255,255,255,.7); }
+  table.liste td.gold { font-weight: 700; }
+  table.liste td:first-child { white-space: nowrap; }
+  .tag { display: inline-block; font-size: 6.4pt; font-weight: 600; padding: .2mm 1.6mm; border-radius: 3mm; background: var(--gray-2); }
+  .tag.frei { background: var(--gold); }
+  .massn { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+  .massn .card { padding: 4mm 4.5mm; }
+  .massn .t { font-weight: 600; font-size: 10pt; margin-bottom: .8mm; }
+  .massn p { font-size: 8pt; color: var(--muted); margin: 0; line-height: 1.4; }
+  .energie { display: grid; grid-template-columns: 1fr auto 1fr; gap: 4mm; align-items: center; }
+  .klasse { border-radius: var(--r-md); padding: 3.5mm 4.5mm; text-align: center; }
+  .klasse .v { font-size: 30pt; font-weight: 800; line-height: 1; }
+  .klasse .k { font-size: 8pt; margin-top: 1mm; }
+  .klasse.alt { background: var(--gray); color: var(--muted); }
+  .klasse.neu { background: var(--gold); }
+  .pfeil { font-size: 22pt; color: var(--gold); font-weight: 700; }
+  .bildwand { display: grid; grid-template-columns: 2fr 1fr; gap: 3.5mm; height: 92mm; }
+  .bildwand .ph img { display: block; width: 100%; height: 100%; }
+  .bildwand .stapel { display: grid; grid-template-rows: 1fr 1fr; gap: 3.5mm; }
+  .datenraster { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; }
+  .datenraster .d { background: var(--gray); border-radius: var(--r-md); padding: 3mm 3.8mm; }
+  .datenraster .k { font-size: 7.6pt; color: var(--muted); }
+  .datenraster .v { font-size: 8.8pt; font-weight: 600; line-height: 1.35; margin-top: .5mm; }
+  .massn .card { padding: 3.2mm 4mm; }
+  .energie-quer { display: grid; grid-template-columns: 44mm 1fr; gap: 4mm; align-items: center; }
+  .energie-quer .energie { gap: 2mm; }
+  .energie-quer .klasse { padding: 2.5mm 2mm; }
+  .energie-quer .klasse .v { font-size: 22pt; }
+  .energie-quer .klasse .k { font-size: 6.8pt; line-height: 1.25; }
+  .energie-quer .pfeil { font-size: 15pt; }
+  .energie-quer ul.dots { font-size: 7.8pt; }
+  .se { border: 1.5px solid var(--gold); border-radius: var(--r-lg); overflow: hidden; }
+  .se-kopf { background: var(--gold); padding: 3.5mm 5mm; display: grid; grid-template-columns: auto 1fr; gap: 6mm; align-items: center; }
+  .se-kopf .v { font-size: 24pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1; white-space: nowrap; }
+  .se-kopf .v span { font-size: 10pt; font-weight: 600; }
+  .se-kopf .s { font-size: 8.6pt; line-height: 1.4; }
+  .se-spalten { display: grid; grid-template-columns: 1.05fr .85fr 1.1fr; gap: 5mm; padding: 4mm 5mm; }
+  ol.ablauf { margin: 0; padding-left: 4.2mm; font-size: 8pt; color: var(--muted); line-height: 1.42; }
+  ol.ablauf li { margin-bottom: 1.2mm; }
+  ol.ablauf b { color: var(--navy); font-weight: 600; }
+  .se-t { font-weight: 600; font-size: 9.2pt; margin-bottom: 1.5mm; }
+  table.se-tab { font-size: 8.6pt; }
+  table.se-tab td { padding: 1mm 1.2mm; }
+</style>
+</head>
+<body>
+{% set check_svg %}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"/></svg>{% endset %}
+{% macro topbar(bereich) -%}
+  {% if whitelabel %}<div class="topbar wl"><div class="crumb"><b>{{ titel.voll }}</b></div><div class="crumb">{{ bereich }}</div></div>
+  {% else %}<div class="topbar"><img src="{{ logo }}" alt="{{ f.anbieter.name }}"><div class="crumb"><b>{{ titel.voll }}</b><br>{{ bereich }}</div></div>{% endif %}
+{%- endmacro %}
+{% macro absender() -%}
+  {% if whitelabel %}{{ titel.voll }} · Kapitalanlage-Exposé{% else %}{{ f.anbieter.name }} · <a href="mailto:{{ f.anbieter.email }}">{{ f.anbieter.email }}</a> · {{ f.anbieter.adresse }}{% endif %}
+{%- endmacro %}
+{% macro foot(nr) -%}
+  <div class="foot"><span>{{ absender() }}</span><span>Seite {{ nr }}</span></div>
+{%- endmacro %}
+
+{# ================= Seite 1: Cover ================= #}
+<section class="page cover">
+  <div class="topbar{{ ' wl' if whitelabel }}">{% if not whitelabel %}<img src="{{ logo }}" alt="{{ f.anbieter.name }}">{% else %}<span class="crumb">Stand {{ f.stand }}</span>{% endif %}<span class="pill">Exklusives Kapitalanlage-Angebot</span></div>
+  <h1><span class="ul">{{ titel.voll }}</span></h1>
+  <div class="sub">{{ anzahl }} Einheiten an {{ haeuser|length }} Adressen · {{ f.objekt.ort }}<br>{{ projekt.untertitel }}</div>
+  <div class="hero"><img src="{{ cover }}" alt="Außenansicht"></div>
+  <div class="kpis">
+    <div class="kpi"><div class="k">Einheiten</div><div class="v num">{{ anzahl_wohnen }}{% if anzahl_gewerbe %} + {{ anzahl_gewerbe }}{% endif %}</div><div class="s">Wohnungen{% if anzahl_gewerbe %} + Gewerbe{% endif %} · {{ qm_min|num(0) }}–{{ qm_max|num(0) }} m²</div></div>
+    <div class="kpi"><div class="k">Gesamtinvest</div><div class="v num vb"><span>von</span> {{ kp_min|eur }}<br><span>bis</span> {{ kp_max|eur }}</div><div class="s">je Wohnung inkl. Kaufnebenkosten</div></div>
+    <div class="kpi"><div class="k">Mietrendite</div><div class="v num">{{ rendite_netto|pct }}</div><div class="s">auf Kaufpreis exkl. KNK¹ · SOLL-Miete {{ soll_qm|num }} €/m²</div></div>
+    <div class="kpi"><div class="k">Monatlich nach Steuern</div><div class="v num">{{ monat.cf_nach_steuer|signed_eur }}</div><div class="s">Beispielwohnung² bei 100 % Finanzierung – davon {{ monat.tilgung|eur }} Tilgung</div></div>
+  </div>
+  <div class="checks">
+    <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
+      <div class="t">Sanierung Gemeinschaftseigentum</div>
+      <div class="v num">{{ weg_summe|eur }}</div>
+      <ul>{% for m in projekt.sanierung %}<li>{{ m.name }}</li>{% endfor %}</ul></div></div>
+    <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
+      <div class="t">Energieeffizienz</div>
+      <div class="v">{{ projekt.energie.vorher }} → {{ projekt.energie.nachher }}</div>
+      <ul><li>{{ projekt.energie.kurz }}</li><li>Renovierungsrückstellung für jede Wohnung bei Mieterwechsel</li></ul></div></div>
+    <div class="check"><div class="ic">{{ check_svg|safe }}</div><div>
+      <div class="t">Kaufnebenkosten übernommen</div>
+      <div class="v">100 %</div>
+      <ul><li>Grunderwerbsteuer</li><li>Notar</li><li>Grundbuch</li><li>Außer dem Gesamtinvest fallen für dich keine weiteren Kosten an.</li></ul></div></div>
+  </div>
+  <p class="note" style="margin-top:5mm">¹ Kaufpreis ohne die von uns übernommenen Kaufnebenkosten. ² {{ beispiel_lage }}, {{ flaeche|num }} m², Gesamtinvest {{ u.kaufpreis|eur }} – Rechnung auf Seite {{ seite_nr.cashflow }}, Werte aller Einheiten in der Preisliste ab Seite {{ seite_nr.preisliste }}.</p>
+  <div class="foot"><span>{{ absender() }}</span><span>Stand {{ f.stand }}</span></div>
+</section>
+
+{# ================= Seite 2: Das Projekt ================= #}
+<section class="page">
+  {{ topbar('Das Projekt') }}
+  <div class="eyebrow">Das Projekt</div>
+  <h2><span class="ul">{{ projekt.headline }}</span></h2>
+  <p class="lead">{{ projekt.intro }}</p>
+  {% if galerie %}
+  <div class="bildwand">
+    <div class="ph gross"><img src="{{ galerie[0] }}" alt="Impression"></div>
+    <div class="stapel">{% for g in galerie[1:3] %}<div class="ph"><img src="{{ g }}" alt="Impression"></div>{% endfor %}</div>
+  </div>
+  {% endif %}
+  <div class="stats" style="margin-top:5mm">
+    <div class="stat"><div class="v">{{ anzahl_wohnen }}{% if anzahl_gewerbe %} + {{ anzahl_gewerbe }}{% endif %}</div><div class="k">Einheiten</div><div class="s">Wohnungen{% if anzahl_gewerbe %} + Gewerbe{% endif %} an {{ haeuser|length }} Adressen</div></div>
+    <div class="stat"><div class="v">{{ flaeche_gesamt|num(0) }} m²</div><div class="k">Fläche gesamt</div><div class="s">Wohnungen von {{ qm_min|num(0) }} bis {{ qm_max|num(0) }} m²</div></div>
+    <div class="stat"><div class="v">{{ anzahl_vermietet }} / {{ anzahl }}</div><div class="k">vermietet</div><div class="s">freie Einheiten zur Neuvermietung</div></div>
+    <div class="stat"><div class="v">{{ (subvention_gesamt + reno_gesamt + weg_summe)|eur }}</div><div class="k">im Kaufpreis für dich</div><div class="s">Subvention, Renovierung und Sanierung</div></div>
+  </div>
+  <h3>Objektdaten</h3>
+  <div class="datenraster">
+    {% for k, v in (f.objekt.daten or {}).items() %}<div class="d"><div class="k">{{ k }}</div><div class="v">{{ v }}</div></div>{% endfor %}
+  </div>
+  {{ foot(2) }}
+</section>
+
+{# ================= Seite 3: Sanierung & Energie ================= #}
+<section class="page">
+  {{ topbar('Sanierung & Energie') }}
+  <div class="eyebrow">Was wir investieren</div>
+  <h2><span class="ul">Neues Dach, neue Fassade, neue Wärme.</span></h2>
+  <p class="lead" style="margin-bottom:2mm">{{ projekt.sanierung_intro }}</p>
+  <h3 style="margin-top:0">Gemeinschaftseigentum</h3>
+  <div class="massn">
+    {% for m in projekt.sanierung %}<div class="card"><div class="t">{{ m.name }}</div><p>{{ m.text }}</p></div>{% endfor %}
+  </div>
+  <div class="grid2" style="margin-top:3mm; grid-template-columns: 1fr 2fr; gap:3mm">
+    <div class="card dark" style="padding:4mm 5mm">
+      <h3>Rückstellung Gemeinschaftseigentum</h3>
+      <div class="big" style="color:var(--gold); font-size:22pt">{{ weg_summe|eur }}</div>
+      <p class="note" style="margin:0">Im Kaufpreis enthalten, anteilig nach Miteigentumsanteilen – deinen Anteil zeigt die Preisliste. Keine Sonderumlage für dich.</p>
+    </div>
+    <div class="card" style="padding:4mm 5mm">
+      <h3>Energieeffizienz</h3>
+      <div class="energie-quer">
+        <div class="energie">
+          <div class="klasse alt"><div class="v">{{ projekt.energie.vorher }}</div><div class="k">heute</div></div>
+          <div class="pfeil">→</div>
+          <div class="klasse neu"><div class="v">{{ projekt.energie.nachher }}</div><div class="k">{{ projekt.energie.nachher_label }}</div></div>
+        </div>
+        <ul class="dots">{% for pkt in projekt.energie.punkte %}<li>{{ pkt }}</li>{% endfor %}</ul>
+      </div>
+      <p class="note" style="margin:1.5mm 0 0">{{ projekt.energie.quelle }} {{ projekt.weg_hinweis }}</p>
+    </div>
+  </div>
+
+  <h3>Sondereigentum – deine Wohnung</h3>
+  <div class="se">
+    <div class="se-kopf">
+      <div class="v">{{ projekt.reno_je_qm|eur }} <span>je m² Wohnfläche</span></div>
+      <div class="s"><b>Renovierungsrückstellung für jede Wohnung</b> – im Kaufpreis enthalten, zusammen {{ reno_gesamt|eur }}. Damit ist der nächste Mieterwechsel bereits bezahlt.</div>
+    </div>
+    <div class="se-spalten">
+      <div>
+        <div class="se-t">Das steht für deine Wohnung bereit</div>
+        <table class="se-tab">
+          {% for b in reno_beispiele %}<tr><td>Wohnung mit {{ b.flaeche|num }} m²</td><td class="r"><b>{{ b.reno|eur }}</b></td></tr>{% endfor %}
+        </table>
+        <p class="note" style="margin:1.2mm 0 0">Betrag jeder Einheit: siehe Preisliste.</p>
+      </div>
+      <div>
+        <div class="se-t">Renovierungsstandard</div>
+        <ul class="dots">{% for x in projekt.reno_standard %}<li>{{ x }}</li>{% endfor %}</ul>
+      </div>
+      <div>
+        <div class="se-t">So läuft es ab</div>
+        <ol class="ablauf">
+          <li><b>Mieter zieht aus</b> – die Rückstellung liegt bereit, du schießt nichts nach.</li>
+          <li><b>Wir renovieren</b> nach festem Standard und bezahlen aus der Rückstellung.</li>
+          <li><b>Neu vermietet</b> zur Marktmiete. Die Rechnung lautet auf dich – du setzt sie steuerlich ab.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{ foot(3) }}
+</section>
+
+{% include "_seite_cashflow.html" %}
+{% include "_seite_zusammenfassung.html" %}
+{% include "_seite_konzept.html" %}
+
+{# ================= Preisliste ================= #}
+{% for seite in preisliste %}
+<section class="page">
+  {{ topbar('Preisliste' ~ (' (' ~ loop.index ~ '/' ~ loop.length ~ ')' if loop.length > 1 else '')) }}
+  {% if loop.first %}
+  <div class="eyebrow">Preisliste</div>
+  <h2><span class="ul">Alle Einheiten auf einen Blick.</span></h2>
+  <p class="lead" style="margin-bottom:3mm">Gesamtinvest = beurkundeter Kaufpreis inkl. Kaufnebenkosten, die wir übernehmen. Subvention, Renovierungsrückstellung und Anteil WEG-Sanierung sind im Preis enthalten. Cashflow nach Steuern im 1. Jahr bei 100 % Finanzierung ({{ p.zins|pct(1) }} Zins, {{ p.tilgung|pct(1) }} Tilgung, Grenzsteuersatz {{ p.grenzsteuer|pct(0) }}).</p>
+  {% endif %}
+  <table class="liste">
+    <tr><th>Lage</th><th>Art</th><th class="r">Fläche</th><th>Status</th><th class="r">Ist-Miete</th><th class="r">SOLL-Miete</th><th class="r">Subvention</th><th class="r">Reno-<br>Rückst.</th><th class="r">Anteil<br>WEG-San.</th><th class="r">Gesamt-<br>invest</th><th class="r">€/m²</th><th class="r">CF n. St.<br>mtl.</th></tr>
+    {% for h in seite %}
+    <tr class="haus"><td colspan="12">{{ h.haus }} <span>· {{ h.anzahl }} Einheit{{ 'en' if h.anzahl != 1 }} · {{ h.flaeche|num(0) }} m²</span></td></tr>
+    {% for r in h.rows %}
+    <tr><td>{{ r.lage }}</td><td>{{ r.art }}</td><td class="r">{{ r.u.flaeche|num }} m²</td>
+      <td><span class="tag {{ '' if r.vermietet else 'frei' }}">{{ 'vermietet' if r.vermietet else 'frei' }}</span></td>
+      <td class="r">{{ r.u.ist_miete|eur if r.vermietet else '–' }}</td><td class="r">{{ r.u.miete_soll|eur }}</td>
+      <td class="r">{{ r.u.subvention|eur if r.u.subvention else '–' }}</td><td class="r">{{ r.u.reno_se|eur }}</td><td class="r">{{ r.u.sanierung_weg|eur }}</td>
+      <td class="r gold">{{ r.u.kaufpreis|eur }}</td><td class="r">{{ r.qm_preis|num(0) }}</td><td class="r">{{ r.cf|signed_eur }}</td></tr>
+    {% endfor %}
+    {% endfor %}
+    {% if loop.last %}<tr class="sum"><td colspan="2">{{ anzahl }} Einheiten</td><td class="r">{{ flaeche_gesamt|num(0) }} m²</td><td colspan="3"></td><td class="r">{{ subvention_gesamt|eur }}</td><td class="r">{{ reno_gesamt|eur }}</td><td class="r">{{ weg_summe|eur }}</td><td class="r">{{ volumen|eur }}</td><td colspan="2"></td></tr>{% endif %}
+  </table>
+  {% if loop.last %}<p class="note" style="margin-top:2mm">{{ projekt.preisliste_hinweis }} Freie Einheiten: Die SOLL-Miete ist die angesetzte Neuvermietungsmiete. Stand {{ f.stand }}, Änderungen und Zwischenverkauf vorbehalten.</p>{% endif %}
+  {{ foot(seite_nr.preisliste + loop.index0) }}
+</section>
+{% endfor %}
+
+{% include "_seite_lage.html" %}
+{% if not whitelabel %}{% include "_seite_team.html" %}{% endif %}
+
+</body>
+</html>
