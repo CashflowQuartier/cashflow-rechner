@@ -21,7 +21,13 @@ python -m teaser_generator.cli --pe "PE - ….xlsx" --facts projects/<slug>/fact
 ```
 Für die PDF-Erzeugung wird Headless-Chromium verwendet (`CHROMIUM_PATH` setzen, falls nicht automatisch gefunden).
 
-## Mit Claude
+## Mit Claude (Skill „wohnungs-teaser“)
+In einer neuen Claude-Code-Sitzung mit diesem Repo genügt: „Teaser für <Projektordner>, WE <Nr>“.
+Ablauf, Regeln und Recherche-Anleitung: `.claude/skills/wohnungs-teaser/` (SKILL.md + references/).
+Hilfsskripte: `tools/drive_decode.py` (Drive-Downloads entpacken), `tools/contact_sheet.py` (Foto-Übersicht),
+`teaser_generator/drive_upload.py` + `tools/DRIVE_UPLOAD.md` (Upload in Drive).
+
+### Früherer Abschnitt
 Claude bekommt den Projektordner genannt („Mach die Teaser für PE - IR - Freiligrathstrasse 8-10“).
 Den Rest übernimmt der Skill `.claude/skills/wohnungs-teaser/SKILL.md`: Drive lesen, Fotos wählen,
 Visualisierungen erzeugen, PDF bauen.

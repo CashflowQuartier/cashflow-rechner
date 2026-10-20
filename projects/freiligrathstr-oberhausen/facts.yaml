@@ -11,6 +11,8 @@ drive:
   projektordner_id: 1v6qlIBdmANF-Of7ucvxxv8nZFyd4LmNM
   pe_excel: intern/20260915 - PE Freiligrathstr..xlsx
   teilungserklaerung: Projektübersicht/TE/Teilungserklärung.pdf
+  pe_excel_id: 1U3EuWzpNNfxqk1_kwlf-r0DdavaK29OY
+  titelbild_id: 1-xt5Qc-KtF2xIwjr9M8yColZwWM2bxzq  # IMG_8648.JPG, Außenansicht Freiligrathstr.
   # WE-Ordner (Nummer laut Teilungserklärung) – je Ordner Unterordner Ist-Bilder / Soll-Bilder.
   # Weitere Ordner-IDs per search_files (parentId = projektordner_id, title contains 'WE ') ermitteln.
   einheiten:

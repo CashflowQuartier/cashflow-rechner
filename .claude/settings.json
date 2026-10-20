@@ -2,6 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(python3 -m teaser_generator.cli:*)",
+      "Bash(python3 -m teaser_generator.drive_upload:*)",
+      "Bash(python3 tools/contact_sheet.py:*)",
+      "Bash(python3 tools/drive_decode.py:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push -u origin claude/:*)",
