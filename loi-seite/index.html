@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CQ Property Management – Unverbindliche Absichtserklärung</title>
+<meta name="description" content="Haus- und SEV-Verwaltung auf eigener KI-Plattform. Unverbindliche Absichtserklärung (LOI) für Bestandshalter und Family Offices.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+@font-face{font-family:Onest;font-weight:400;font-display:swap;src:url(assets/fonts/onest-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Onest;font-weight:600;font-display:swap;src:url(assets/fonts/onest-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Onest;font-weight:700;font-display:swap;src:url(assets/fonts/onest-latin-700-normal.woff2) format("woff2")}
+:root{
+  --navy:#0b1230; --navy-2:#2c3459; --gold:#e9b33f; --gold-soft:#fbf1da;
+  --ink:#0b1230; --muted:#646a80; --line:#e3e5ec; --bg:#ffffff; --bg-2:#f4f5f8;
+  --ok:#2f9e5b; --err:#c2412d; --r:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Onest,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:13px 24px;font:600 16px/1 Onest,sans-serif;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(233,179,63,.35)}
+.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--navy)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.eyebrow{font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{line-height:1.15;margin:0}
+h2{font-size:clamp(26px,3.2vw,34px);font-weight:700}
+.bar{display:inline-block;width:28px;height:4px;background:var(--gold);border-radius:2px;vertical-align:middle;margin-right:12px;transform:translateY(-4px)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+header img{height:40px;display:block}
+header .btn{padding:10px 18px;font-size:14px}
+
+/* hero */
+.hero{padding:56px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(34px,4.6vw,52px);font-weight:700;letter-spacing:-.01em}
+.hero h1 mark{background:linear-gradient(transparent 62%,var(--gold) 62%);color:inherit;padding:0 2px}
+.hero p.lead{font-size:18px;color:var(--muted);margin:20px 0 28px;max-width:520px}
+.hero .greet{display:none;margin:0 0 14px;font-weight:600;color:var(--navy)}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero figure{margin:0;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(11,18,48,.12)}
+.hero figure img{display:block;width:100%;height:auto}
+.trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.trust span{background:var(--bg-2);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--navy-2)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 0}
+.stat{background:var(--bg-2);border-radius:var(--r);padding:20px}
+.stat b{display:block;font-size:30px;font-weight:700}
+.stat b.g{color:var(--gold)}
+.stat span{font-size:14px;color:var(--muted)}
+
+section{padding:64px 0}
+.video{background:var(--navy);color:#fff}
+.video .wrap{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:center}
+.video p{color:#c4c7dd}
+.video .frame{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video .eyebrow{color:var(--gold)}
+
+/* services */
+.services .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+.card{border:1px solid var(--line);border-radius:18px;padding:28px;background:#fff}
+.card h3{font-size:22px;margin:6px 0 8px}
+.card .price{font-size:28px;font-weight:700;margin:14px 0 2px}
+.card .price small{font-size:14px;font-weight:400;color:var(--muted)}
+.card ul{margin:16px 0 0;padding:0;list-style:none}
+.card li{padding:6px 0 6px 26px;position:relative;color:var(--navy-2)}
+.card li:before{content:"";position:absolute;left:0;top:12px;width:14px;height:8px;border-left:2.5px solid var(--gold);border-bottom:2.5px solid var(--gold);transform:rotate(-45deg)}
+.note{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* why loi */
+.why{background:var(--bg-2)}
+.why .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
+.why .card{border:0}
+.why .num{width:36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:700}
+
+/* form */
+.loi .head{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;margin-bottom:28px}
+.person{display:flex;gap:14px;align-items:center}
+.person img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid var(--gold)}
+.person b{display:block}
+.person span{font-size:14px;color:var(--muted)}
+.formbox{border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 10px 40px rgba(11,18,48,.06)}
+.steps{display:flex;background:var(--bg-2);border-bottom:1px solid var(--line);overflow-x:auto}
+.steps button{flex:1;min-width:130px;border:0;background:none;padding:16px 12px;font:600 14px Onest,sans-serif;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.steps button .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#dcdfe8;color:var(--navy);font-size:12px;margin-right:8px}
+.steps button.on{color:var(--navy);border-bottom-color:var(--gold)}
+.steps button.on .n,.steps button.past .n{background:var(--gold)}
+.pane{display:none;padding:32px}
+.pane.on{display:block}
+.pane h3{font-size:20px;margin-bottom:4px}
+.pane .sub{color:var(--muted);margin:0 0 22px}
+.row{display:grid;gap:16px;grid-template-columns:repeat(2,1fr);margin-bottom:16px}
+.row.three{grid-template-columns:repeat(3,1fr)}
+label.f{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+label.f em{font-style:normal;font-weight:400;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;font:16px Onest,sans-serif;color:var(--ink);padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;outline:none;transition:border .15s}
+input:focus,select:focus,textarea:focus{border-color:var(--navy)}
+.invalid{border-color:var(--err)!important}
+.svc{border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;transition:border .15s,background .15s}
+.svc.on{border-color:var(--gold);background:#fffcf4}
+.svc .top{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.svc .top input{margin-top:4px;width:20px;height:20px;accent-color:var(--navy)}
+.svc .top b{font-size:17px}
+.svc .top span{display:block;font-size:14px;color:var(--muted)}
+.svc .body{display:none;margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+.svc.on .body{display:block}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:inline-block;padding:9px 16px;border:1.5px solid var(--line);border-radius:999px;font-size:14px;transition:all .15s}
+.chips input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.chips input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+table.loc{width:100%;border-collapse:separate;border-spacing:0 8px}
+table.loc th{text-align:left;font-size:13px;color:var(--muted);font-weight:600;padding:0 6px}
+table.loc td{padding:0 6px}
+table.loc td:last-child{width:44px}
+table.loc td:nth-child(1){width:110px}
+table.loc td:nth-child(3){width:120px}
+table.loc td:nth-child(4){width:190px}
+table.loc td:nth-child(5){width:140px}
+.del{border:0;background:var(--bg-2);border-radius:8px;width:38px;height:44px;cursor:pointer;font-size:18px;color:var(--muted)}
+.add{margin-top:6px;border:1.5px dashed var(--line);background:none;border-radius:10px;padding:10px 16px;font:600 14px Onest,sans-serif;cursor:pointer;color:var(--navy)}
+.sumline{margin-top:14px;font-size:14px;color:var(--muted)}
+.sumline b{color:var(--navy)}
+.check{display:flex;gap:12px;align-items:flex-start;margin:12px 0;font-size:14px;color:var(--navy-2)}
+.check input{width:18px;height:18px;margin-top:2px;accent-color:var(--navy);flex:none}
+.legal{background:var(--gold-soft);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--navy-2);margin:6px 0 18px}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:20px 32px;border-top:1px solid var(--line);background:#fff}
+.nav .msg{color:var(--err);font-size:14px}
+.scale{display:flex;gap:8px}
+.scale label{flex:1}
+.scale span{display:block;text-align:center}
+.hint{font-size:13px;color:var(--muted);margin-top:6px}
+
+/* done */
+.done{display:none;padding:40px 32px}
+.done.on{display:block}
+.done .ok{width:56px;height:56px;border-radius:50%;background:var(--ok);display:grid;place-items:center;margin-bottom:16px}
+.summary{background:var(--bg-2);border-radius:14px;padding:20px 24px;margin:20px 0;font-size:15px}
+.summary dl{display:grid;grid-template-columns:220px 1fr;gap:6px 16px;margin:0}
+.summary dt{color:var(--muted)}
+.summary dd{margin:0;font-weight:600}
+
+footer{background:var(--navy);color:#9aa0bb;padding:36px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer img{height:36px}
+footer a{color:#c4c7dd}
+
+@media (max-width:900px){
+  .hero .wrap,.video .wrap,.services .grid,.why .grid,.loi .head{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .hero{padding-top:32px}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .row,.row.three{grid-template-columns:1fr}
+  .pane{padding:22px 18px}
+  .nav{padding:16px 18px}
+  .summary dl{grid-template-columns:1fr}
+  table.loc thead{display:none}
+  table.loc tr{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;background:var(--bg-2);border-radius:12px;margin-bottom:10px}
+  table.loc td{padding:0}
+  table.loc td:last-child{width:auto}
+}
+@media print{
+  header,section,footer,.steps,.nav,.done .actions{display:none!important}
+  #loi,.loi .wrap,.formbox,.done{display:block!important;box-shadow:none;border:0;padding:0}
+  .loi .head{display:none}
+  .print-head{display:flex!important}
+}
+.print-head{display:none;justify-content:space-between;align-items:center;margin-bottom:20px}
+.print-head img{height:44px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <img src="assets/logo_navy.png" alt="Cashflow Quartier">
+    <a class="btn btn-gold" href="#loi">Interesse bekunden</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <p class="greet" id="greet"></p>
+      <div class="eyebrow">CQ Property Management · Marktsondierung 2026</div>
+      <h1 style="margin-top:12px">Haus- und SEV-Verwaltung, die <mark>mit Qualität skaliert</mark>.</h1>
+      <p class="lead">Unsere eigene KI-Plattform verwaltet über 1.000 Einheiten mit einer Vollzeitkraft – gebaut aus der Praxis, live in unserem Bestand. Jetzt öffnen wir sie für ausgewählte Bestandshalter und Family Offices.</p>
+      <div class="ctas">
+        <a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a>
+        <a class="btn btn-ghost" href="#video">▶&nbsp; Video ansehen (17 Min.)</a>
+      </div>
+      <div class="trust"><span>100 % unverbindlich</span><span>ca. 5 Minuten</span><span>Vertraulich behandelt</span></div>
+    </div>
+    <figure><img src="assets/team.jpg" alt="Das Team von Cashflow Quartier" width="1600" height="1066"></figure>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>~1.000</b><span>Einheiten im eigenen Bestand</span></div>
+    <div class="stat"><b class="g">20 %</b><span>des früheren Aufwands – bei doppelter Qualität</span></div>
+    <div class="stat"><b>1 FTE</b><span>für über 1.000 verwaltete Einheiten</span></div>
+    <div class="stat"><b>200+</b><span>Immobilien pro Jahr vermarktet und selbst verwaltet</span></div>
+  </div>
+</div>
+
+<section class="video" id="video" style="margin-top:64px">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Die Plattform live</div>
+      <h2 style="margin:10px 0 14px">Von der WhatsApp-Meldung bis zur Mieterhöhung.</h2>
+      <p>In 17 Minuten zeigen wir, wie Mietentracking, Mahnwesen, Mieterhöhungen und Schadensmeldungen bei uns automatisch laufen.</p>
+      <p style="margin-top:22px"><a class="btn btn-gold" href="assets/CQPM_OnePager.pdf" download>OnePager herunterladen (PDF)</a></p>
+    </div>
+    <div class="frame">
+      <iframe src="https://drive.google.com/file/d/1pEjXcwP1N7CeqUmhcbfCx8Wmm3FesHrv/preview" allow="autoplay; fullscreen" allowfullscreen title="CQPM Plattform-Video"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="wrap">
+    <h2><span class="bar"></span>Was wir anbieten</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="eyebrow">Ganze Objekte</div>
+        <h3>Hausverwaltung</h3>
+        <p style="color:var(--muted);margin:0">Mietverwaltung für Mehrfamilienhäuser und Portfolios im Alleineigentum.</p>
+        <div class="price">ca. 29 € <small>brutto je Einheit und Monat</small></div>
+        <ul>
+          <li>Mietentracking und Mahnwesen – Rückstand in Tagen statt Wochen</li>
+          <li>Mieterhöhung per Klick für das ganze Portfolio</li>
+          <li>Schäden und Handwerker per WhatsApp, in jeder Sprache</li>
+          <li>Energieverträge beim Mieterwechsel, Dokumente in jeder Sprache</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Einzelne Wohnungen</div>
+        <h3>SEV-Verwaltung</h3>
+        <p style="color:var(--muted);margin:0">Sondereigentumsverwaltung für Eigentumswohnungen in fremden WEGs.</p>
+        <div class="price">35–55 € <small>brutto je Einheit und Monat</small></div>
+        <ul>
+          <li>Mietentracking und Mahnwesen je Wohnung</li>
+          <li>Mieterhöhung per Klick, auch über viele WEGs hinweg</li>
+          <li>Schäden per WhatsApp, abgestimmt mit der WEG-Verwaltung</li>
+          <li>Eine Plattform für alle Wohnungen, egal wo sie liegen</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Preise sind Richtwerte für die Marktsondierung, kein Angebot. Das konkrete Angebot hängt von Objekt, Lage und Umfang ab.</p>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <h2><span class="bar"></span>Warum wir Sie fragen</h2>
+    <div class="grid">
+      <div class="card"><div class="num">1</div><h3 style="font-size:18px;margin:14px 0 6px">Wir planen den Ausbau</h3><p style="margin:0;color:var(--muted)">Wir entscheiden gerade, in welchen Regionen und in welchem Umfang wir die Verwaltung anbieten – regional oder deutschlandweit.</p></div>
+      <div class="card"><div class="num">2</div><h3 style="font-size:18px;margin:14px 0 6px">Ihr Bedarf zählt</h3><p style="margin:0;color:var(--muted)">Mit Ihrer Absichtserklärung wissen wir, wo Einheiten liegen und ab wann Bedarf besteht. So bauen wir dort Kapazität auf, wo sie gebraucht wird.</p></div>
+      <div class="card"><div class="num">3</div><h3 style="font-size:18px;margin:14px 0 6px">Völlig unverbindlich</h3><p style="margin:0;color:var(--muted)">Die Erklärung verpflichtet weder Sie noch uns. Sie sichert Ihnen aber einen frühen Platz, wenn wir in Ihrer Region starten.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="loi" id="loi">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h2><span class="bar"></span>Unverbindliche Absichtserklärung</h2>
+        <p style="color:var(--muted);margin:10px 0 0">Fünf kurze Schritte, ca. 5 Minuten. Sie erhalten anschließend eine Bestätigung als PDF per E-Mail.</p>
+      </div>
+      <div class="person"><img src="assets/jan.jpg" alt="Jan-Moritz Becker"><div><b>Jan-Moritz Becker</b><span>Gründer, Cashflow Quartier<br>Ihr Ansprechpartner</span></div></div>
+    </div>
+
+    <div class="formbox">
+      <div class="print-head"><img src="assets/logo_navy.png" alt=""><div style="text-align:right;font-size:13px;color:var(--muted)">CQ Property Management GmbH<br>Unverbindliche Absichtserklärung</div></div>
+      <nav class="steps" id="steps"></nav>
+      <form id="form" novalidate>
+
+        <!-- 1 Leistung -->
+        <div class="pane" data-title="Leistung">
+          <h3>Welche Verwaltung käme für Sie infrage?</h3>
+          <p class="sub">Mehrfachauswahl möglich. Grobe Zahlen genügen.</p>
+
+          <div class="svc" data-svc="hv">
+            <label class="top"><input type="checkbox" name="hv_aktiv"><div><b>Hausverwaltung</b><span>Ganze Objekte im Alleineigentum · Richtwert ca. 29 € brutto je Einheit/Monat</span></div></label>
+            <div class="body">
+              <div class="row">
+                <div><label class="f">Anzahl Einheiten</label><input type="number" name="hv_einheiten" min="1" inputmode="numeric" placeholder="z. B. 250"></div>
+                <div><label class="f">Anzahl Objekte <em>(optional)</em></label><input type="number" name="hv_objekte" min="1" inputmode="numeric" placeholder="z. B. 18"></div>
+              </div>
+              <label class="f">Passt der Richtwert von ca. 29 €?</label>
+              <div class="chips">
+                <label><input type="radio" name="hv_preis" value="passt"><span>Passt</span></label>
+                <label><input type="radio" name="hv_preis" value="eher_hoch"><span>Eher hoch</span></label>
+                <label><input type="radio" name="hv_preis" value="zu_hoch"><span>Zu hoch</span></label>
+                <label><input type="radio" name="hv_preis" value="weiss_nicht"><span>Kann ich nicht sagen</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc" data-svc="sev">
+            <label class="top"><input type="checkbox" name="sev_aktiv"><div><b>SEV-Verwaltung</b><span>Einzelne Eigentumswohnungen in WEGs · Richtwert 35–55 € brutto je Einheit/Monat</span></div></label>
+            <div class="body">
+              <div class="row">
+                <div><label class="f">Anzahl Wohnungen</label><input type="number" name="sev_einheiten" min="1" inputmode="numeric" placeholder="z. B. 60"></div>
+                <div><label class="f">In wie vielen WEGs? <em>(optional)</em></label><input type="number" name="sev_wegs" min="1" inputmode="numeric" placeholder="z. B. 25"></div>
+              </div>
+              <label class="f">Passt der Richtwert von 35–55 €?</label>
+              <div class="chips">
+                <label><input type="radio" name="sev_preis" value="passt"><span>Passt</span></label>
+                <label><input type="radio" name="sev_preis" value="eher_hoch"><span>Eher hoch</span></label>
+                <label><input type="radio" name="sev_preis" value="zu_hoch"><span>Zu hoch</span></label>
+                <label><input type="radio" name="sev_preis" value="weiss_nicht"><span>Kann ich nicht sagen</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Standorte -->
+        <div class="pane" data-title="Standorte">
+          <h3>Wo liegen die Einheiten?</h3>
+          <p class="sub">Eine Zeile je Ort oder Region. So sehen wir, wo wir zuerst Kapazität aufbauen.</p>
+          <table class="loc">
+            <thead><tr><th>PLZ</th><th>Ort / Region</th><th>Einheiten</th><th>Leistung</th><th>Nutzung</th><th></th></tr></thead>
+            <tbody id="locs"></tbody>
+          </table>
+          <button type="button" class="add" id="addLoc">+ Weiteren Standort hinzufügen</button>
+          <p class="sumline" id="locSum"></p>
+        </div>
+
+        <!-- 3 Zeitpunkt -->
+        <div class="pane" data-title="Zeitpunkt">
+          <h3>Ab wann wäre ein Wechsel denkbar?</h3>
+          <p class="sub">Eine grobe Einschätzung reicht.</p>
+          <div class="row">
+            <div><label class="f">Frühester Start</label><select name="start" id="start"></select></div>
+            <div><label class="f">Wer verwaltet heute?</label>
+              <select name="verwaltung_heute">
+                <option value="">Bitte wählen</option>
+                <option value="eigen">Eigenverwaltung</option>
+                <option value="extern">Externe Verwaltung</option>
+                <option value="gemischt">Teils, teils</option>
+              </select></div>
+          </div>
+          <div class="row">
+            <div><label class="f">Bestehender Vertrag kündbar ab <em>(falls extern)</em></label><input type="text" name="kuendbar_ab" placeholder="z. B. 12/2026 oder „unbekannt“"></div>
+            <div><label class="f">Heutige Kosten je Einheit/Monat <em>(optional)</em></label><input type="text" name="kosten_heute" placeholder="z. B. 32 € brutto"></div>
+          </div>
+          <p class="hint">Ihre Angaben zu Kosten behandeln wir vertraulich und werten sie nur zusammengefasst aus.</p>
+        </div>
+
+        <!-- 4 Potenzial -->
+        <div class="pane" data-title="Ausblick">
+          <h3>Ausblick</h3>
+          <p class="sub">Hilft uns, das Angebot passend aufzustellen.</p>
+          <label class="f">Interesse an Zusatzleistungen über die Plattform</label>
+          <div class="chips" style="margin-bottom:20px">
+            <label><input type="checkbox" name="zusatz" value="energie"><span>Energieverträge</span></label>
+            <label><input type="checkbox" name="zusatz" value="versicherung"><span>Versicherungen</span></label>
+            <label><input type="checkbox" name="zusatz" value="gutachten"><span>Gutachten</span></label>
+            <label><input type="checkbox" name="zusatz" value="mieterhoehung"><span>Mieterhöhungs-Management</span></label>
+            <label><input type="checkbox" name="zusatz" value="vertrieb"><span>Vertrieb / Verkauf</span></label>
+          </div>
+          <div class="row">
+            <div><label class="f">Geplante Zukäufe in den nächsten 24 Monaten <em>(Einheiten, optional)</em></label><input type="number" name="zukaeufe" min="0" inputmode="numeric" placeholder="z. B. 100"></div>
+            <div><label class="f">Start mit einem Teilbestand als Pilot denkbar?</label>
+              <div class="chips">
+                <label><input type="radio" name="pilot" value="ja"><span>Ja</span></label>
+                <label><input type="radio" name="pilot" value="vielleicht"><span>Vielleicht</span></label>
+                <label><input type="radio" name="pilot" value="nein"><span>Nein</span></label>
+              </div></div>
+          </div>
+          <label class="f">Wie wahrscheinlich ist eine Beauftragung, wenn Konditionen und Start passen?</label>
+          <div class="chips scale">
+            <label><input type="radio" name="wahrscheinlichkeit" value="1"><span>1<br><small>gering</small></span></label>
+            <label><input type="radio" name="wahrscheinlichkeit" value="2"><span>2</span></label>
+            <label><input type="radio" name="wahrscheinlichkeit" value="3"><span>3</span></label>
+            <label><input type="radio" name="wahrscheinlichkeit" value="4"><span>4</span></label>
+            <label><input type="radio" name="wahrscheinlichkeit" value="5"><span>5<br><small>sehr hoch</small></span></label>
+          </div>
+          <div style="margin-top:20px"><label class="f">Anmerkungen <em>(optional)</em></label><textarea name="anmerkungen" rows="3" placeholder="Besonderheiten im Bestand, Wünsche, Fragen …"></textarea></div>
+        </div>
+
+        <!-- 5 Absender -->
+        <div class="pane" data-title="Absender">
+          <h3>Ihre Angaben und Erklärung</h3>
+          <p class="sub">Damit wir die Absichtserklärung zuordnen und Ihnen die Bestätigung schicken können.</p>
+          <div class="row">
+            <div><label class="f">Unternehmen</label><input type="text" name="firma" autocomplete="organization" required></div>
+            <div><label class="f">Art des Unternehmens</label>
+              <select name="typ" required>
+                <option value="">Bitte wählen</option>
+                <option>Family Office</option><option>Bestandshalter</option><option>Projektentwickler</option>
+                <option>Stiftung / Kirche</option><option>Privater Großbestand</option><option>Sonstiges</option>
+              </select></div>
+          </div>
+          <div class="row three">
+            <div><label class="f">Vor- und Nachname</label><input type="text" name="name" autocomplete="name" required></div>
+            <div><label class="f">Position</label><input type="text" name="position" autocomplete="organization-title" required></div>
+            <div><label class="f">Entscheiden Sie über die Verwaltung?</label>
+              <select name="entscheider" required>
+                <option value="">Bitte wählen</option>
+                <option value="ja">Ja, allein</option><option value="mit">Ja, gemeinsam mit anderen</option><option value="nein">Nein, ich bereite vor</option>
+              </select></div>
+          </div>
+          <div class="row">
+            <div><label class="f">E-Mail</label><input type="email" name="email" autocomplete="email" required></div>
+            <div><label class="f">Telefon <em>(optional)</em></label><input type="tel" name="telefon" autocomplete="tel"></div>
+          </div>
+          <label class="f" style="margin-top:6px">Dürfen wir Ihre Absichtserklärung gegenüber Investoren nennen?</label>
+          <div class="chips" style="margin-bottom:18px">
+            <label><input type="radio" name="nennung" value="namentlich" required><span>Ja, namentlich</span></label>
+            <label><input type="radio" name="nennung" value="anonym"><span>Nur anonymisiert</span></label>
+            <label><input type="radio" name="nennung" value="nein"><span>Nein</span></label>
+          </div>
+          <div class="legal"><b>Unverbindlichkeit.</b> Diese Absichtserklärung dient der Marktsondierung. Sie ist kein Angebot und keine Beauftragung und begründet für keine Seite eine rechtliche Verpflichtung. Genannte Preise sind Richtwerte. Ein Vertrag kommt erst mit einem gesonderten, beiderseits unterschriebenen Verwaltervertrag zustande.</div>
+          <label class="check"><input type="checkbox" name="ok_unverbindlich" required><span>Ich gebe diese unverbindliche Absichtserklärung im Namen des oben genannten Unternehmens ab.</span></label>
+          <label class="check"><input type="checkbox" name="ok_datenschutz" required><span>Ich bin einverstanden, dass die CQ Property Management GmbH meine Angaben zur Marktsondierung und Kontaktaufnahme verarbeitet. Details in der <a href="https://cashflowquartier.com/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>
+        </div>
+
+        <div class="nav">
+          <button type="button" class="btn btn-ghost" id="prev">Zurück</button>
+          <span class="msg" id="msg" role="alert"></span>
+          <button type="button" class="btn btn-gold" id="next">Weiter</button>
+        </div>
+      </form>
+
+      <div class="done" id="done">
+        <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
+        <h3 style="font-size:24px">Vielen Dank – Ihre Absichtserklärung ist eingegangen.</h3>
+        <p style="color:var(--muted)">Sie erhalten in Kürze eine Bestätigung als PDF per E-Mail. Ich melde mich persönlich, sobald wir in Ihrer Region starten.</p>
+        <div class="summary" id="summary"></div>
+        <p style="margin:0"><b>Jan-Moritz Becker</b><br><span style="color:var(--muted)">Gründer, Cashflow Quartier</span></p>
+        <p class="actions" style="margin-top:22px"><button class="btn btn-ghost" onclick="window.print()">Zusammenfassung drucken / als PDF speichern</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/logo_white.png" alt="Cashflow Quartier">
+    <div>CQ Property Management GmbH · Alte Freiheit 16–18 · 42103 Wuppertal · <a href="mailto:kontakt@cashflowquartier.com">kontakt@cashflowquartier.com</a></div>
+    <div><a href="https://cashflowquartier.com/impressum">Impressum</a> · <a href="https://cashflowquartier.com/datenschutz">Datenschutz</a></div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Konfiguration ----------
+   ENDPOINT: URL, an die das LOI als JSON (POST) geht – z. B. ein Endpunkt der
+   CashFlow-Quartier-Plattform, der daraus ein Projekt in der LOI-Pipeline anlegt.
+   Leer = Entwurfsmodus: es wird nichts gesendet, nur die Bestätigung angezeigt. */
+const ENDPOINT = "";
+
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const form = $("#form"), panes = $$(".pane"), steps = $("#steps");
+let cur = 0;
+
+/* ---------- Personalisierter Link: ?r=<base64url JSON> ----------
+   {"id":"fo-mustermann","f":"Mustermann Family Office","n":"Max Mustermann","a":"Herr","p":"Geschäftsführer","e":"max@…","t":"Family Office"} */
+let ref = {};
+try {
+  const r = new URLSearchParams(location.search).get("r");
+  if (r) ref = JSON.parse(decodeURIComponent(escape(atob(r.replace(/-/g, "+").replace(/_/g, "/")))));
+} catch (e) { ref = {}; }
+if (ref.n) {
+  const nach = ref.n.trim().split(/\s+/).pop();
+  const g = $("#greet");
+  g.textContent = ref.a ? `Guten Tag ${ref.a} ${nach},` : `Guten Tag ${ref.n},`;
+  g.style.display = "block";
+}
+const prefill = { firma: ref.f, name: ref.n, position: ref.p, email: ref.e, typ: ref.t };
+for (const [k, v] of Object.entries(prefill)) if (v && form.elements[k]) form.elements[k].value = v;
+
+/* ---------- Schritte ---------- */
+panes.forEach((p, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = `<span class="n">${i + 1}</span>${p.dataset.title}`;
+  b.onclick = () => { if (i <= cur || validate(cur)) go(i); };
+  steps.appendChild(b);
+});
+function go(i) {
+  cur = i;
+  panes.forEach((p, k) => p.classList.toggle("on", k === i));
+  $$("button", steps).forEach((b, k) => { b.classList.toggle("on", k === i); b.classList.toggle("past", k < i); });
+  $("#prev").style.visibility = i === 0 ? "hidden" : "visible";
+  $("#next").textContent = i === panes.length - 1 ? "Absichtserklärung abgeben" : "Weiter";
+  $("#msg").textContent = "";
+}
+$("#prev").onclick = () => go(Math.max(0, cur - 1));
+$("#next").onclick = () => {
+  if (!validate(cur)) return;
+  if (cur < panes.length - 1) { go(cur + 1); $("#loi").scrollIntoView({ behavior: "smooth" }); }
+  else submit();
+};
+
+/* ---------- Leistungen ---------- */
+$$(".svc").forEach(s => {
+  const cb = $("input[type=checkbox]", s);
+  cb.onchange = () => { s.classList.toggle("on", cb.checked); syncLocOptions(); };
+});
+
+/* ---------- Standorte ---------- */
+const locs = $("#locs");
+function addLoc() {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><input type="text" name="plz" inputmode="numeric" maxlength="5" placeholder="PLZ"></td>
+    <td><input type="text" name="ort" placeholder="z. B. Wuppertal"></td>
+    <td><input type="number" name="anz" min="1" inputmode="numeric" placeholder="Einheiten"></td>
+    <td><select name="leistung"></select></td>
+    <td><select name="nutzung"><option value="wohnen">Wohnen</option><option value="gewerbe">Gewerbe</option><option value="gemischt">Gemischt</option></select></td>
+    <td><button type="button" class="del" aria-label="Zeile entfernen">×</button></td>`;
+  $(".del", tr).onclick = () => { if (locs.children.length > 1) tr.remove(); sumLocs(); };
+  $$("input", tr).forEach(i => i.oninput = sumLocs);
+  locs.appendChild(tr);
+  syncLocOptions();
+}
+function syncLocOptions() {
+  const hv = form.elements.hv_aktiv.checked, sev = form.elements.sev_aktiv.checked;
+  const opts = [hv && ["hv", "Hausverwaltung"], sev && ["sev", "SEV"]].filter(Boolean);
+  if (!opts.length) opts.push(["hv", "Hausverwaltung"], ["sev", "SEV"]);
+  $$("select[name=leistung]", locs).forEach(sel => {
+    const v = sel.value;
+    sel.innerHTML = opts.map(([k, t]) => `<option value="${k}">${t}</option>`).join("");
+    if (opts.some(o => o[0] === v)) sel.value = v;
+  });
+}
+function totals() {
+  const n = x => parseInt(form.elements[x]?.value || 0, 10) || 0;
+  return { hv: form.elements.hv_aktiv.checked ? n("hv_einheiten") : 0, sev: form.elements.sev_aktiv.checked ? n("sev_einheiten") : 0 };
+}
+function sumLocs() {
+  const s = $$("input[name=anz]", locs).reduce((a, i) => a + (parseInt(i.value, 10) || 0), 0);
+  const t = totals(), all = t.hv + t.sev;
+  $("#locSum").innerHTML = all ? `Zugeordnet: <b>${s.toLocaleString("de-DE")}</b> von <b>${all.toLocaleString("de-DE")}</b> Einheiten` : "";
+}
+$("#addLoc").onclick = addLoc;
+addLoc();
+
+/* ---------- Startquartal ---------- */
+(() => {
+  const sel = $("#start"), d = new Date();
+  let q = Math.floor(d.getMonth() / 3) + 2, y = d.getFullYear();
+  const o = [["", "Bitte wählen"], ["sofort", "Ab sofort"]];
+  for (let i = 0; i < 8; i++) { if (q > 4) { q = 1; y++; } o.push([`${y}-Q${q}`, `Q${q} ${y}`]); q++; }
+  o.push(["spaeter", "Später"], ["offen", "Noch offen"]);
+  sel.innerHTML = o.map(([v, t]) => `<option value="${v}">${t}</option>`).join("");
+})();
+
+/* ---------- Prüfung ---------- */
+function fail(msg, el) { $("#msg").textContent = msg; if (el) { el.classList.add("invalid"); el.focus(); } return false; }
+form.addEventListener("input", e => e.target.classList.remove("invalid"));
+function validate(i) {
+  $("#msg").textContent = "";
+  const E = form.elements;
+  if (i === 0) {
+    if (!E.hv_aktiv.checked && !E.sev_aktiv.checked) return fail("Bitte mindestens eine Leistung auswählen.");
+    if (E.hv_aktiv.checked && !(+E.hv_einheiten.value > 0)) return fail("Bitte die Anzahl Einheiten für die Hausverwaltung angeben.", E.hv_einheiten);
+    if (E.sev_aktiv.checked && !(+E.sev_einheiten.value > 0)) return fail("Bitte die Anzahl Wohnungen für die SEV-Verwaltung angeben.", E.sev_einheiten);
+  }
+  if (i === 1) {
+    const rows = $$("tr", locs).filter(tr => $("[name=plz]", tr).value || $("[name=ort]", tr).value || $("[name=anz]", tr).value);
+    if (!rows.length) return fail("Bitte mindestens einen Standort angeben.", $("[name=plz]", locs));
+    for (const tr of rows) {
+      const plz = $("[name=plz]", tr), ort = $("[name=ort]", tr);
+      if (!/^\d{5}$/.test(plz.value) && !ort.value.trim()) return fail("Bitte je Standort PLZ oder Ort angeben.", plz);
+      if (plz.value && !/^\d{5}$/.test(plz.value)) return fail("Die PLZ hat fünf Ziffern.", plz);
+    }
+  }
+  if (i === 2 && !E.start.value) return fail("Bitte einen frühesten Start wählen.", E.start);
+  if (i === 4) {
+    for (const k of ["firma", "typ", "name", "position", "entscheider", "email"]) if (!E[k].value.trim()) return fail("Bitte alle Pflichtfelder ausfüllen.", E[k]);
+    if (!E.email.checkValidity()) return fail("Bitte eine gültige E-Mail-Adresse angeben.", E.email);
+    if (!form.querySelector("[name=nennung]:checked")) return fail("Bitte angeben, ob wir die Erklärung gegenüber Investoren nennen dürfen.");
+    if (!E.ok_unverbindlich.checked || !E.ok_datenschutz.checked) return fail("Bitte beide Erklärungen bestätigen.");
+  }
+  return true;
+}
+
+/* ---------- Absenden ---------- */
+function collect() {
+  const E = form.elements, v = n => (form.querySelector(`[name=${n}]:checked`) || {}).value || null;
+  const num = n => (E[n] && E[n].value !== "" ? +E[n].value : null);
+  return {
+    version: 1,
+    eingegangen: new Date().toISOString(),
+    ref_id: ref.id || null,
+    absender: { firma: E.firma.value.trim(), typ: E.typ.value, name: E.name.value.trim(), position: E.position.value.trim(),
+                entscheider: E.entscheider.value, email: E.email.value.trim(), telefon: E.telefon.value.trim() || null },
+    leistungen: {
+      hausverwaltung: E.hv_aktiv.checked ? { einheiten: num("hv_einheiten"), objekte: num("hv_objekte"), preis_feedback: v("hv_preis"), richtwert_eur: 29 } : null,
+      sev: E.sev_aktiv.checked ? { einheiten: num("sev_einheiten"), wegs: num("sev_wegs"), preis_feedback: v("sev_preis"), richtwert_eur: "35-55" } : null
+    },
+    standorte: $$("tr", locs).map(tr => ({ plz: $("[name=plz]", tr).value || null, ort: $("[name=ort]", tr).value.trim() || null,
+      einheiten: +$("[name=anz]", tr).value || null, leistung: $("[name=leistung]", tr).value, nutzung: $("[name=nutzung]", tr).value }))
+      .filter(s => s.plz || s.ort || s.einheiten),
+    zeitpunkt: { start: E.start.value, verwaltung_heute: E.verwaltung_heute.value || null, kuendbar_ab: E.kuendbar_ab.value.trim() || null, kosten_heute: E.kosten_heute.value.trim() || null },
+    ausblick: { zusatzleistungen: $$("[name=zusatz]:checked").map(x => x.value), zukaeufe_24m: num("zukaeufe"), pilot: v("pilot"),
+                wahrscheinlichkeit: v("wahrscheinlichkeit") ? +v("wahrscheinlichkeit") : null, anmerkungen: E.anmerkungen.value.trim() || null },
+    nennung_investoren: v("nennung"),
+    erklaerungen: { unverbindlich: E.ok_unverbindlich.checked, datenschutz: E.ok_datenschutz.checked }
+  };
+}
+async function submit() {
+  const data = collect(), btn = $("#next");
+  btn.disabled = true; btn.textContent = "Wird gesendet …";
+  try {
+    if (ENDPOINT) {
+      const res = await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+      if (!res.ok) throw new Error(res.status);
+    } else {
+      console.info("Entwurfsmodus – LOI nicht gesendet:", data);
+    }
+    showDone(data);
+  } catch (e) {
+    fail("Das Senden hat nicht geklappt. Bitte erneut versuchen oder an kontakt@cashflowquartier.com schreiben.");
+    btn.disabled = false; btn.textContent = "Absichtserklärung abgeben";
+  }
+}
+const START = { sofort: "Ab sofort", spaeter: "Später", offen: "Noch offen" };
+function showDone(d) {
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const L = d.leistungen, rows = [
+    ["Unternehmen", `${d.absender.firma} (${d.absender.typ})`],
+    ["Erklärt durch", `${d.absender.name}, ${d.absender.position}`],
+    L.hausverwaltung && ["Hausverwaltung", `${L.hausverwaltung.einheiten.toLocaleString("de-DE")} Einheiten`],
+    L.sev && ["SEV-Verwaltung", `${L.sev.einheiten.toLocaleString("de-DE")} Wohnungen`],
+    ["Standorte", d.standorte.map(s => [s.plz, s.ort].filter(Boolean).join(" ") + (s.einheiten ? ` (${s.einheiten})` : "")).join(", ")],
+    ["Frühester Start", START[d.zeitpunkt.start] || d.zeitpunkt.start.replace(/(\d+)-Q(\d)/, "Q$2 $1")],
+    ["Datum", new Date(d.eingegangen).toLocaleDateString("de-DE")]
+  ].filter(Boolean);
+  $("#summary").innerHTML = `<dl>${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+    <p class="hint" style="margin:14px 0 0">Unverbindliche Absichtserklärung zur Marktsondierung – kein Angebot, keine Beauftragung.</p>`;
+  form.style.display = "none"; steps.style.display = "none";
+  $("#done").classList.add("on");
+  $("#loi").scrollIntoView({ behavior: "smooth" });
+}
+go(0);
+</script>
+</body>
+</html>
