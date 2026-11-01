@@ -22,7 +22,11 @@ python loi-seite/make_links.py empfaenger.csv --base https://cashflowquartier.co
 CSV-Spalten: `id, firma, anrede, name, position, email, typ`. Der Link enthält diese Angaben (Base64 im Parameter `r`):
 Die Seite begrüßt den Empfänger mit Namen, füllt Schritt 5 vor und schickt die `id` als `ref_id` mit dem LOI mit.
 
-## Anbindung an die Plattform (offen)
+## Ablage im Google Sheet (sofort nutzbar)
+Anleitung: `LOI_SHEET.md`, Script: `loi_sheet.gs`. Jedes LOI wird eine Zeile im Sheet, der Absender bekommt eine
+Bestätigung mit PDF von Jan-Moritz Becker, kontakt@ bekommt eine Kopie. Die Web-App-URL kommt in `ENDPOINT`.
+
+## Anbindung an die Plattform (später)
 In `index.html` steht oben im Skript `const ENDPOINT = "";`. Leer bedeutet **Entwurfsmodus**: Es wird nichts gesendet.
 Sobald die Plattform einen Endpunkt hat, kommt hier dessen URL hinein. Die Seite schickt dann je LOI ein JSON per `POST`:
 

@@ -427,6 +427,7 @@ footer a{color:#c4c7dd}
             <label><input type="radio" name="nennung" value="nein"><span>Nein</span></label>
           </div>
           <div class="legal"><b>Unverbindlichkeit.</b> Diese Absichtserklärung dient der Marktsondierung. Sie ist kein Angebot und keine Beauftragung und begründet für keine Seite eine rechtliche Verpflichtung. Genannte Preise sind Richtwerte. Ein Vertrag kommt erst mit einem gesonderten, beiderseits unterschriebenen Verwaltervertrag zustande.</div>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
           <label class="check"><input type="checkbox" name="ok_unverbindlich" required><span>Ich gebe diese unverbindliche Absichtserklärung im Namen des oben genannten Unternehmens ab.</span></label>
           <label class="check"><input type="checkbox" name="ok_datenschutz" required><span>Ich bin einverstanden, dass die CQ Property Management GmbH meine Angaben zur Marktsondierung und Kontaktaufnahme verarbeitet. Details in der <a href="https://cashflowquartier.com/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span></label>
         </div>
@@ -460,8 +461,9 @@ footer a{color:#c4c7dd}
 
 <script>
 /* ---------- Konfiguration ----------
-   ENDPOINT: URL, an die das LOI als JSON (POST) geht – z. B. ein Endpunkt der
-   CashFlow-Quartier-Plattform, der daraus ein Projekt in der LOI-Pipeline anlegt.
+   ENDPOINT: URL, an die das LOI als JSON (POST) geht – die Web-App-URL des
+   Google-Apps-Scripts (loi_sheet.gs, siehe LOI_SHEET.md) oder später ein Endpunkt
+   der CashFlow-Quartier-Plattform.
    Leer = Entwurfsmodus: es wird nichts gesendet, nur die Bestätigung angezeigt. */
 const ENDPOINT = "";
 
@@ -614,7 +616,8 @@ function collect() {
     ausblick: { zusatzleistungen: $$("[name=zusatz]:checked").map(x => x.value), zukaeufe_24m: num("zukaeufe"), pilot: v("pilot"),
                 wahrscheinlichkeit: v("wahrscheinlichkeit") ? +v("wahrscheinlichkeit") : null, anmerkungen: E.anmerkungen.value.trim() || null },
     nennung_investoren: v("nennung"),
-    erklaerungen: { unverbindlich: E.ok_unverbindlich.checked, datenschutz: E.ok_datenschutz.checked }
+    erklaerungen: { unverbindlich: E.ok_unverbindlich.checked, datenschutz: E.ok_datenschutz.checked },
+    website: E.website.value
   };
 }
 async function submit() {
@@ -622,8 +625,13 @@ async function submit() {
   btn.disabled = true; btn.textContent = "Wird gesendet …";
   try {
     if (ENDPOINT) {
-      const res = await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      if (!res.ok) throw new Error(res.status);
+      if (ENDPOINT.includes("script.google.com")) {
+        // Apps Script: einfache Anfrage ohne CORS-Vorabprüfung; Antwort ist nicht lesbar
+        await fetch(ENDPOINT, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
+      } else {
+        const res = await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+        if (!res.ok) throw new Error(res.status);
+      }
     } else {
       console.info("Entwurfsmodus – LOI nicht gesendet:", data);
     }
