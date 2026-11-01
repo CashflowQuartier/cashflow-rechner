@@ -1,6 +1,23 @@
-# Livegang auf IONOS unter cashflowquartier.com/cqpm-loi
+# Livegang unter cashflowquartier.com/cqpm-loi
 
-Upload-Paket: `cqpm-loi.zip` (enthält den Ordner `cqpm-loi/` mit `index.html`, `cinematic.html` und `assets/`).
+**Gewählter Weg:** Die Website cashflowquartier.com läuft auf **Onepage.io**, die Domain liegt bei IONOS.
+Die LOI-Seite liegt deshalb auf dem IONOS-Webspace unter `cqpm-loi.cashflowquartier.com` und wird in Onepage
+auf der Seite `cqpm-loi` bildschirmfüllend eingebettet (Code: `onepage_einbettung.html`).
+
+1. IONOS Hosting → Webspace Explorer → Ordner `cqpm-loi` anlegen, `cqpm-loi.zip` hochladen und entpacken
+   (im Ordner müssen `index.html` und `assets/` direkt liegen).
+2. IONOS Domains & SSL → cashflowquartier.com → ⋮ → Subdomains verwalten → Subdomain `cqpm-loi` anlegen →
+   ⋮ → Verwendungsart anpassen → Webspace → Ordner `/cqpm-loi`.
+3. SSL-Zertifikat der Subdomain zuweisen, dann `https://cqpm-loi.cashflowquartier.com` testen.
+4. Onepage: neue Seite mit URL `cqpm-loi`, Kopf- und Fußzeile ausblenden, HTML-/Embed-Block mit dem Code aus
+   `onepage_einbettung.html` einfügen, veröffentlichen.
+5. `https://cashflowquartier.com/cqpm-loi` testen (auch mit `?q=test`).
+
+---
+
+Allgemeine Varianten (falls sich das Hosting ändert):
+
+Upload-Paket: `cqpm-loi.zip` (enthält direkt `index.html`, `cinematic.html` und `assets/`; im Ordner `cqpm-loi` entpacken).
 Neu erzeugen: `python loi-seite/build_cinematic.py` und dann das ZIP wie in der Sitzung beschrieben packen.
 
 ## Schritt 1: Herausfinden, welches IONOS-Produkt die Website betreibt

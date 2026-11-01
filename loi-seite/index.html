@@ -783,6 +783,9 @@ footer a{transition:color .15s}
    der CashFlow-Quartier-Plattform.
    Leer = Entwurfsmodus: es wird nichts gesendet, nur die Bestätigung angezeigt. */
 const ENDPOINT = "";
+/* SHARE_URL: die Adresse, die beim Weiterleiten geteilt wird. Die Seite läuft eingebettet in
+   cashflowquartier.com/cqpm-loi (Onepage), technisch aber unter cqpm-loi.cashflowquartier.com. */
+const SHARE_URL = "https://cashflowquartier.com/cqpm-loi";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -1013,7 +1016,7 @@ function showDone(d) {
 })();
 /* ---------- Weiterleiten ---------- */
 (() => {
-  const url = location.origin + location.pathname;              // ohne persönliche Parameter
+  const url = SHARE_URL;                                          // öffentliche Adresse, auch wenn die Seite eingebettet läuft
   const text = "Hausverwaltung mit automatischen Mieterhöhungen, automatischem Mahnwesen und Mieterkommunikation in jeder Sprache – schau dir das mal an:";
   $$("[data-share]").forEach(el => {
     const k = el.dataset.share;
