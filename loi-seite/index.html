@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CQ Property Management – Unverbindliche Absichtserklärung</title>
-<meta name="description" content="Haus- und SEV-Verwaltung für große Bestände: KI-Mietentracking, automatisches Mahnwesen, Mieterhöhung per Klick, Mieterkommunikation in jeder Sprache. Unverbindliche Absichtserklärung.">
+<meta name="description" content="Haus- und SEV-Verwaltung für große Bestände: Automatische Mieterhöhungen, automatisches Mahnwesen, digitale Mieterkommunikation in jeder Sprache. Unverbindliche Absichtserklärung.">
 <meta name="robots" content="noindex, nofollow">
 <style>
 @font-face{font-family:Onest;font-weight:400;font-display:swap;src:url(assets/fonts/onest-latin-400-normal.woff2) format("woff2")}
@@ -71,6 +71,25 @@ header .btn{padding:10px 18px;font-size:14px}
 .team figure img{display:block;width:100%;height:auto}
 .team p{color:var(--navy-2)}
 .stat b{font-size:26px}
+/* hero claims + gains */
+.hero h1.claims{font-size:clamp(28px,3.3vw,40px);display:flex;flex-direction:column;gap:2px}
+.values{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 26px}
+.values span{border:1.5px solid var(--gold);color:var(--navy);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px}
+.gains{background:var(--navy);color:#fff;border-radius:20px;padding:26px;box-shadow:0 20px 50px rgba(11,18,48,.18);display:grid;gap:4px}
+.gains-head{font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.gain{padding:14px 0;border-top:1px solid rgba(255,255,255,.1)}
+.gain b{display:block;font-size:18px;margin-bottom:2px}
+.gain span{color:#c4c7dd;font-size:15px;line-height:1.45}
+.gains-foot{margin-top:8px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;color:#9aa0bb}
+/* how */
+.how .intro{color:var(--muted);max-width:680px;margin:12px 0 0;font-size:17px}
+.how .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:28px 0 22px}
+.how .card{padding:24px}
+.how .card i{width:36px;height:36px;border-radius:10px;background:var(--gold-soft);color:var(--navy);display:grid;place-items:center;font-style:normal;font-weight:700;margin-bottom:12px}
+.how .card h3{font-size:18px;margin:0 0 6px}
+.how .card p{margin:0;color:var(--navy-2);font-size:15px}
+.how .card.feat{background:var(--gold-soft);border-color:var(--gold)}
+.how .card.feat i{background:var(--gold)}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 0}
 .stat{background:var(--bg-2);border-radius:var(--r);padding:20px}
@@ -177,7 +196,7 @@ footer img{height:36px}
 footer a{color:#c4c7dd}
 
 @media (max-width:900px){
-  .hero .wrap,.video .wrap,.services .grid,.benefits .grid,.team,.loi .head{grid-template-columns:1fr}
+  .hero .wrap,.video .wrap,.services .grid,.how .grid,.team,.loi .head{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .hero{padding-top:32px}
 }
@@ -215,47 +234,47 @@ footer a{color:#c4c7dd}
   <div class="wrap">
     <div>
       <p class="greet" id="greet"></p>
-      <div class="eyebrow">Haus- und SEV-Verwaltung für große Bestände</div>
-      <h1 style="margin-top:12px">Ihr Bestand. <mark>Automatisch verwaltet.</mark></h1>
-      <p class="lead">Mietrückstände in Tagen statt Wochen erkannt, Mieterhöhungen für das ganze Portfolio per Klick, Mieter per WhatsApp in ihrer Sprache betreut. Unsere KI-Plattform übernimmt die Routine, unser Team den Rest.</p>
+      <div class="eyebrow">Ihre neue digitale Hausverwaltung</div>
+      <h1 class="claims">
+        <span>Automatische Mieterhöhungen.</span>
+        <span>Automatisches Mahnwesen.</span>
+        <span><mark>Keine nervige Mieterkommunikation mehr.</mark></span>
+      </h1>
+      <p class="lead">Eine Verwaltung, die Ihren Bestand nicht nur verwaltet, sondern wirtschaftlich weiterentwickelt. Wir stiften Mehrwert statt nur Akten zu führen.</p>
+      <div class="values"><span>Kostengünstig</span><span>Transparent</span><span>Effizient</span></div>
       <div class="ctas">
         <a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a>
         <a class="btn btn-ghost" href="#video">▶&nbsp; Plattform live ansehen (17 Min.)</a>
       </div>
-      <div class="trust"><span>Im eigenen Bestand mit ~1.000 Einheiten erprobt</span><span>100 % unverbindlich</span></div>
     </div>
-    <div class="auto">
-      <div class="auto-head">Was für Ihren Bestand automatisch läuft</div>
-      <ul>
-        <li><i>€</i><div><b>Mietentracking</b><span>KI gleicht Kontoumsätze ab und zeigt sofort, wer nicht gezahlt hat</span></div></li>
-        <li><i>!</i><div><b>Mahnwesen</b><span>Mahnung per Mail, WhatsApp und Brief, ab der 2. Mahnung direkt zum Anwalt</span></div></li>
-        <li><i>↑</i><div><b>Mieterhöhung</b><span>Potenzial je Einheit, KI prüft Kappung und Mietspiegel, Schreiben fertig</span></div></li>
-        <li><i>✉</i><div><b>Mieterkommunikation</b><span>Digital per WhatsApp, Dokumente in jeder Sprache</span></div></li>
-        <li><i>⚡</i><div><b>Energieversorger</b><span>Energieverträge beim Mieterwechsel automatisch geregelt</span></div></li>
-        <li><i>⚒</i><div><b>Schäden und Handwerker</b><span>Mieter meldet per WhatsApp, Ticket entsteht, Handwerker mit einem Klick</span></div></li>
-      </ul>
+    <div class="gains">
+      <div class="gains-head">Was Sie davon haben</div>
+      <div class="gain"><b>Mehr Mietertrag</b><span>Kein Erhöhungspotenzial bleibt liegen: Jede Wohnung wird jeden Monat geprüft.</span></div>
+      <div class="gain"><b>Weniger Mietausfall</b><span>Rückstände fallen nach Tagen auf statt nach Wochen. Gemahnt wird sofort.</span></div>
+      <div class="gain"><b>Ruhe bei der Mieterkommunikation</b><span>Mieter schreiben per WhatsApp, in ihrer Sprache. Sie bekommen Ergebnisse statt Rückfragen.</span></div>
+      <div class="gain"><b>Volle Transparenz</b><span>Ein Portal für den ganzen Bestand, egal wo die Einheiten liegen.</span></div>
+      <div class="gains-foot">Im eigenen Bestand mit ~1.000 Einheiten erprobt · Richtwert ca. 29 € je Einheit</div>
     </div>
   </div>
 </div>
 
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><b>Tage</b><span>statt Wochen, bis ein Mietrückstand auffällt und gemahnt wird</span></div>
-    <div class="stat"><b class="g">1 Lauf</b><span>im Monat für Mieterhöhungen – statt rund 60 Arbeitstagen bei 3.000 Einheiten</span></div>
-    <div class="stat"><b>Jede Sprache</b><span>für Nachrichten und Dokumente an Ihre Mieter</span></div>
-    <div class="stat"><b>~1.000</b><span>Einheiten verwalten wir so bereits im eigenen Bestand</span></div>
-  </div>
-</div>
-
-<section class="benefits">
+<section class="how">
   <div class="wrap">
-    <h2><span class="bar"></span>Was Sie davon haben</h2>
-    <p class="intro">Klassische Verwaltungen skalieren über Personal. Wir skalieren über Prozesse. Für Sie heißt das: weniger Ausfall, mehr Ertrag und eine Verwaltung, die auch bei Wachstum nicht nachlässt.</p>
+    <h2><span class="bar"></span>So funktioniert es</h2>
+    <p class="intro">Unsere KI-Plattform übernimmt die Routine, unser Team die Entscheidungen. Wo es um Ihr Geld und Ihre Mieter geht, bleibt ein Mensch im Prozess.</p>
     <div class="grid">
-      <div class="card"><h3>Weniger Mietausfall</h3><p>Die KI prüft laufend die Kontoumsätze. Rückstände fallen nach Tagen auf statt nach Wochen. Das Mahnwesen läuft ohne Verzögerung bis zum Anwalt.</p></div>
-      <div class="card"><h3>Mehr Mietertrag</h3><p>Jeden Monat sehen wir für jede Einheit, wo eine Erhöhung möglich ist. Kappungsgrenze und Mietspiegel sind geprüft, das Schreiben ist fertig. Kein Potenzial bleibt liegen, weil die Zeit fehlt.</p></div>
-      <div class="card"><h3>Zufriedene Mieter</h3><p>Mieter erreichen uns per WhatsApp, in ihrer Sprache. Schäden sind mit Foto gemeldet und landen direkt beim Handwerker. Weniger Rückfragen, schnellere Reparaturen.</p></div>
-      <div class="card"><h3>Weniger Aufwand für Sie</h3><p>Energieverträge beim Mieterwechsel, Gutachten und Anwaltsportal laufen über die Plattform. Sie bekommen Ergebnisse statt Rückfragen.</p></div>
+      <div class="card feat"><i>↑</i><h3>Mieterhöhung</h3><p>Die KI prüft jeden Monat jede Wohnung im Bestand auf Erhöhungspotenzial, inklusive Kappungsgrenze und Mietspiegel. Findet sie Potenzial, entwirft sie die Erhöhung. Auf Ihren Wunsch wird sie automatisch versendet, sonst gibt ein Mitarbeiter frei.</p></div>
+      <div class="card"><i>€</i><h3>Mietentracking</h3><p>Die KI gleicht die Kontoumsätze ab und zeigt sofort, wer nicht gezahlt hat.</p></div>
+      <div class="card"><i>!</i><h3>Mahnwesen</h3><p>Mahnungen gehen per Mail, WhatsApp und Brief raus. Ab der 2. Mahnung geht der Fall direkt zum Anwalt.</p></div>
+      <div class="card"><i>✉</i><h3>Mieterkommunikation</h3><p>Digital per WhatsApp, Nachrichten und Dokumente in jeder Sprache.</p></div>
+      <div class="card"><i>⚒</i><h3>Schäden und Handwerker</h3><p>Der Mieter meldet per WhatsApp, die KI fragt nach einem Foto, das Ticket entsteht. Der Handwerker ist mit einem Klick beauftragt.</p></div>
+      <div class="card"><i>⚡</i><h3>Energieversorger</h3><p>Energieverträge beim Mieterwechsel laufen automatisch über die Plattform, ebenso Gutachten und das Anwaltsportal.</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>Jeden Monat</b><span>wird jede Wohnung auf Mieterhöhungspotenzial geprüft</span></div>
+      <div class="stat"><b class="g">Tage</b><span>statt Wochen, bis ein Mietrückstand auffällt und gemahnt wird</span></div>
+      <div class="stat"><b>Jede Sprache</b><span>für Nachrichten und Dokumente an Ihre Mieter</span></div>
+      <div class="stat"><b>~1.000</b><span>Einheiten verwalten wir so bereits im eigenen Bestand</span></div>
     </div>
   </div>
 </section>
@@ -285,7 +304,7 @@ footer a{color:#c4c7dd}
         <div class="price">ca. 29 € <small>brutto je Einheit und Monat</small></div>
         <ul>
           <li>Mietentracking und automatisches Mahnwesen</li>
-          <li>Mieterhöhung per Klick für das ganze Portfolio</li>
+          <li>Monatliche KI-Prüfung jeder Wohnung auf Mieterhöhung, Versand automatisch oder nach Freigabe</li>
           <li>Digitale Mieterkommunikation in jeder Sprache</li>
           <li>Schäden und Handwerker per WhatsApp</li>
           <li>Energieversorger-Management beim Mieterwechsel</li>
@@ -298,7 +317,7 @@ footer a{color:#c4c7dd}
         <div class="price">35–55 € <small>brutto je Einheit und Monat</small></div>
         <ul>
           <li>Mietentracking und Mahnwesen je Wohnung</li>
-          <li>Mieterhöhung per Klick, auch über viele WEGs hinweg</li>
+          <li>Monatliche KI-Prüfung auf Mieterhöhung, auch über viele WEGs hinweg</li>
           <li>Schäden per WhatsApp, abgestimmt mit der WEG-Verwaltung</li>
           <li>Eine Plattform für alle Wohnungen, egal wo sie liegen</li>
         </ul>
