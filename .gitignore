@@ -11,3 +11,5 @@ out/
 !teaser_generator/assets/**/*.jpg
 cqpm-loi.zip
 teilen/
+!loi-seite/assets/*.png
+!loi-seite/assets/*.jpg
