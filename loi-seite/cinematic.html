@@ -318,6 +318,34 @@ footer a{transition:color .15s}
 .person img{box-shadow:0 6px 18px rgba(11,18,48,.15)}
 @media (hover:none){.btn:hover,.chips label:hover span,.steps button:hover,.svc:hover,.card:hover,.t:hover,.vrow div:hover{transform:none}}
 @media (prefers-reduced-motion:reduce){.btn,.chips span,.svc,.card,.t,.vrow div{transition:none}.btn:hover,.card:hover,.t:hover,.vrow div:hover,.svc:hover,.chips label:hover span{transform:none}}
+
+.sub-h{margin:16px 0 0;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.services .grid{align-items:start}
+.extra{margin-top:20px;display:grid;grid-template-columns:1fr 1.3fr;gap:28px;align-items:start;background:var(--bg-2);border-radius:18px;padding:26px 28px}
+.extra h3{font-size:20px;margin:0 0 8px}
+.extra p{margin:0;color:var(--navy-2)}
+.extra ul{margin:0;padding:0;list-style:none}
+.extra li{padding:6px 0 6px 26px;position:relative;color:var(--navy-2)}
+.extra li:before{content:"+";position:absolute;left:4px;top:4px;font-weight:700;color:var(--gold)}
+@media (max-width:900px){.extra{grid-template-columns:1fr}}
+
+.consent{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px;color:#fff;
+  background:radial-gradient(circle at 50% 40%,rgba(233,179,63,.18),transparent 60%),linear-gradient(135deg,#0b1230,#2c3459)}
+.consent b{font-size:clamp(18px,2.4vw,24px)}
+.consent span{font-size:13px;color:#c4c7dd;max-width:520px}
+.consent a{color:#fff}
+.play{width:92px;height:92px;border-radius:50%;border:0;background:var(--gold);color:var(--navy);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 0 0 10px rgba(233,179,63,.18),0 14px 40px rgba(0,0,0,.35);transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s}
+.play svg{margin-left:6px}
+.play:hover{transform:scale(1.08);box-shadow:0 0 0 14px rgba(233,179,63,.22),0 18px 50px rgba(0,0,0,.4)}
+.play:focus-visible{outline:3px solid #fff;outline-offset:4px}
+
+.share{background:var(--bg-2);padding-block:44px}
+.share .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.share h2{font-size:clamp(22px,2.4vw,28px)}
+.share p{color:var(--navy-2);max-width:560px;margin:8px 0 0}
+.share-btns{display:flex;gap:10px;flex-wrap:wrap}
+.share-btns .btn{padding:11px 18px;font-size:15px}
 </style>
 <link rel="stylesheet" href="assets/cinematic.css">
 </head>
@@ -347,8 +375,14 @@ footer a{transition:color .15s}
 
 <section class="vid" id="video">
   <div class="wrap">
-    <div class="player">
-      <iframe src="https://drive.google.com/file/d/1pEjXcwP1N7CeqUmhcbfCx8Wmm3FesHrv/preview" allow="autoplay; fullscreen" allowfullscreen title="CQPM Plattform-Video: von der WhatsApp-Meldung bis zur Mieterhöhung"></iframe>
+    <div class="player" id="player" data-src="https://drive.google.com/file/d/1pEjXcwP1N7CeqUmhcbfCx8Wmm3FesHrv/preview">
+      <div class="consent">
+        <button type="button" class="play" id="playBtn" aria-label="Video laden und abspielen">
+          <svg width="38" height="38" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
+        </button>
+        <b>Die Plattform live · 17 Minuten</b>
+        <span>Mit dem Klick wird das Video von Google Drive geladen. Dabei werden Daten an Google übertragen. Mehr dazu in der <a href="https://cashflowquartier.com/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.</span>
+      </div>
     </div>
     <p class="vid-cap">Die Plattform live, 17 Minuten: von der WhatsApp-Meldung bis zur Mieterhöhung, im echten Bestand.</p>
     <div class="center-cta">
@@ -432,14 +466,24 @@ footer a{transition:color .15s}
         <h3>Hausverwaltung</h3>
         <p style="color:var(--muted);margin:0">Mietverwaltung für Mehrfamilienhäuser und Portfolios im Alleineigentum.</p>
         <div class="price">ca. 29 € <small>brutto je Einheit und Monat, je nach Bestandsgröße</small></div>
-        <p class="incl">Alle Leistungen der SEV-Verwaltung für jede Wohnung, dazu alles rund ums Gebäude:</p>
+        <p class="sub-h">Inklusive</p>
         <ul>
-          <li>Instandhaltung von Dach, Fassade, Treppenhaus und Technik: Angebote einholen, beauftragen, abnehmen</li>
-          <li>Dienstleister wie Hausmeister, Reinigung, Winterdienst und Wartung steuern</li>
-          <li>Verkehrssicherung und regelmäßige Objektbegehungen</li>
-          <li>Gebäudeversicherung und Gebäudeschäden abwickeln</li>
-          <li>Versorger- und Messdienstverträge für das ganze Haus</li>
-          <li>Objektbuchhaltung für das ganze Gebäude</li>
+          <li>KI-Plattform: Mietentracking, monatliche Prüfung jeder Wohnung auf Mieterhöhungspotenzial, Mieterkommunikation in jeder Sprache, Schadensmeldung per WhatsApp</li>
+          <li>Mietinkasso und Überwachung aller Zahlungseingänge</li>
+          <li>Bewirtschaftungskonten als offene Fremdkonten auf deinen Namen</li>
+          <li>Objektbuchhaltung mit Mieter- und Objektkonten</li>
+          <li>Jährliche Budgetübersicht und Berechnung der Nebenkostenvorauszahlungen</li>
+          <li>Betriebs- und Nebenkostenabrechnung inkl. Heizkosten, Nachzahlungen einziehen, Guthaben auszahlen</li>
+          <li>Einfache Vertragsänderungen wie Nachträge sowie Staffel- und Indexmieterhöhungen</li>
+          <li>Kleinere Reparaturen beauftragen und abwickeln, bis zu drei Angebote je Maßnahme, kaufmännische Rechnungsprüfung</li>
+          <li>Versicherungsschäden am Gebäude melden und abwickeln</li>
+          <li>Dienstleister wie Hausmeister, Reinigung, Winterdienst und Wartung beauftragen und überwachen</li>
+          <li>Jährliche Objektbegehung mit Einschätzung des Instandhaltungsbedarfs</li>
+          <li>Jährliches Abstimmungsgespräch mit kurzem Jahresbericht (bei Bedarf auch häufiger)</li>
+          <li>Modernisierungsankündigungen, Anträge und Meldungen an Behörden, Hausordnung auf Wunsch</li>
+          <li>Forderungsanmeldung bei Insolvenz eines Mieters</li>
+          <li>Energieversorger-Management beim Mieterwechsel</li>
+          <li>Digitale Ablage aller Unterlagen, Einsicht jederzeit</li>
           <li>Volle Transparenz per Eigentümer-Zugang, API-Schnittstelle oder Nachricht per Mail, Telegram, Slack, Claude oder ChatGPT, ganz wie du informiert werden willst</li>
         </ul>
       </div>
@@ -448,15 +492,12 @@ footer a{transition:color .15s}
         <h3>SEV-Verwaltung</h3>
         <p style="color:var(--muted);margin:0">Sondereigentumsverwaltung für Eigentumswohnungen in fremden WEGs.</p>
         <div class="price">35–55 € <small>brutto je Einheit und Monat, je nach Bestandsgröße</small></div>
+        <p class="sub-h">Inklusive</p>
         <ul>
+          <li>KI-Plattform: Mietentracking, monatliche Prüfung jeder Wohnung auf Mieterhöhungspotenzial, Mieterkommunikation in jeder Sprache</li>
           <li>Mietinkasso, Kautionsverwaltung und Mietkonten</li>
-          <li>Mietentracking und automatisches Mahnwesen</li>
-          <li>Rechtsverfolgung über das Anwaltsportal</li>
-          <li>Monatliche KI-Prüfung jeder Wohnung auf Mieterhöhung, Versand automatisch oder nach Freigabe</li>
-          <li>Mietverträge per Klick, Nachträge und Kündigungen</li>
-          <li>Wohnungsübergaben und -abnahmen mit Protokoll</li>
           <li>Nebenkostenabrechnung für die Mieter auf Basis der WEG-Abrechnung</li>
-          <li>Digitale Mieterkommunikation in jeder Sprache</li>
+          <li>Einfache Vertragsänderungen wie Nachträge sowie Staffel- und Indexmieterhöhungen</li>
           <li>Schäden in der Wohnung per WhatsApp, Handwerker mit einem Klick, abgestimmt mit der WEG-Verwaltung</li>
           <li>Energieversorger-Management und Zählerstände beim Mieterwechsel</li>
           <li>Abrechnung an dich als Eigentümer</li>
@@ -464,6 +505,19 @@ footer a{transition:color .15s}
           <li>Volle Transparenz per Eigentümer-Zugang, API-Schnittstelle oder Nachricht per Mail, Telegram, Slack, Claude oder ChatGPT, ganz wie du informiert werden willst</li>
         </ul>
       </div>
+    </div>
+    <div class="extra">
+      <div>
+        <h3>Nach Aufwand, dank Automatisierung deutlich günstiger</h3>
+        <p>Diese Leistungen berechnen wir nur, wenn sie anfallen. Weil die Plattform die meisten Schritte automatisch erledigt, ist der Aufwand und damit der Preis viel geringer als bei einer klassischen Verwaltung.</p>
+      </div>
+      <ul>
+        <li>Mahnwesen bei Zahlungsverzug, automatisch per Mail, WhatsApp und Brief</li>
+        <li>Mieterhöhung auf die ortsübliche Vergleichsmiete: KI-Entwurf inkl. Kappungsgrenze und Mietspiegel, Versand automatisch oder nach deiner Freigabe</li>
+        <li>Neuvermietung: Bonitätsprüfung, Mietvertrag per Klick, Kautionsabrechnung</li>
+        <li>Besichtigungen und Wohnungsübergaben vor Ort, je nach Lage durch unser Team oder Partner vor Ort</li>
+        <li>Sanierungen und Modernisierungen koordinieren</li>
+      </ul>
     </div>
     <p class="note">Preise sind Richtwerte für unsere Marktsondierung, kein Angebot. Das konkrete Angebot hängt von Bestandsgröße, Objekt, Lage und Umfang ab. Wir entscheiden gerade, in welchen Regionen wir zuerst starten. Mit deiner unverbindlichen Absichtserklärung sicherst du dir einen frühen Platz.</p>
   </div>
@@ -615,6 +669,19 @@ footer a{transition:color .15s}
             <div><label class="f">E-Mail</label><input type="email" name="email" autocomplete="email" required></div>
             <div><label class="f">Telefon <em>(optional)</em></label><input type="tel" name="telefon" autocomplete="tel"></div>
           </div>
+          <div class="row">
+            <div><label class="f" for="kanal">Wie bist du auf uns aufmerksam geworden?</label>
+              <select name="kanal" id="kanal">
+                <option value="">Bitte wählen</option>
+                <option value="empfehlung">Empfehlung</option>
+                <option value="weitergeleitet">Weitergeleitete Nachricht</option>
+                <option value="cfq_direkt">Direkt von Cashflow Quartier</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="instagram">Instagram</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select></div>
+            <div><label class="f" for="empfohlen_von">Von wem? <em>(optional)</em></label><input type="text" name="empfohlen_von" id="empfohlen_von" placeholder="z. B. Name oder Firma"></div>
+          </div>
           <label class="f" style="margin-top:6px">Dürfen wir deine Absichtserklärung gegenüber Investoren nennen?</label>
           <div class="chips" style="margin-bottom:18px">
             <label><input type="radio" name="nennung" value="namentlich" required><span>Ja, namentlich</span></label>
@@ -640,8 +707,24 @@ footer a{transition:color .15s}
         <p style="color:var(--muted)">Du bekommst gleich eine Bestätigung als PDF per E-Mail. Ich melde mich persönlich bei dir, sobald wir in deiner Region starten.</p>
         <div class="summary" id="summary"></div>
         <p style="margin:0"><b>Jan-Moritz Becker</b><br><span style="color:var(--muted)">Gründer, Cashflow Quartier</span></p>
+        <p style="margin-top:20px"><a class="btn btn-gold" href="#teilen">Seite an Kontakte weiterleiten</a></p>
         <p class="actions" style="margin-top:22px"><button class="btn btn-ghost" onclick="window.print()">Zusammenfassung drucken / als PDF speichern</button></p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="share" id="teilen">
+  <div class="wrap">
+    <div>
+      <h2>Kennst du jemanden mit größerem Bestand?</h2>
+      <p>Leite die Seite gern weiter, an Family Offices, Bestandshalter oder Kollegen. Jede Empfehlung hilft uns, den Start in der richtigen Region zu planen.</p>
+    </div>
+    <div class="share-btns">
+      <button type="button" class="btn btn-gold" data-share="copy">Link kopieren</button>
+      <a class="btn btn-ghost" data-share="wa" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn-ghost" data-share="mail">E-Mail</a>
+      <a class="btn btn-ghost" data-share="li" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </div>
 </section>
@@ -665,6 +748,8 @@ const ENDPOINT = "";
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const form = $("#form"), panes = $$(".pane"), steps = $("#steps");
+/* Quelle aus dem Link, z. B. …/cqpm-loi/?q=linkedin – optional, für die Auswertung der Kanäle */
+const QUELLE = new URLSearchParams(location.search).get("q") || null;
 let cur = 0;
 
 /* ---------- Personalisierter Link: ?r=<base64url JSON> ----------
@@ -809,6 +894,7 @@ function collect() {
     zeitpunkt: { start: E.start.value, verwaltung_heute: E.verwaltung_heute.value || null, kuendbar_ab: E.kuendbar_ab.value.trim() || null, kosten_heute: E.kosten_heute.value.trim() || null },
     ausblick: { zusatzleistungen: $$("[name=zusatz]:checked").map(x => x.value), zukaeufe_24m: num("zukaeufe"), pilot: v("pilot"),
                 wahrscheinlichkeit: v("wahrscheinlichkeit") ? +v("wahrscheinlichkeit") : null, anmerkungen: E.anmerkungen.value.trim() || null },
+    herkunft: { kanal: E.kanal.value || null, empfohlen_von: E.empfohlen_von.value.trim() || null, quelle: QUELLE, seite: location.pathname },
     nennung_investoren: v("nennung"),
     erklaerungen: { unverbindlich: E.ok_unverbindlich.checked, datenschutz: E.ok_datenschutz.checked },
     website: E.website.value
@@ -864,6 +950,28 @@ function showDone(d) {
     io.disconnect();
   }), { threshold: 0.25 });
   io.observe(box);
+})();
+/* ---------- Video erst nach Klick laden (Datenschutz) ---------- */
+$("#playBtn")?.addEventListener("click", () => {
+  const p = $("#player"), f = document.createElement("iframe");
+  f.src = p.dataset.src; f.title = "CQPM Plattform-Video"; f.allow = "autoplay; fullscreen"; f.allowFullscreen = true;
+  p.innerHTML = ""; p.appendChild(f);
+});
+/* ---------- Weiterleiten ---------- */
+(() => {
+  const url = location.origin + location.pathname;              // ohne persönliche Parameter
+  const text = "Hausverwaltung mit automatischen Mieterhöhungen, automatischem Mahnwesen und Mieterkommunikation in jeder Sprache – schau dir das mal an:";
+  $$("[data-share]").forEach(el => {
+    const k = el.dataset.share;
+    if (k === "wa") el.href = "https://wa.me/?text=" + encodeURIComponent(text + " " + url);
+    if (k === "mail") el.href = "mailto:?subject=" + encodeURIComponent("Digitale Hausverwaltung von Cashflow Quartier") + "&body=" + encodeURIComponent(text + "\n\n" + url);
+    if (k === "li") el.href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url);
+    if (k === "copy") el.addEventListener("click", async () => {
+      try { await navigator.clipboard.writeText(url); el.textContent = "Link kopiert ✓"; }
+      catch (e) { el.insertAdjacentHTML("afterend", `<input readonly value="${url}" style="max-width:320px" onclick="this.select()">`); }
+      setTimeout(() => el.textContent = "Link kopieren", 2500);
+    });
+  });
 })();
 go(0);
 </script>

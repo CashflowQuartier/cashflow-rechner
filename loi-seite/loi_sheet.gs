@@ -20,7 +20,7 @@ const KOPF_LOIS = [
   'SEV Einheiten', 'SEV WEGs', 'SEV Preis-Feedback (35–55 €)',
   'Einheiten gesamt', 'Standorte', 'Frühester Start', 'Verwaltung heute', 'Kündbar ab', 'Kosten heute',
   'Zusatzleistungen', 'Zukäufe 24 Monate', 'Pilot', 'Wahrscheinlichkeit (1–5)', 'Nennung ggü. Investoren',
-  'Anmerkungen', 'Rohdaten (JSON)'
+  'Aufmerksam geworden durch', 'Empfohlen von', 'Quelle (Link)', 'Anmerkungen', 'Rohdaten (JSON)'
 ];
 const KOPF_STANDORTE = ['Eingegangen', 'Ref-ID', 'Unternehmen', 'PLZ', 'PLZ-Region', 'Ort', 'Einheiten', 'Leistung', 'Nutzung', 'Frühester Start'];
 
@@ -33,7 +33,8 @@ const TEXT = {
   zusatz: { energie: 'Energie', versicherung: 'Versicherung', gutachten: 'Gutachten', mieterhoehung: 'Mieterhöhungs-Management', vertrieb: 'Vertrieb' },
   pilot: { ja: 'Ja', vielleicht: 'Vielleicht', nein: 'Nein' },
   nennung: { namentlich: 'Namentlich', anonym: 'Anonymisiert', nein: 'Nein' },
-  start: { sofort: 'Ab sofort', spaeter: 'Später', offen: 'Noch offen' }
+  start: { sofort: 'Ab sofort', spaeter: 'Später', offen: 'Noch offen' },
+  kanal: { empfehlung: 'Empfehlung', weitergeleitet: 'Weitergeleitete Nachricht', cfq_direkt: 'Direkt von CFQ', linkedin: 'LinkedIn', instagram: 'Instagram', sonstiges: 'Sonstiges' }
 };
 
 function doPost(e) {
@@ -61,6 +62,7 @@ function doPost(e) {
       gesamt, (d.standorte || []).map(ortText).join('; '), start, TEXT.heute[z.verwaltung_heute] || '', z.kuendbar_ab || '', z.kosten_heute || '',
       (x.zusatzleistungen || []).map(k => TEXT.zusatz[k] || k).join(', '), x.zukaeufe_24m == null ? '' : x.zukaeufe_24m,
       TEXT.pilot[x.pilot] || '', x.wahrscheinlichkeit || '', TEXT.nennung[d.nennung_investoren] || '',
+      TEXT.kanal[(d.herkunft || {}).kanal] || '', (d.herkunft || {}).empfohlen_von || '', (d.herkunft || {}).quelle || '',
       x.anmerkungen || '', JSON.stringify(d)
     ]);
     (d.standorte || []).forEach(s => orte.appendRow([
@@ -75,6 +77,7 @@ function doPost(e) {
       htmlBody: `<p><b>${esc(a.firma)}</b> (${esc(a.typ)}), ${esc(a.name)}, ${esc(a.position)}</p>
         <p>Hausverwaltung: ${hv ? hv.einheiten : 0} · SEV: ${sev ? sev.einheiten : 0} · Start: ${esc(start)}</p>
         <p>Standorte: ${esc((d.standorte || []).map(ortText).join('; '))}</p>
+        <p>Aufmerksam durch: ${esc(TEXT.kanal[(d.herkunft || {}).kanal] || '–')}${(d.herkunft || {}).empfohlen_von ? ' (' + esc(d.herkunft.empfohlen_von) + ')' : ''}</p>
         <p><a href="${ss.getUrl()}">Zur Übersicht im Google Sheet</a></p>`
     });
     return antwort({ ok: true });

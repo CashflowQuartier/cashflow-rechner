@@ -1,7 +1,13 @@
 # LOI-Seite – CQ Property Management
 
 Landingpage zum Einsammeln unverbindlicher Absichtserklärungen (LOIs) für die Haus- und SEV-Verwaltung.
-Statische Seite (eine HTML-Datei plus `assets/`), kein Build-Schritt. Geplant unter `cashflowquartier.com/verwaltung/`.
+Statische Seite (eine HTML-Datei plus `assets/`), kein Build-Schritt. Geplant unter `cashflowquartier.com/cqpm-loi/`.
+
+**Ein Link für alle:** Die Seite ist zum Weiterleiten gedacht (Teilen-Block mit Link kopieren, WhatsApp, E-Mail, LinkedIn).
+Im Formular wird gefragt, wie jemand auf uns aufmerksam wurde und von wem. Optional lässt sich der Kanal im Link mitgeben,
+z. B. `…/cqpm-loi/?q=linkedin` oder `?q=newsletter-nov`; der Wert landet im Sheet in der Spalte „Quelle (Link)“.
+
+**Video:** wird erst nach Klick auf Play von Google Drive geladen (Zwei-Klick-Lösung, DSGVO).
 
 ## Inhalt
 - Hero mit Teamfoto, Kennzahlen, Video (Google-Drive-Einbettung), OnePager-Download
@@ -20,7 +26,7 @@ cd loi-seite && python3 -m http.server 8765
 ```
 Dann `http://localhost:8765/` öffnen.
 
-## Personalisierte Links
+## Personalisierte Links (optional)
 ```bash
 python loi-seite/make_links.py empfaenger.csv --base https://cashflowquartier.com/verwaltung/ > links.csv
 ```
