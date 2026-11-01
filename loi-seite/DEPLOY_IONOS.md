@@ -1,14 +1,16 @@
 # Livegang unter cashflowquartier.com/cqpm-loi
 
 **Gewählter Weg:** Die Website cashflowquartier.com läuft auf **Onepage.io**, die Domain liegt bei IONOS.
-Die LOI-Seite liegt deshalb auf dem IONOS-Webspace unter `cqpm-loi.cashflowquartier.com` und wird in Onepage
-auf der Seite `cqpm-loi` bildschirmfüllend eingebettet (Code: `onepage_einbettung.html`).
+Die LOI-Dateien liegen auf dem IONOS-Webspace, an dem bereits **cashflowquartier.de** hängt, im Ordner `cqpm-loi`
+(technisch erreichbar unter `https://cashflowquartier.de/cqpm-loi/`). Onepage zeigt sie auf der Seite `cqpm-loi`
+bildschirmfüllend an (Code: `onepage_einbettung.html`). Öffentlich geteilt wird nur `cashflowquartier.com/cqpm-loi`.
+An den Domain-Einstellungen wird nichts geändert.
 
-1. IONOS Hosting → Webspace Explorer → Ordner `cqpm-loi` anlegen, `cqpm-loi.zip` hochladen und entpacken
+1. IONOS → Hosting → Webspace (Webspace Explorer) → den Ordner öffnen, auf den cashflowquartier.de zeigt
+   (steht unter Domains & SSL → cashflowquartier.de → Details).
+2. Dort Ordner `cqpm-loi` anlegen, `cqpm-loi.zip` hineinladen und entpacken
    (im Ordner müssen `index.html` und `assets/` direkt liegen).
-2. IONOS Domains & SSL → cashflowquartier.com → ⋮ → Subdomains verwalten → Subdomain `cqpm-loi` anlegen →
-   ⋮ → Verwendungsart anpassen → Webspace → Ordner `/cqpm-loi`.
-3. SSL-Zertifikat der Subdomain zuweisen, dann `https://cqpm-loi.cashflowquartier.com` testen.
+3. Testen: `https://cashflowquartier.de/cqpm-loi/` (muss mit https und Schloss laden; sonst SSL für cashflowquartier.de aktivieren).
 4. Onepage: neue Seite mit URL `cqpm-loi`, Kopf- und Fußzeile ausblenden, HTML-/Embed-Block mit dem Code aus
    `onepage_einbettung.html` einfügen, veröffentlichen.
 5. `https://cashflowquartier.com/cqpm-loi` testen (auch mit `?q=test`).
