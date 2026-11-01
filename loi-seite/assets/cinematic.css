@@ -8,8 +8,7 @@
   color-scheme:dark;
 }
 body.cine{background:var(--c-void);color:var(--c-text)}
-#stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-body.cine > *:not(#stage){position:relative;z-index:1}
+#stage{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 body.cine header{background:rgba(4,6,13,.7);border-bottom:1px solid var(--c-line);position:sticky}
 body.cine header img{filter:brightness(0) invert(1)}
 .cine .btn-gold{background:linear-gradient(135deg,var(--c-gold-2),var(--c-gold));color:#05070f;box-shadow:0 0 0 1px rgba(255,217,138,.4),0 10px 40px rgba(233,179,63,.35)}
@@ -90,3 +89,54 @@ body.cine footer{background:transparent;border-top:1px solid var(--c-line)}
 /* Einblenden beim Scrollen: Inhalt bleibt sichtbar, nur die Bewegung startet beim Hineinscrollen */
 .cine .reveal.in{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
 @media (prefers-reduced-motion:reduce){.cine .kicker,.cine .checks li,.cine .player:before,.cine .reveal.in{animation:none}}
+
+/* ===== Sci-Fi-Ebene (v2) =====
+   HUD-Look: Mono-Labels, Eckklammern, Scanlines, Cyan als Datenfarbe neben dem Gold. */
+:root{--c-cyan:#5ee7ff;--c-cyan-dim:rgba(94,231,255,.35);--mono:ui-monospace,"SFMono-Regular","JetBrains Mono",Menlo,Consolas,monospace}
+body.cine:after{content:"";position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+body.cine:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx,70%) var(--my,20%),rgba(94,231,255,.07),transparent 60%)}
+.hud-ticker,body.cine .hud-ticker{position:sticky;top:68px;z-index:19;overflow:hidden;border-bottom:1px solid var(--c-line);background:rgba(4,6,13,.75);
+  font:500 11px/1 var(--mono);letter-spacing:.14em;color:var(--c-cyan);white-space:nowrap;padding:8px 0}
+.hud-ticker span{display:inline-block;padding-left:100%;animation:tick 38s linear infinite}
+.hud-ticker i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#46f2a0;box-shadow:0 0 10px #46f2a0;margin:0 8px 1px 0;font-style:normal}
+@keyframes tick{to{transform:translateX(-100%)}}
+.hud-label{display:block;font:500 12px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--c-cyan);margin-bottom:12px;opacity:.9}
+.hud-label:before{content:"▸ ";color:var(--c-gold)}
+.cine .kicker{position:relative}
+.cine .kicker.glitch{animation:sheen 9s linear infinite,glitch 1.2s steps(2) 1}
+@keyframes glitch{0%{text-shadow:2px 0 var(--c-cyan),-2px 0 #ff4d6d;transform:translateX(1px)}20%{text-shadow:-3px 0 var(--c-cyan),3px 0 #ff4d6d;transform:translateX(-2px)}40%{text-shadow:none;transform:none}60%{text-shadow:1px 0 var(--c-cyan);transform:skewX(-4deg)}100%{text-shadow:none;transform:none}}
+.cine .checks li{font-family:inherit}
+.cine .checks .ok{font:600 13px/1 var(--mono);color:#46f2a0;letter-spacing:.12em;min-width:54px;opacity:.9}
+/* Eckklammern an Paneelen */
+.cine .gains-box,.cine .player,.cine .formbox,.cine .team figure,.cine .services .card{--k:14px;
+  background-image:
+   linear-gradient(var(--c-cyan),var(--c-cyan)),linear-gradient(var(--c-cyan),var(--c-cyan)),
+   linear-gradient(var(--c-cyan),var(--c-cyan)),linear-gradient(var(--c-cyan),var(--c-cyan)),
+   linear-gradient(var(--c-cyan),var(--c-cyan)),linear-gradient(var(--c-cyan),var(--c-cyan)),
+   linear-gradient(var(--c-cyan),var(--c-cyan)),linear-gradient(var(--c-cyan),var(--c-cyan));
+  background-size:var(--k) 1.5px,1.5px var(--k),var(--k) 1.5px,1.5px var(--k),var(--k) 1.5px,1.5px var(--k),var(--k) 1.5px,1.5px var(--k);
+  background-position:top left,top left,top right,top right,bottom left,bottom left,bottom right,bottom right;
+  background-repeat:no-repeat;background-color:var(--c-glass)}
+.cine .player{background-color:#000}
+.cine .gains-box{background-color:rgba(8,12,28,.72)}
+/* Video als Monitor */
+.feed{position:absolute;z-index:3;top:12px;left:14px;font:600 11px/1 var(--mono);letter-spacing:.16em;color:#fff;background:rgba(0,0,0,.55);padding:6px 9px;border:1px solid var(--c-cyan-dim)}
+.feed b{color:#ff4d6d;animation:blink 1.4s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.feed-r{left:auto;right:14px;color:var(--c-cyan)}
+/* Buttons mit abgeschrägten Ecken */
+.cine .btn{border-radius:4px;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.cine .btn-gold{letter-spacing:.02em}
+.cine .ck,.cine .gi,.cine .ti{border-radius:6px}
+.cine .gi,.cine .ti{color:var(--c-cyan);background:rgba(94,231,255,.08);box-shadow:0 0 16px rgba(94,231,255,.2)}
+.cine .t.feat .ti{background:var(--c-gold);color:#05070f}
+.cine .g b,.cine .t b{letter-spacing:.01em}
+.cine .vrow b{font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;font-size:14px}
+.cine .price{font-family:var(--mono);letter-spacing:-.02em}
+.cine .steps button{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+.cine .eyebrow{font-family:var(--mono);letter-spacing:.2em}
+.cine .checks .ok{white-space:nowrap}
+@media (max-width:640px){.hud-ticker,body.cine .hud-ticker{top:64px}.cine .checks .ok{display:none}}
+@media (prefers-reduced-motion:reduce){.hud-ticker span,.cine .kicker.glitch,.feed b{animation:none}.hud-ticker span{padding-left:16px}}
