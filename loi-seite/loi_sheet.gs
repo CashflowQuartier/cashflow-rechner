@@ -111,15 +111,15 @@ function bestaetigung(d, gesamt, start) {
     </body></html>`;
   const pdf = Utilities.newBlob(pdfHtml, 'text/html', 'LOI.html').getAs('application/pdf')
     .setName(`Absichtserklaerung_CQPM_${a.firma.replace(/[^\wäöüÄÖÜß-]+/g, '_')}.pdf`);
-  const anrede = a.name ? `Guten Tag ${a.name},` : 'Guten Tag,';
+  const anrede = a.name ? `Hallo ${a.name},` : 'Hallo,';
   MailApp.sendEmail({
     to: a.email,
     replyTo: BENACHRICHTIGUNG,
     name: ABSENDER_NAME,
-    subject: 'Ihre unverbindliche Absichtserklärung an CQ Property Management',
+    subject: 'Deine unverbindliche Absichtserklärung an CQ Property Management',
     htmlBody: `<p>${esc(anrede)}</p>
-      <p>vielen Dank für Ihre unverbindliche Absichtserklärung über ${gesamt} Einheiten. Im Anhang finden Sie Ihre Angaben als PDF.</p>
-      <p>Wir werten gerade aus, in welchen Regionen und in welchem Umfang wir die Verwaltung starten. Sobald es für Ihren Bestand konkret wird, melde ich mich persönlich bei Ihnen.</p>
+      <p>vielen Dank für deine unverbindliche Absichtserklärung über ${gesamt} Einheiten. Im Anhang findest du deine Angaben als PDF.</p>
+      <p>Wir werten gerade aus, in welchen Regionen und in welchem Umfang wir mit der Verwaltung starten. Sobald es für deinen Bestand konkret wird, melde ich mich persönlich bei dir.</p>
       <p>Viele Grüße<br>Jan-Moritz Becker<br>Gründer, Cashflow Quartier</p>
       <p style="font-size:12px;color:#646a80">CQ Property Management GmbH · Alte Freiheit 16–18 · 42103 Wuppertal</p>`,
     attachments: [pdf]

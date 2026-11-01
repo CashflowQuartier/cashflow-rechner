@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CQ Property Management – Unverbindliche Absichtserklärung</title>
-<meta name="description" content="Haus- und SEV-Verwaltung für große Bestände: Automatische Mieterhöhungen, automatisches Mahnwesen, digitale Mieterkommunikation in jeder Sprache. Unverbindliche Absichtserklärung.">
+<meta name="description" content="Deine neue digitale Hausverwaltung: automatische Mieterhöhungen, automatisches Mahnwesen und Mieterkommunikation, die sich selbst erledigt. Unverbindlich Interesse bekunden.">
 <meta name="robots" content="noindex, nofollow">
 <style>
 @font-face{font-family:Onest;font-weight:400;font-display:swap;src:url(assets/fonts/onest-latin-400-normal.woff2) format("woff2")}
@@ -90,6 +90,21 @@ header .btn{padding:10px 18px;font-size:14px}
 .how .card p{margin:0;color:var(--navy-2);font-size:15px}
 .how .card.feat{background:var(--gold-soft);border-color:var(--gold)}
 .how .card.feat i{background:var(--gold)}
+/* values band, cta, pains */
+.values-band{background:var(--bg-2);padding-block:56px}
+.values-band h2{text-align:left}
+.values3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.values3 div{background:#fff;border-radius:16px;padding:22px;border-top:4px solid var(--gold)}
+.values3 b{display:block;font-size:20px;margin-bottom:6px}
+.values3 span{color:var(--navy-2)}
+.cta-line{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--navy);color:#fff;border-radius:16px;padding:20px 24px;margin-top:6px}
+.cta-line span{font-weight:600;font-size:18px}
+.btn-ghost.on-dark{color:#fff;border-color:rgba(255,255,255,.35)}
+.btn-ghost.on-dark:hover{border-color:#fff}
+.pains{margin:6px 0 16px;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.pains li{position:relative;padding-left:22px;color:var(--navy-2);font-size:15px}
+.pains li:before{content:"×";position:absolute;left:0;top:-1px;color:var(--err);font-weight:700}
+.gains-foot b{color:var(--gold);font-size:16px}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 0}
 .stat{background:var(--bg-2);border-radius:var(--r);padding:20px}
@@ -196,7 +211,7 @@ footer img{height:36px}
 footer a{color:#c4c7dd}
 
 @media (max-width:900px){
-  .hero .wrap,.video .wrap,.services .grid,.how .grid,.team,.loi .head{grid-template-columns:1fr}
+  .hero .wrap,.video .wrap,.services .grid,.how .grid,.team,.loi .head,.values3,.pains{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .hero{padding-top:32px}
 }
@@ -234,47 +249,36 @@ footer a{color:#c4c7dd}
   <div class="wrap">
     <div>
       <p class="greet" id="greet"></p>
-      <div class="eyebrow">Ihre neue digitale Hausverwaltung</div>
+      <div class="eyebrow">Deine neue digitale Hausverwaltung</div>
       <h1 class="claims">
         <span>Automatische Mieterhöhungen.</span>
         <span>Automatisches Mahnwesen.</span>
-        <span><mark>Keine nervige Mieterkommunikation mehr.</mark></span>
+        <span><mark>Mieterkommunikation, die sich selbst erledigt.</mark></span>
       </h1>
-      <p class="lead">Eine Verwaltung, die Ihren Bestand nicht nur verwaltet, sondern wirtschaftlich weiterentwickelt. Wir stiften Mehrwert statt nur Akten zu führen.</p>
-      <div class="values"><span>Kostengünstig</span><span>Transparent</span><span>Effizient</span></div>
+      <p class="lead">Wie wäre es, wenn deine Haus- und Mietverwaltung genau das für dich übernimmt?</p>
       <div class="ctas">
         <a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a>
-        <a class="btn btn-ghost" href="#video">▶&nbsp; Plattform live ansehen (17 Min.)</a>
+        <a class="btn btn-ghost" href="#video">▶&nbsp; Video ansehen (17 Min.)</a>
       </div>
     </div>
     <div class="gains">
-      <div class="gains-head">Was Sie davon haben</div>
-      <div class="gain"><b>Mehr Mietertrag</b><span>Kein Erhöhungspotenzial bleibt liegen: Jede Wohnung wird jeden Monat geprüft.</span></div>
-      <div class="gain"><b>Weniger Mietausfall</b><span>Rückstände fallen nach Tagen auf statt nach Wochen. Gemahnt wird sofort.</span></div>
-      <div class="gain"><b>Ruhe bei der Mieterkommunikation</b><span>Mieter schreiben per WhatsApp, in ihrer Sprache. Sie bekommen Ergebnisse statt Rückfragen.</span></div>
-      <div class="gain"><b>Volle Transparenz</b><span>Ein Portal für den ganzen Bestand, egal wo die Einheiten liegen.</span></div>
-      <div class="gains-foot">Im eigenen Bestand mit ~1.000 Einheiten erprobt · Richtwert ca. 29 € je Einheit</div>
+      <div class="gains-head">Was du davon hast</div>
+      <div class="gain"><b>Mehr Mietertrag</b><span>Kein Erhöhungspotenzial bleibt liegen. Jede Wohnung wird jeden Monat automatisch geprüft.</span></div>
+      <div class="gain"><b>Weniger Mietausfall</b><span>Rückstände fallen nach Tagen auf statt nach Wochen, gemahnt wird sofort.</span></div>
+      <div class="gain"><b>Mieterkommunikation, die sich selbst erledigt</b><span>Deine Mieter schreiben per WhatsApp, in ihrer Sprache. Du bekommst Ergebnisse statt Rückfragen.</span></div>
+      <div class="gain"><b>Volle Transparenz</b><span>Auf Wunsch bekommst du einen eigenen Zugang und siehst deinen ganzen Bestand auf einen Blick.</span></div>
+      <div class="gains-foot"><b>Und das alles, ohne mehr zu kosten als deine bisherige Verwaltung.</b></div>
     </div>
   </div>
 </div>
 
-<section class="how">
+<section class="values-band">
   <div class="wrap">
-    <h2><span class="bar"></span>So funktioniert es</h2>
-    <p class="intro">Unsere KI-Plattform übernimmt die Routine, unser Team die Entscheidungen. Wo es um Ihr Geld und Ihre Mieter geht, bleibt ein Mensch im Prozess.</p>
-    <div class="grid">
-      <div class="card feat"><i>↑</i><h3>Mieterhöhung</h3><p>Die KI prüft jeden Monat jede Wohnung im Bestand auf Erhöhungspotenzial, inklusive Kappungsgrenze und Mietspiegel. Findet sie Potenzial, entwirft sie die Erhöhung. Auf Ihren Wunsch wird sie automatisch versendet, sonst gibt ein Mitarbeiter frei.</p></div>
-      <div class="card"><i>€</i><h3>Mietentracking</h3><p>Die KI gleicht die Kontoumsätze ab und zeigt sofort, wer nicht gezahlt hat.</p></div>
-      <div class="card"><i>!</i><h3>Mahnwesen</h3><p>Mahnungen gehen per Mail, WhatsApp und Brief raus. Ab der 2. Mahnung geht der Fall direkt zum Anwalt.</p></div>
-      <div class="card"><i>✉</i><h3>Mieterkommunikation</h3><p>Digital per WhatsApp, Nachrichten und Dokumente in jeder Sprache.</p></div>
-      <div class="card"><i>⚒</i><h3>Schäden und Handwerker</h3><p>Der Mieter meldet per WhatsApp, die KI fragt nach einem Foto, das Ticket entsteht. Der Handwerker ist mit einem Klick beauftragt.</p></div>
-      <div class="card"><i>⚡</i><h3>Energieversorger</h3><p>Energieverträge beim Mieterwechsel laufen automatisch über die Plattform, ebenso Gutachten und das Anwaltsportal.</p></div>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>Jeden Monat</b><span>wird jede Wohnung auf Mieterhöhungspotenzial geprüft</span></div>
-      <div class="stat"><b class="g">Tage</b><span>statt Wochen, bis ein Mietrückstand auffällt und gemahnt wird</span></div>
-      <div class="stat"><b>Jede Sprache</b><span>für Nachrichten und Dokumente an Ihre Mieter</span></div>
-      <div class="stat"><b>~1.000</b><span>Einheiten verwalten wir so bereits im eigenen Bestand</span></div>
+    <h2>Wir schaffen Mehrwert statt Papierkram.</h2>
+    <div class="values3">
+      <div><b>Kostengünstig</b><span>Richtwert ca. 29 € brutto je Einheit und Monat in der Hausverwaltung. Automatisierung macht es möglich.</span></div>
+      <div><b>Transparent</b><span>Du siehst jederzeit, was in deinem Bestand passiert: Zahlungen, Mahnungen, Tickets, Erhöhungen.</span></div>
+      <div><b>Effizient</b><span>Die Routine erledigt die Plattform. Unser Team kümmert sich um das, was wirklich zählt.</span></div>
     </div>
   </div>
 </section>
@@ -284,11 +288,52 @@ footer a{color:#c4c7dd}
     <div>
       <div class="eyebrow">Die Plattform live</div>
       <h2 style="margin:10px 0 14px">Von der WhatsApp-Meldung bis zur Mieterhöhung.</h2>
-      <p>In 17 Minuten sehen Sie, wie Mietentracking, Mahnwesen, Mieterhöhungen und Schadensmeldungen bei uns automatisch laufen – im echten Bestand, nicht in einer Demo.</p>
-      <p style="margin-top:22px"><a class="btn btn-gold" href="assets/CQPM_OnePager.pdf" download>OnePager herunterladen (PDF)</a></p>
+      <p>In 17 Minuten siehst du, wie Mietentracking, Mahnwesen, Mieterhöhungen und Schadensmeldungen bei uns automatisch laufen. Im echten Bestand, nicht in einer Demo.</p>
+      <div class="ctas" style="margin-top:22px">
+        <a class="btn btn-gold" href="#loi">Interesse bekunden</a>
+        <a class="btn btn-ghost on-dark" href="assets/CQPM_OnePager.pdf" download>OnePager (PDF)</a>
+      </div>
     </div>
     <div class="frame">
       <iframe src="https://drive.google.com/file/d/1pEjXcwP1N7CeqUmhcbfCx8Wmm3FesHrv/preview" allow="autoplay; fullscreen" allowfullscreen title="CQPM Plattform-Video"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <h2><span class="bar"></span>Und so funktioniert es</h2>
+    <p class="intro">Unsere KI-Plattform übernimmt die Routine, unser Team die Entscheidungen. Wo es um dein Geld und deine Mieter geht, bleibt immer ein Mensch im Prozess.</p>
+    <div class="grid">
+      <div class="card feat"><i>↑</i><h3>Mieterhöhung</h3><p>Die KI prüft jeden Monat jede Wohnung auf Erhöhungspotenzial, inklusive Kappungsgrenze und Mietspiegel. Findet sie etwas, entwirft sie die Erhöhung. Auf deinen Wunsch geht sie automatisch raus, sonst gibt ein Mitarbeiter frei.</p></div>
+      <div class="card"><i>€</i><h3>Mietentracking</h3><p>Die KI gleicht die Kontoumsätze ab und zeigt sofort, wer nicht gezahlt hat.</p></div>
+      <div class="card"><i>!</i><h3>Mahnwesen</h3><p>Mahnungen gehen per Mail, WhatsApp und Brief raus. Ab der 2. Mahnung geht der Fall direkt zum Anwalt.</p></div>
+      <div class="card"><i>✉</i><h3>Mieterkommunikation</h3><p>Digital per WhatsApp, Nachrichten und Dokumente in jeder Sprache.</p></div>
+      <div class="card"><i>⚒</i><h3>Schäden und Handwerker</h3><p>Der Mieter meldet per WhatsApp, die KI fragt nach einem Foto, das Ticket entsteht. Der Handwerker ist mit einem Klick beauftragt.</p></div>
+      <div class="card"><i>⚡</i><h3>Energieversorger</h3><p>Energieverträge beim Mieterwechsel laufen automatisch über die Plattform, ebenso Gutachten und das Anwaltsportal.</p></div>
+    </div>
+    <div class="cta-line"><span>Klingt nach einer Verwaltung für deinen Bestand?</span><a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a></div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap team">
+    <figure><img src="assets/team.jpg" alt="Das Team von Cashflow Quartier" width="1600" height="1066"></figure>
+    <div>
+      <div class="eyebrow">Und das Beste</div>
+      <h2 style="margin:10px 0 14px">Du bist kein Versuchskaninchen.</h2>
+      <p>Die Plattform haben wir ursprünglich für uns selbst gebaut. Wir verwalten selbst über 1.000 Einheiten in der Haus- und Mietverwaltung und kennen die typischen Verwalterprobleme aus eigener Erfahrung:</p>
+      <ul class="pains">
+        <li>Mietentracking per Excel und Kontoauszug</li>
+        <li>Mieterhöhungen, die liegen bleiben, weil die Zeit fehlt</li>
+        <li>Ständig klingelnde Telefone und volle Postfächer</li>
+        <li>Handwerkern hinterhertelefonieren</li>
+        <li>Fristen, Zettelwirtschaft und Sprachbarrieren</li>
+        <li>Ausgebrannte Mitarbeiter</li>
+      </ul>
+      <p>Deshalb haben wir in den letzten zwei Jahren viel Zeit und Geld investiert und mit einem deutschen Entwicklerteam genau diese Probleme gelöst: Ordnung ins Chaos gebracht, Abläufe automatisiert und mit KI den Aufwand drastisch reduziert. Unsere Verwalter haben wieder Spaß an ihrer Arbeit, und wir können wachsen, ohne dass die Qualität leidet.</p>
+      <p>Seit knapp sechs Monaten laufen unsere eigenen 1.000 Einheiten komplett über das neue System. Weil immer mehr Anfragen aus unserem Netzwerk kamen, nehmen wir jetzt auch externe Mandate an.</p>
+      <a class="btn btn-gold" href="#loi" style="margin-top:8px">Jetzt unverbindlich Interesse bekunden</a>
     </div>
   </div>
 </section>
@@ -308,6 +353,7 @@ footer a{color:#c4c7dd}
           <li>Digitale Mieterkommunikation in jeder Sprache</li>
           <li>Schäden und Handwerker per WhatsApp</li>
           <li>Energieversorger-Management beim Mieterwechsel</li>
+          <li>Eigener Eigentümer-Zugang auf Wunsch</li>
         </ul>
       </div>
       <div class="card">
@@ -323,19 +369,7 @@ footer a{color:#c4c7dd}
         </ul>
       </div>
     </div>
-    <p class="note">Preise sind Richtwerte für die Marktsondierung, kein Angebot. Das konkrete Angebot hängt von Objekt, Lage und Umfang ab.</p>
-  </div>
-</section>
-
-<section class="why">
-  <div class="wrap team">
-    <figure><img src="assets/team.jpg" alt="Das Team von Cashflow Quartier" width="1600" height="1066"></figure>
-    <div>
-      <div class="eyebrow">Wer dahintersteht</div>
-      <h2 style="margin:10px 0 14px">Gebaut von Bestandshaltern für Bestandshalter.</h2>
-      <p>Wir verwalten unseren eigenen Bestand selbst und haben die Plattform dafür aus der Praxis gebaut. Jetzt öffnen wir sie für ausgewählte Bestandshalter und Family Offices.</p>
-      <p><b>Warum wir Sie jetzt fragen:</b> Wir entscheiden gerade, in welchen Regionen wir zuerst starten. Mit Ihrer unverbindlichen Absichtserklärung sichern Sie sich einen frühen Platz, wenn wir in Ihrer Region beginnen.</p>
-    </div>
+    <p class="note">Preise sind Richtwerte für unsere Marktsondierung, kein Angebot. Das konkrete Angebot hängt von Objekt, Lage und Umfang ab. Wir entscheiden gerade, in welchen Regionen wir zuerst starten. Mit deiner unverbindlichen Absichtserklärung sicherst du dir einen frühen Platz.</p>
   </div>
 </section>
 
@@ -344,9 +378,9 @@ footer a{color:#c4c7dd}
     <div class="head">
       <div>
         <h2><span class="bar"></span>Unverbindliche Absichtserklärung</h2>
-        <p style="color:var(--muted);margin:10px 0 0">Fünf kurze Schritte, ca. 5 Minuten. Sie erhalten anschließend eine Bestätigung als PDF per E-Mail.</p>
+        <p style="color:var(--muted);margin:10px 0 0">Fünf kurze Schritte, ca. 5 Minuten. Danach bekommst du eine Bestätigung als PDF per E-Mail.</p>
       </div>
-      <div class="person"><img src="assets/jan.jpg" alt="Jan-Moritz Becker"><div><b>Jan-Moritz Becker</b><span>Gründer, Cashflow Quartier<br>Ihr Ansprechpartner</span></div></div>
+      <div class="person"><img src="assets/jan.jpg" alt="Jan-Moritz Becker"><div><b>Jan-Moritz Becker</b><span>Gründer, Cashflow Quartier<br>Dein Ansprechpartner</span></div></div>
     </div>
 
     <div class="formbox">
@@ -356,7 +390,7 @@ footer a{color:#c4c7dd}
 
         <!-- 1 Leistung -->
         <div class="pane" data-title="Leistung">
-          <h3>Welche Verwaltung käme für Sie infrage?</h3>
+          <h3>Welche Verwaltung käme für dich infrage?</h3>
           <p class="sub">Mehrfachauswahl möglich. Grobe Zahlen genügen.</p>
 
           <div class="svc" data-svc="hv">
@@ -424,7 +458,7 @@ footer a{color:#c4c7dd}
             <div><label class="f">Bestehender Vertrag kündbar ab <em>(falls extern)</em></label><input type="text" name="kuendbar_ab" placeholder="z. B. 12/2026 oder „unbekannt“"></div>
             <div><label class="f">Heutige Kosten je Einheit/Monat <em>(optional)</em></label><input type="text" name="kosten_heute" placeholder="z. B. 32 € brutto"></div>
           </div>
-          <p class="hint">Ihre Angaben zu Kosten behandeln wir vertraulich und werten sie nur zusammengefasst aus.</p>
+          <p class="hint">Deine Angaben zu Kosten behandeln wir vertraulich und werten sie nur zusammengefasst aus.</p>
         </div>
 
         <!-- 4 Potenzial -->
@@ -461,8 +495,8 @@ footer a{color:#c4c7dd}
 
         <!-- 5 Absender -->
         <div class="pane" data-title="Absender">
-          <h3>Ihre Angaben und Erklärung</h3>
-          <p class="sub">Damit wir die Absichtserklärung zuordnen und Ihnen die Bestätigung schicken können.</p>
+          <h3>Deine Angaben und Erklärung</h3>
+          <p class="sub">Damit wir die Absichtserklärung zuordnen und dir die Bestätigung schicken können.</p>
           <div class="row">
             <div><label class="f">Unternehmen</label><input type="text" name="firma" autocomplete="organization" required></div>
             <div><label class="f">Art des Unternehmens</label>
@@ -475,7 +509,7 @@ footer a{color:#c4c7dd}
           <div class="row three">
             <div><label class="f">Vor- und Nachname</label><input type="text" name="name" autocomplete="name" required></div>
             <div><label class="f">Position</label><input type="text" name="position" autocomplete="organization-title" required></div>
-            <div><label class="f">Entscheiden Sie über die Verwaltung?</label>
+            <div><label class="f">Entscheidest du über die Verwaltung?</label>
               <select name="entscheider" required>
                 <option value="">Bitte wählen</option>
                 <option value="ja">Ja, allein</option><option value="mit">Ja, gemeinsam mit anderen</option><option value="nein">Nein, ich bereite vor</option>
@@ -485,7 +519,7 @@ footer a{color:#c4c7dd}
             <div><label class="f">E-Mail</label><input type="email" name="email" autocomplete="email" required></div>
             <div><label class="f">Telefon <em>(optional)</em></label><input type="tel" name="telefon" autocomplete="tel"></div>
           </div>
-          <label class="f" style="margin-top:6px">Dürfen wir Ihre Absichtserklärung gegenüber Investoren nennen?</label>
+          <label class="f" style="margin-top:6px">Dürfen wir deine Absichtserklärung gegenüber Investoren nennen?</label>
           <div class="chips" style="margin-bottom:18px">
             <label><input type="radio" name="nennung" value="namentlich" required><span>Ja, namentlich</span></label>
             <label><input type="radio" name="nennung" value="anonym"><span>Nur anonymisiert</span></label>
@@ -506,8 +540,8 @@ footer a{color:#c4c7dd}
 
       <div class="done" id="done">
         <div class="ok"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
-        <h3 style="font-size:24px">Vielen Dank – Ihre Absichtserklärung ist eingegangen.</h3>
-        <p style="color:var(--muted)">Sie erhalten in Kürze eine Bestätigung als PDF per E-Mail. Ich melde mich persönlich, sobald wir in Ihrer Region starten.</p>
+        <h3 style="font-size:24px">Danke! Deine Absichtserklärung ist angekommen.</h3>
+        <p style="color:var(--muted)">Du bekommst gleich eine Bestätigung als PDF per E-Mail. Ich melde mich persönlich bei dir, sobald wir in deiner Region starten.</p>
         <div class="summary" id="summary"></div>
         <p style="margin:0"><b>Jan-Moritz Becker</b><br><span style="color:var(--muted)">Gründer, Cashflow Quartier</span></p>
         <p class="actions" style="margin-top:22px"><button class="btn btn-ghost" onclick="window.print()">Zusammenfassung drucken / als PDF speichern</button></p>
