@@ -1,0 +1,92 @@
+/* ===== Cinematic-Variante =====
+   Layout: dunkler Raum, goldenes Licht; animiertes Raster als Bühne, Glas-Paneele davor. */
+@font-face{font-family:Onest;font-weight:800;font-display:swap;src:url(fonts/onest-latin-800-normal.woff2) format("woff2")}
+:root{
+  --c-void:#04060d; --c-deep:#080c1c; --c-glass:rgba(255,255,255,.045); --c-edge:rgba(233,179,63,.22);
+  --c-text:#eef0f8; --c-dim:#9aa1bd; --c-gold:#e9b33f; --c-gold-2:#ffd98a; --c-line:rgba(255,255,255,.09);
+  --ink:var(--c-text); --muted:var(--c-dim); --line:var(--c-line); --navy-2:#c9cde0; --bg:var(--c-void); --bg-2:var(--c-deep);
+  color-scheme:dark;
+}
+body.cine{background:var(--c-void);color:var(--c-text)}
+#stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+body.cine > *:not(#stage){position:relative;z-index:1}
+body.cine header{background:rgba(4,6,13,.7);border-bottom:1px solid var(--c-line);position:sticky}
+body.cine header img{filter:brightness(0) invert(1)}
+.cine .btn-gold{background:linear-gradient(135deg,var(--c-gold-2),var(--c-gold));color:#05070f;box-shadow:0 0 0 1px rgba(255,217,138,.4),0 10px 40px rgba(233,179,63,.35)}
+.cine .btn-gold:hover{box-shadow:0 0 0 1px rgba(255,217,138,.7),0 14px 60px rgba(233,179,63,.55)}
+.cine .btn-ghost{color:var(--c-text);border-color:var(--c-line)}
+.cine h1,.cine h2,.cine h3{color:var(--c-text)}
+.cine .eyebrow{color:var(--c-gold)}
+.cine .bar{box-shadow:0 0 18px var(--c-gold)}
+
+/* Hero */
+.cine .hero2{padding-block:clamp(56px,10vw,120px) 30px}
+.cine .kicker{font-weight:800;font-size:clamp(34px,6vw,76px);letter-spacing:-.03em;line-height:1.02;
+  background:linear-gradient(100deg,#6f7796 0%,#eef0f8 35%,#ffd98a 55%,#6f7796 80%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 9s linear infinite}
+@keyframes sheen{from{background-position:120% 0}to{background-position:-100% 0}}
+.cine .hero2 .greet{color:var(--c-gold-2)}
+.cine .ask{color:var(--c-dim)}
+.cine .checks li{color:var(--c-text);font-weight:700}
+.cine .ck{background:transparent;border:2px solid var(--c-gold);box-shadow:0 0 16px rgba(233,179,63,.55),inset 0 0 10px rgba(233,179,63,.35)}
+.cine .ck:after{border-color:var(--c-gold-2);left:10px;top:5px}
+.cine .checks li{animation:slidein .7s cubic-bezier(.2,.7,.2,1) both}
+.cine .checks li:nth-child(2){animation-delay:.08s}.cine .checks li:nth-child(3){animation-delay:.16s}
+.cine .checks li:nth-child(4){animation-delay:.24s}.cine .checks li:nth-child(5){animation-delay:.32s}
+@keyframes slidein{from{opacity:.001;transform:translateX(-24px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
+/* Video */
+.cine .player{background:#000;border:1px solid var(--c-edge);box-shadow:0 0 0 1px rgba(233,179,63,.08),0 0 80px rgba(233,179,63,.18),0 40px 120px rgba(0,0,0,.8)}
+.cine .player:before{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(255,217,138,.55),transparent) top/40% 1px no-repeat;animation:scan 5s linear infinite}
+@keyframes scan{from{background-position:-40% 0}to{background-position:140% 0}}
+.cine .vid-cap,.cine .micro{color:var(--c-dim)}
+
+/* Glas-Paneele */
+.cine .gains-box,.cine .card,.cine .t,.cine .vrow div,.cine .formbox,.cine .cta-line{
+  background:var(--c-glass);border:1px solid var(--c-line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.cine .gains-box{border-color:var(--c-edge);box-shadow:0 0 60px rgba(233,179,63,.08)}
+.cine .gains-box h2{color:var(--c-gold-2)}
+.cine .g{border-top-color:var(--c-line)}
+.cine .gi{background:rgba(233,179,63,.12);box-shadow:0 0 18px rgba(233,179,63,.25)}
+.cine .values2{background:transparent}
+.cine .vrow div{border-left:2px solid var(--c-gold)}
+.cine .vrow b{color:var(--c-gold-2)}
+.cine .why{background:transparent}
+.cine .team figure{border:1px solid var(--c-edge);box-shadow:0 30px 90px rgba(0,0,0,.7)}
+.cine .team figure img{filter:grayscale(.35) contrast(1.05) brightness(.9)}
+.cine .pains li:before{color:#ff7a66}
+.cine .t.feat,.cine .card .eyebrow{border-color:var(--c-edge)}
+.cine .t.feat{background:rgba(233,179,63,.08)}
+.cine .ti{background:rgba(233,179,63,.12);color:var(--c-gold-2)}
+.cine .t.feat .ti{background:var(--c-gold);color:#05070f}
+.cine .card li:before{border-color:var(--c-gold)}
+.cine .incl{color:var(--c-gold-2)}
+.cine .price{color:var(--c-text)}
+
+/* Formular */
+.cine .steps{background:rgba(255,255,255,.03);border-bottom-color:var(--c-line)}
+.cine .steps button{color:var(--c-dim)}
+.cine .steps button.on{color:var(--c-text)}
+.cine .steps button .n{background:rgba(255,255,255,.08);color:var(--c-text)}
+.cine .steps button.on .n,.cine .steps button.past .n{background:var(--c-gold);color:#05070f}
+.cine input[type=text],.cine input[type=email],.cine input[type=tel],.cine input[type=number],.cine select,.cine textarea{
+  background:rgba(255,255,255,.04);border-color:var(--c-line);color:var(--c-text)}
+.cine input:focus,.cine select:focus,.cine textarea:focus{border-color:var(--c-gold);box-shadow:0 0 0 3px rgba(233,179,63,.15)}
+.cine select option{background:#0b1022;color:var(--c-text)}
+.cine .svc{border-color:var(--c-line)}
+.cine .svc.on{background:rgba(233,179,63,.06);border-color:var(--c-edge)}
+.cine .chips span{border-color:var(--c-line);color:var(--c-text)}
+.cine .chips input:checked+span{background:var(--c-gold);border-color:var(--c-gold);color:#05070f}
+.cine .legal{background:rgba(233,179,63,.07);color:var(--c-text);border:1px solid var(--c-edge)}
+.cine .nav{background:transparent;border-top-color:var(--c-line)}
+.cine .del{background:rgba(255,255,255,.06);color:var(--c-dim)}
+.cine .add{border-color:var(--c-line);color:var(--c-text)}
+.cine .summary{background:rgba(255,255,255,.04)}
+.cine .person img{box-shadow:0 0 24px rgba(233,179,63,.4)}
+.cine .check{color:var(--c-text)}
+body.cine footer{background:transparent;border-top:1px solid var(--c-line)}
+
+/* Einblenden beim Scrollen: Inhalt bleibt sichtbar, nur die Bewegung startet beim Hineinscrollen */
+.cine .reveal.in{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion:reduce){.cine .kicker,.cine .checks li,.cine .player:before,.cine .reveal.in{animation:none}}

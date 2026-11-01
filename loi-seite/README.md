@@ -9,6 +9,11 @@ Statische Seite (eine HTML-Datei plus `assets/`), kein Build-Schritt. Geplant un
 - LOI-Formular in 5 Schritten: Leistung → Standorte → Zeitpunkt → Ausblick → Absender und Erklärung
 - Abschluss mit Zusammenfassung zum Drucken/Speichern
 
+## Zwei Versionen
+- `index.html` – helle Hauptversion
+- `cinematic.html` – dunkle, futuristische Variante mit gleichem Inhalt und Formular. Wird aus `index.html` erzeugt:
+  `python loi-seite/build_cinematic.py` (nach jeder Textänderung ausführen). Look in `assets/cinematic.css` und `assets/cinematic.js`.
+
 ## Lokal ansehen
 ```bash
 cd loi-seite && python3 -m http.server 8765
