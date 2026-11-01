@@ -98,3 +98,35 @@ body.cine footer{background:transparent;border-top:1px solid var(--c-line)}
 .cine .more-btn[aria-expanded="true"]{background:var(--c-gold);color:#05070f}
 .cine .more-list li{color:var(--navy-2)}
 .cine .extra{background:var(--c-glass);border:1px solid var(--c-line)}
+
+/* ===== Zahlen-Bühne (nur Cinematic) ===== */
+.nums{padding-block:20px 64px}
+.nums h2{font-size:clamp(26px,3.2vw,36px);margin:0 0 6px}
+.nums .lead2{color:var(--c-dim);margin:0 0 26px;max-width:640px}
+.ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ntile{background:var(--c-glass);border:1px solid var(--c-line);border-radius:18px;padding:22px 20px;position:relative;overflow:hidden}
+.ntile:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--c-gold),transparent);transform:scaleX(0);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.ntile.run:after{transform:scaleX(1)}
+.nval{font-weight:800;font-size:clamp(34px,4vw,52px);line-height:1;letter-spacing:-.02em;background:linear-gradient(180deg,#fff,var(--c-gold-2));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.nval small{font-size:.45em;font-weight:700;-webkit-text-fill-color:var(--c-gold-2)}
+.nlab{color:var(--c-dim);font-size:14px;margin-top:10px;line-height:1.4}
+.nrow{display:grid;grid-template-columns:1fr 1.2fr;gap:14px;margin-top:14px}
+.panel{background:var(--c-glass);border:1px solid var(--c-line);border-radius:18px;padding:24px}
+.panel h3{font-size:18px;margin:0 0 4px}
+.panel p.s{color:var(--c-dim);font-size:14px;margin:0 0 18px}
+.cmpbar{margin:12px 0}
+.cmpbar .bl{display:flex;justify-content:space-between;font-size:14px;color:var(--c-dim);margin-bottom:6px}
+.cmpbar .bl b{color:var(--c-text)}
+.track{height:12px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}
+.fill{height:100%;width:0;border-radius:99px;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+.fill.old{background:linear-gradient(90deg,#ff7a66,#ff4d6d)}
+.fill.new{background:linear-gradient(90deg,var(--c-gold),var(--c-gold-2));box-shadow:0 0 18px rgba(233,179,63,.5)}
+.calc label{display:block;font-size:14px;color:var(--c-dim);margin:14px 0 6px}
+.calc label b{color:var(--c-text);float:right;font-variant-numeric:tabular-nums}
+.calc input[type=range]{width:100%;accent-color:var(--c-gold)}
+.result{margin-top:18px;padding:18px;border-radius:14px;background:rgba(233,179,63,.08);border:1px solid var(--c-edge)}
+.result .nval{font-size:clamp(30px,3.6vw,44px)}
+.result .nlab{margin-top:6px}
+.fine{font-size:12px;color:var(--c-dim);margin-top:10px}
+@media (max-width:900px){.ngrid{grid-template-columns:repeat(2,1fr)}.nrow{grid-template-columns:1fr}}
+@media (max-width:480px){.ngrid{grid-template-columns:1fr}}

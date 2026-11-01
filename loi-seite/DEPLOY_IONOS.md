@@ -1,6 +1,10 @@
 # Livegang unter cashflowquartier.com/cqpm-loi
 
-**Gewählter Weg:** Die Website cashflowquartier.com läuft auf **Onepage.io**, die Domain liegt bei IONOS.
+**Aktuell (Netlify):** Die Dateien liegen bei Netlify unter `https://splendid-fox-ec55e5.netlify.app` (öffentlich stellen!),
+Onepage bettet sie auf `cashflowquartier.com/cqpm-loi` ein (`onepage_einbettung.html`). Update: in Netlify unter
+**Deploys** den neuen entpackten Ordner ins Feld ziehen. Grund: Für cashflowquartier.de fehlt bei IONOS ein nutzbares SSL-Zertifikat.
+
+**Ursprünglich geplanter Weg (IONOS-Webspace):** Die Website cashflowquartier.com läuft auf **Onepage.io**, die Domain liegt bei IONOS.
 Die LOI-Dateien liegen auf dem IONOS-Webspace, an dem bereits **cashflowquartier.de** hängt, im Ordner `cqpm-loi`
 (technisch erreichbar unter `https://cashflowquartier.de/cqpm-loi/`). Onepage zeigt sie auf der Seite `cqpm-loi`
 bildschirmfüllend an (Code: `onepage_einbettung.html`). Öffentlich geteilt wird nur `cashflowquartier.com/cqpm-loi`.
