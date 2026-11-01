@@ -254,7 +254,7 @@ footer a{color:#c4c7dd}
 .ck:after{content:"";position:absolute;left:12px;top:7px;width:8px;height:15px;border:solid var(--navy);border-width:0 3.5px 3.5px 0;transform:rotate(45deg)}
 .vid{padding-block:24px 56px}
 .player{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:18px;overflow:hidden;background:var(--navy);box-shadow:0 24px 60px rgba(11,18,48,.22)}
-.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player iframe,.player video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
 .vid-cap{text-align:center;color:var(--muted);margin:14px 0 0}
 .center-cta{text-align:center;margin-top:24px}
 .btn-lg{padding:16px 30px;font-size:18px}
@@ -346,6 +346,14 @@ footer a{transition:color .15s}
 .share p{color:var(--navy-2);max-width:560px;margin:8px 0 0}
 .share-btns{display:flex;gap:10px;flex-wrap:wrap}
 .share-btns .btn{padding:11px 18px;font-size:15px}
+
+.more-btn{margin-top:14px;width:100%;border:0;border-radius:12px;padding:14px 18px;background:var(--navy);color:#fff;font:700 16px Onest,sans-serif;cursor:pointer;
+  transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s;box-shadow:0 8px 22px rgba(11,18,48,.18)}
+.more-btn:hover{transform:scale(1.03);box-shadow:0 12px 30px rgba(11,18,48,.25)}
+.more-btn[aria-expanded="true"]{background:var(--gold);color:var(--navy)}
+.more-list{margin:10px 0 0;padding:0;list-style:none}
+.more-list li{padding:6px 0 6px 26px;position:relative;color:var(--navy-2)}
+.more-list li:before{content:"";position:absolute;left:0;top:12px;width:14px;height:8px;border-left:2.5px solid var(--gold);border-bottom:2.5px solid var(--gold);transform:rotate(-45deg)}
 </style>
 </head>
 <body>
@@ -374,7 +382,9 @@ footer a{transition:color .15s}
 
 <section class="vid" id="video">
   <div class="wrap">
-    <div class="player" id="player" data-src="https://drive.google.com/file/d/1pEjXcwP1N7CeqUmhcbfCx8Wmm3FesHrv/preview">
+    <!-- Video-Quelle: data-mp4 (eigene Datei, startet mit einem Klick, ohne Drittanbieter) hat Vorrang,
+         dann data-vimeo (Vimeo-ID, startet nach dem Klick automatisch), sonst Google Drive (Player muss einmal mehr geklickt werden). -->
+    <div class="player" id="player" data-mp4="" data-poster="" data-vimeo="" data-src="https://drive.google.com/file/d/1pEjXcwP1N7CeqUmhcbfCx8Wmm3FesHrv/preview">
       <div class="consent">
         <button type="button" class="play" id="playBtn" aria-label="Video laden und abspielen">
           <svg width="38" height="38" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
@@ -485,6 +495,23 @@ footer a{transition:color .15s}
           <li>Digitale Ablage aller Unterlagen, Einsicht jederzeit</li>
           <li>Volle Transparenz per Eigentümer-Zugang, API-Schnittstelle oder Nachricht per Mail, Telegram, Slack, Claude oder ChatGPT, ganz wie du informiert werden willst</li>
         </ul>
+        <button type="button" class="more-btn" aria-expanded="false" aria-controls="more-hv">+ und viele weitere Leistungen</button>
+        <ul class="more-list" id="more-hv" hidden>
+            <li>Übernahme bei Verwaltungsbeginn: Erstbegehung, Einrichtung der Konten, Erfassung aller Daten</li>
+            <li>Erstinformation der Mieter zum Datenschutz und Anzeige des Verwalterwechsels bei allen Vertragspartnern</li>
+            <li>Elektronisches Mieterverzeichnis mit Vertrags- und Kontaktdaten</li>
+            <li>Gewöhnliche Mieterkommunikation, Anfragen und Schriftverkehr</li>
+            <li>Anpassung der Nebenkostenvorauszahlungen und Verbuchung aller Abrechnungsergebnisse</li>
+            <li>Zahlungen an Dienstleister mit Nutzung von Skonti</li>
+            <li>Abschluss der Verträge zur Bewirtschaftung, einfache Vertragsverhandlungen</li>
+            <li>Mängelanzeige gegenüber Handwerkern und Organisation von Abnahmeterminen</li>
+            <li>Stichprobenweise Überwachung von Verkehrssicherung und Dienstleistern</li>
+            <li>Information über mietrechtliche Verfahren innerhalb einer Woche</li>
+            <li>Korrespondenz mit deinem Rechtsanwalt</li>
+            <li>Einholung deiner Zustimmungen und Vorbereitung von Vereinbarungen</li>
+            <li>Aufbewahrung der Original-Stammunterlagen wie Grundbuchauszüge, Mietverträge und Vollmachten</li>
+            <li>Einsicht in alle Unterlagen, auf Wunsch auch für bevollmächtigte Dritte</li>
+        </ul>
       </div>
       <div class="card">
         <div class="eyebrow">Einzelne Wohnungen</div>
@@ -503,6 +530,19 @@ footer a{transition:color .15s}
           <li>Eine Plattform für alle Wohnungen, egal wo sie liegen</li>
           <li>Volle Transparenz per Eigentümer-Zugang, API-Schnittstelle oder Nachricht per Mail, Telegram, Slack, Claude oder ChatGPT, ganz wie du informiert werden willst</li>
         </ul>
+        <button type="button" class="more-btn" aria-expanded="false" aria-controls="more-sev">+ und viele weitere Leistungen</button>
+        <ul class="more-list" id="more-sev" hidden>
+            <li>Übernahme bei Verwaltungsbeginn: Einrichtung der Mietkonten und Erfassung aller Daten</li>
+            <li>Erstinformation der Mieter zum Datenschutz</li>
+            <li>Elektronisches Mieterverzeichnis mit Vertrags- und Kontaktdaten</li>
+            <li>Gewöhnliche Mieterkommunikation, Anfragen und Schriftverkehr</li>
+            <li>Anpassung der Nebenkostenvorauszahlungen</li>
+            <li>Weitergabe von Schäden am Gemeinschaftseigentum an die WEG-Verwaltung</li>
+            <li>Information über mietrechtliche Verfahren innerhalb einer Woche</li>
+            <li>Korrespondenz mit deinem Rechtsanwalt</li>
+            <li>Forderungsanmeldung bei Insolvenz eines Mieters</li>
+            <li>Digitale Ablage aller Unterlagen, Einsicht jederzeit</li>
+        </ul>
       </div>
     </div>
     <div class="extra">
@@ -514,7 +554,7 @@ footer a{transition:color .15s}
         <li>Mahnwesen bei Zahlungsverzug, automatisch per Mail, WhatsApp und Brief</li>
         <li>Mieterhöhung auf die ortsübliche Vergleichsmiete: KI-Entwurf inkl. Kappungsgrenze und Mietspiegel, Versand automatisch oder nach deiner Freigabe</li>
         <li>Neuvermietung: Bonitätsprüfung, Mietvertrag per Klick, Kautionsabrechnung</li>
-        <li>Besichtigungen und Wohnungsübergaben vor Ort, je nach Lage durch unser Team oder Partner vor Ort</li>
+        <li>Besichtigungen und Wohnungsübergaben vor Ort, je nach Lage durch unser Team oder einen Partner vor Ort, dann nach dessen Abrechnung</li>
         <li>Sanierungen und Modernisierungen koordinieren</li>
       </ul>
     </div>
@@ -951,11 +991,26 @@ function showDone(d) {
   io.observe(box);
 })();
 /* ---------- Video erst nach Klick laden (Datenschutz) ---------- */
-$("#playBtn")?.addEventListener("click", () => {
-  const p = $("#player"), f = document.createElement("iframe");
-  f.src = p.dataset.src; f.title = "CQPM Plattform-Video"; f.allow = "autoplay; fullscreen"; f.allowFullscreen = true;
-  p.innerHTML = ""; p.appendChild(f);
-});
+(() => {
+  const p = $("#player"); if (!p) return;
+  const { mp4, poster, vimeo, src } = p.dataset;
+  if (mp4) $(".consent span", p).textContent = "Klick auf Play, und das Video startet sofort.";
+  else if (vimeo) $(".consent span", p).innerHTML = 'Mit dem Klick startet das Video über Vimeo. Dabei werden Daten an Vimeo übertragen. Mehr dazu in der <a href="https://cashflowquartier.com/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>.';
+  $("#playBtn").addEventListener("click", () => {
+    let el;
+    if (mp4) {
+      el = document.createElement("video");
+      Object.assign(el, { src: mp4, controls: true, playsInline: true, preload: "auto" });
+      if (poster) el.poster = poster;
+    } else {
+      el = document.createElement("iframe");
+      el.src = vimeo ? `https://player.vimeo.com/video/${vimeo}?autoplay=1&dnt=1&title=0&byline=0&portrait=0` : src;
+      el.title = "CQPM Plattform-Video"; el.allow = "autoplay; fullscreen; picture-in-picture"; el.allowFullscreen = true;
+    }
+    p.innerHTML = ""; p.appendChild(el);
+    if (mp4) el.play().catch(() => {});
+  });
+})();
 /* ---------- Weiterleiten ---------- */
 (() => {
   const url = location.origin + location.pathname;              // ohne persönliche Parameter
@@ -972,6 +1027,12 @@ $("#playBtn")?.addEventListener("click", () => {
     });
   });
 })();
+/* ---------- „und viele weitere Leistungen“ aufklappen ---------- */
+$$(".more-btn").forEach(b => b.addEventListener("click", () => {
+  const l = document.getElementById(b.getAttribute("aria-controls")), open = l.hidden;
+  l.hidden = !open; b.setAttribute("aria-expanded", String(open));
+  b.textContent = open ? "– weniger anzeigen" : "+ und viele weitere Leistungen";
+}));
 go(0);
 </script>
 </body>

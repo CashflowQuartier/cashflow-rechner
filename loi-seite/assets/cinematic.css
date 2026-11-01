@@ -94,3 +94,7 @@ body.cine footer{background:transparent;border-top:1px solid var(--c-line)}
 .cine .chips label:hover span{border-color:var(--c-edge)}
 .cine .svc .top:hover{background:rgba(255,255,255,.02)}
 .cine .card:hover,.cine .t:hover,.cine .vrow div:hover{border-color:var(--c-edge);box-shadow:0 0 40px rgba(233,179,63,.10)}
+.cine .more-btn{background:rgba(233,179,63,.1);color:var(--c-gold-2);border:1px solid var(--c-edge);box-shadow:0 0 30px rgba(233,179,63,.12)}
+.cine .more-btn[aria-expanded="true"]{background:var(--c-gold);color:#05070f}
+.cine .more-list li{color:var(--navy-2)}
+.cine .extra{background:var(--c-glass);border:1px solid var(--c-line)}
