@@ -288,6 +288,36 @@ footer a{color:#c4c7dd}
 .incl{font-weight:600;margin:14px 0 0;color:var(--navy)}
 @media (max-width:900px){.glist,.tiles{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.g.in,.g.in .gi{animation:none}}
+
+/* ===== Hover-Effekte und weiche Schatten =====
+   Anklickbares wird beim Drüberfahren leicht größer; Kästen haben mehrlagige, weiche Schatten. */
+:root{--shadow-soft:0 1px 2px rgba(11,18,48,.04),0 6px 16px rgba(11,18,48,.05),0 18px 40px rgba(11,18,48,.06);
+      --shadow-lift:0 2px 4px rgba(11,18,48,.05),0 12px 28px rgba(11,18,48,.08),0 30px 60px rgba(11,18,48,.08)}
+.btn{transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s,background .2s,border-color .2s}
+.btn:hover{transform:scale(1.045)}
+.btn-gold:hover{transform:scale(1.045);box-shadow:0 10px 28px rgba(233,179,63,.38)}
+.btn:active{transform:scale(.98)}
+.btn[disabled]:hover{transform:none}
+.chips span{transition:transform .18s cubic-bezier(.2,.7,.2,1),background .15s,border-color .15s,color .15s}
+.chips label:hover span{transform:scale(1.06);border-color:var(--navy-2)}
+.steps button{transition:transform .18s,color .15s}
+.steps button:hover{transform:scale(1.04)}
+.svc{transition:transform .2s cubic-bezier(.2,.7,.2,1),box-shadow .2s,border-color .15s,background .15s}
+.svc:hover{transform:scale(1.01)}
+.add,.del{transition:transform .18s}
+.add:hover,.del:hover{transform:scale(1.06)}
+header img{transition:transform .2s}
+header a:hover img{transform:scale(1.04)}
+footer a{transition:color .15s}
+.card,.t,.vrow div,.values3 div,.gains-box,.formbox,.player,.team figure,.cta-line,.svc{box-shadow:var(--shadow-soft)}
+.card,.t,.vrow div{border-color:rgba(11,18,48,.06);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s}
+.card:hover,.t:hover,.vrow div:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.gains-box{box-shadow:0 2px 6px rgba(11,18,48,.08),0 20px 50px rgba(11,18,48,.18),0 40px 90px rgba(11,18,48,.12)}
+.formbox{box-shadow:0 2px 6px rgba(11,18,48,.04),0 16px 40px rgba(11,18,48,.07),0 40px 80px rgba(11,18,48,.06);border-color:rgba(11,18,48,.06)}
+.team figure{box-shadow:0 4px 10px rgba(11,18,48,.06),0 24px 60px rgba(11,18,48,.12)}
+.person img{box-shadow:0 6px 18px rgba(11,18,48,.15)}
+@media (hover:none){.btn:hover,.chips label:hover span,.steps button:hover,.svc:hover,.card:hover,.t:hover,.vrow div:hover{transform:none}}
+@media (prefers-reduced-motion:reduce){.btn,.chips span,.svc,.card,.t,.vrow div{transition:none}.btn:hover,.card:hover,.t:hover,.vrow div:hover,.svc:hover,.chips label:hover span{transform:none}}
 </style>
 </head>
 <body>
