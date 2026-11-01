@@ -1,28 +1,50 @@
 # Livegang auf IONOS unter cashflowquartier.com/cqpm-loi
 
-Welcher Weg passt, hängt davon ab, welches IONOS-Produkt die Website betreibt.
-Im IONOS-Kundenkonto unter **Menü → Websites & Domains** sieht man es:
+Upload-Paket: `cqpm-loi.zip` (enthält den Ordner `cqpm-loi/` mit `index.html`, `cinematic.html` und `assets/`).
+Neu erzeugen: `python loi-seite/build_cinematic.py` und dann das ZIP wie in der Sitzung beschrieben packen.
 
-## A) Webhosting oder WordPress bei IONOS (Dateizugriff per SFTP vorhanden)
-Dann geht `cashflowquartier.com/cqpm-loi` direkt:
-1. IONOS → **Hosting → SFTP & SSH** → Zugangsdaten anzeigen (Server, Benutzer, Passwort).
-2. Mit einem SFTP-Programm (z. B. FileZilla oder Cyberduck) verbinden.
-3. Im Hauptordner der Website (dort, wo bei WordPress `wp-config.php` liegt) einen Ordner **`cqpm-loi`** anlegen.
-4. Den Inhalt von `loi-seite/` hineinkopieren: `index.html` (oder `cinematic.html`, umbenannt in `index.html`) und den Ordner `assets/`.
-   Nicht nötig: `*.md`, `*.py`, `*.gs`.
-5. Aufrufen: `https://cashflowquartier.com/cqpm-loi/`
+## Schritt 1: Herausfinden, welches IONOS-Produkt die Website betreibt
+1. Auf **login.ionos.de** einloggen.
+2. Im Menü **Websites & Domains** öffnen.
+3. Bei cashflowquartier.com nachsehen, was dort steht:
+   - **Webhosting**, **WordPress** oder **Managed WordPress** → weiter mit **Weg A**
+   - **MyWebsite**, **Website-Baukasten** oder **Website Builder** → weiter mit **Weg B**
 
-## B) IONOS Website-Baukasten („MyWebsite“)
-Dort kann man keine eigenen Ordner hochladen. Dann:
-1. Die Seite auf einem kostenlosen Webspace hosten (z. B. Cloudflare Pages oder Netlify; Claude bereitet das vor).
-2. Bei IONOS unter **Domains → cashflowquartier.com → DNS** eine Subdomain **`cqpm-loi`** als CNAME auf die Hosting-Adresse anlegen.
-3. Aufrufen: `https://cqpm-loi.cashflowquartier.com`
-Optional verlinkt die Hauptseite per Weiterleitung von `/cqpm-loi` dorthin (im Baukasten unter Einstellungen → Weiterleitungen, falls verfügbar).
+## Weg A: Webhosting oder WordPress (Ergebnis: cashflowquartier.com/cqpm-loi)
+1. In IONOS **Hosting** öffnen und beim Vertrag auf **Webspace** klicken (öffnet den „Webspace Explorer“, eine Dateiverwaltung im Browser).
+2. Den Ordner suchen, in dem die Website liegt. Bei WordPress ist es der Ordner mit `wp-admin`, `wp-content` und `wp-config.php`.
+   Welcher Ordner zur Domain gehört, steht unter **Domains → cashflowquartier.com → Zielverzeichnis**.
+3. Dort `cqpm-loi.zip` hochladen und mit Rechtsklick **Entpacken**.
+   Falls Entpacken nicht angeboten wird: ZIP am Computer entpacken und den Ordner `cqpm-loi` komplett hochladen
+   (oder per SFTP, Zugangsdaten unter **Hosting → SFTP & SSH**, Programm z. B. FileZilla oder Cyberduck).
+4. Ergebnis prüfen: Im Website-Ordner liegt jetzt `cqpm-loi/index.html` und `cqpm-loi/assets/…`.
+5. **https://cashflowquartier.com/cqpm-loi/** aufrufen.
+
+Hinweise:
+- WordPress stört das nicht: Echte Ordner werden vor WordPress ausgeliefert.
+- Die Cinematic-Version liegt unter `/cqpm-loi/cinematic.html`. Soll sie die Hauptseite sein, `index.html` und `cinematic.html` tauschen (umbenennen).
+- Bei Änderungen nur die geänderte Datei (meist `index.html`) erneut hochladen und ersetzen.
+
+## Weg B: Website-Baukasten (Ergebnis: cqpm-loi.cashflowquartier.com)
+Im Baukasten lassen sich keine eigenen Seiten hochladen. Deshalb kommt die Seite zu einem kostenlosen Hoster, die Adresse bleibt eure Domain.
+1. Auf **app.netlify.com/drop** gehen (kostenloses Konto anlegen) und den entpackten Ordner `cqpm-loi` ins Fenster ziehen.
+   Netlify zeigt eine Adresse wie `xyz-123.netlify.app`.
+2. In Netlify: **Domain management → Add a domain** → `cqpm-loi.cashflowquartier.com` eintragen.
+3. In IONOS: **Domains → cashflowquartier.com → DNS → Eintrag hinzufügen**
+   - Typ: **CNAME**
+   - Hostname: **cqpm-loi**
+   - Zeigt auf: die Netlify-Adresse aus Schritt 1 (z. B. `xyz-123.netlify.app`)
+4. Nach einigen Minuten bis wenigen Stunden ist **https://cqpm-loi.cashflowquartier.com** erreichbar; Netlify richtet das SSL-Zertifikat automatisch ein.
+
+## Danach (beide Wege)
+1. **Google Sheet anbinden** (`LOI_SHEET.md`), Web-App-URL an Claude geben → neue `index.html` hochladen. Vorher läuft das Formular im Entwurfsmodus und speichert nichts.
+2. **Test:** Formular einmal selbst ausfüllen → Zeile im Sheet, Bestätigungsmail mit PDF, Kopie an kontakt@.
+3. **Datenschutzerklärung** auf cashflowquartier.com um Formular, Google Sheets/Mail und Video ergänzen.
 
 ## Video mit einem Klick
-Liegt das Video als eigene Datei auf demselben Webspace, startet es mit einem Klick sofort und ohne Google.
+Liegt das Video als eigene Datei im selben Ordner, startet es mit einem Klick sofort und ohne Google.
 1. Video verkleinern (720p, ca. 50–80 MB statt 232 MB):
-   `ffmpeg -i CQPM_Video.mp4 -vf scale=-2:720 -c:v libx264 -crf 26 -preset slow -c:a aac -b:a 96k -movflags +faststart assets/cqpm-video.mp4`
+   `ffmpeg -i CQPM_Video.mp4 -vf scale=-2:720 -c:v libx264 -crf 26 -preset slow -c:a aac -b:a 96k -movflags +faststart cqpm-video.mp4`
 2. Datei nach `cqpm-loi/assets/` hochladen.
 3. In `index.html` beim Player `data-mp4="assets/cqpm-video.mp4"` eintragen.
 Alternative: Video bei Vimeo hochladen und die Vimeo-ID bei `data-vimeo="…"` eintragen.
