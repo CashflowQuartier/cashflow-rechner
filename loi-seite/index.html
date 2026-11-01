@@ -105,6 +105,13 @@ header .btn{padding:10px 18px;font-size:14px}
 .pains li{position:relative;padding-left:22px;color:var(--navy-2);font-size:15px}
 .pains li:before{content:"×";position:absolute;left:0;top:-1px;color:var(--err);font-weight:700}
 .gains-foot b{color:var(--gold);font-size:16px}
+/* hero layout */
+.hero .wrap{grid-template-areas:"text gains" "cta gains";grid-template-rows:auto 1fr;row-gap:28px}
+.h-text{grid-area:text}.gains{grid-area:gains;align-self:center}.h-cta{grid-area:cta}
+.hero .greet{display:block;margin:14px 0 4px;font-size:18px}
+.ask{font-size:20px;color:var(--navy-2);margin:0 0 14px;max-width:520px}
+.micro{font-size:13px;color:var(--muted);margin:12px 0 0}
+.btn svg{flex:none}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 0}
 .stat{background:var(--bg-2);border-radius:var(--r);padding:20px}
@@ -211,6 +218,7 @@ footer img{height:36px}
 footer a{color:#c4c7dd}
 
 @media (max-width:900px){
+  .hero .wrap{grid-template-areas:"text" "gains" "cta";grid-template-rows:auto}
   .hero .wrap,.video .wrap,.services .grid,.how .grid,.team,.loi .head,.values3,.pains{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .hero{padding-top:32px}
@@ -247,19 +255,15 @@ footer a{color:#c4c7dd}
 
 <div class="hero">
   <div class="wrap">
-    <div>
-      <p class="greet" id="greet"></p>
+    <div class="h-text">
       <div class="eyebrow">Deine neue digitale Hausverwaltung</div>
+      <p class="greet" id="greet">Guten Tag,</p>
+      <p class="ask">Wie wäre es, wenn deine Haus- und Mietverwaltung das für dich übernimmt:</p>
       <h1 class="claims">
         <span>Automatische Mieterhöhungen.</span>
         <span>Automatisches Mahnwesen.</span>
-        <span><mark>Mieterkommunikation, die sich selbst erledigt.</mark></span>
+        <span><mark>Digitale Mieterkommunikation in jeder Sprache.</mark></span>
       </h1>
-      <p class="lead">Wie wäre es, wenn deine Haus- und Mietverwaltung genau das für dich übernimmt?</p>
-      <div class="ctas">
-        <a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a>
-        <a class="btn btn-ghost" href="#video">▶&nbsp; Video ansehen (17 Min.)</a>
-      </div>
     </div>
     <div class="gains">
       <div class="gains-head">Was du davon hast</div>
@@ -268,6 +272,13 @@ footer a{color:#c4c7dd}
       <div class="gain"><b>Mieterkommunikation, die sich selbst erledigt</b><span>Deine Mieter schreiben per WhatsApp, in ihrer Sprache. Du bekommst Ergebnisse statt Rückfragen.</span></div>
       <div class="gain"><b>Volle Transparenz</b><span>Auf Wunsch bekommst du einen eigenen Zugang und siehst deinen ganzen Bestand auf einen Blick.</span></div>
       <div class="gains-foot"><b>Und das alles, ohne mehr zu kosten als deine bisherige Verwaltung.</b></div>
+    </div>
+    <div class="h-cta">
+      <div class="ctas">
+        <a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a>
+        <a class="btn btn-ghost" href="#video"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>&nbsp;Video ansehen (17 Min.)</a>
+      </div>
+      <p class="micro">Kostenlos und unverbindlich · ca. 5 Minuten · keine Verpflichtung</p>
     </div>
   </div>
 </div>
@@ -346,7 +357,7 @@ footer a{color:#c4c7dd}
         <div class="eyebrow">Ganze Objekte</div>
         <h3>Hausverwaltung</h3>
         <p style="color:var(--muted);margin:0">Mietverwaltung für Mehrfamilienhäuser und Portfolios im Alleineigentum.</p>
-        <div class="price">ca. 29 € <small>brutto je Einheit und Monat</small></div>
+        <div class="price">ca. 29 € <small>brutto je Einheit und Monat, je nach Bestandsgröße</small></div>
         <ul>
           <li>Mietentracking und automatisches Mahnwesen</li>
           <li>Monatliche KI-Prüfung jeder Wohnung auf Mieterhöhung, Versand automatisch oder nach Freigabe</li>
@@ -360,7 +371,7 @@ footer a{color:#c4c7dd}
         <div class="eyebrow">Einzelne Wohnungen</div>
         <h3>SEV-Verwaltung</h3>
         <p style="color:var(--muted);margin:0">Sondereigentumsverwaltung für Eigentumswohnungen in fremden WEGs.</p>
-        <div class="price">35–55 € <small>brutto je Einheit und Monat</small></div>
+        <div class="price">35–55 € <small>brutto je Einheit und Monat, je nach Bestandsgröße</small></div>
         <ul>
           <li>Mietentracking und Mahnwesen je Wohnung</li>
           <li>Monatliche KI-Prüfung auf Mieterhöhung, auch über viele WEGs hinweg</li>
@@ -369,7 +380,7 @@ footer a{color:#c4c7dd}
         </ul>
       </div>
     </div>
-    <p class="note">Preise sind Richtwerte für unsere Marktsondierung, kein Angebot. Das konkrete Angebot hängt von Objekt, Lage und Umfang ab. Wir entscheiden gerade, in welchen Regionen wir zuerst starten. Mit deiner unverbindlichen Absichtserklärung sicherst du dir einen frühen Platz.</p>
+    <p class="note">Preise sind Richtwerte für unsere Marktsondierung, kein Angebot. Das konkrete Angebot hängt von Bestandsgröße, Objekt, Lage und Umfang ab. Wir entscheiden gerade, in welchen Regionen wir zuerst starten. Mit deiner unverbindlichen Absichtserklärung sicherst du dir einen frühen Platz.</p>
   </div>
 </section>
 
@@ -582,7 +593,6 @@ if (ref.n) {
   const nach = ref.n.trim().split(/\s+/).pop();
   const g = $("#greet");
   g.textContent = ref.a ? `Guten Tag ${ref.a} ${nach},` : `Guten Tag ${ref.n},`;
-  g.style.display = "block";
 }
 const prefill = { firma: ref.f, name: ref.n, position: ref.p, email: ref.e, typ: ref.t };
 for (const [k, v] of Object.entries(prefill)) if (v && form.elements[k]) form.elements[k].value = v;
