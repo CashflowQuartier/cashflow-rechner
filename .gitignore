@@ -10,3 +10,4 @@ out/
 !teaser_generator/assets/*.png
 !teaser_generator/assets/**/*.jpg
 cqpm-loi.zip
+teilen/
