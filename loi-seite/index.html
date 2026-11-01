@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CQ Property Management – Unverbindliche Absichtserklärung</title>
-<meta name="description" content="Haus- und SEV-Verwaltung auf eigener KI-Plattform. Unverbindliche Absichtserklärung (LOI) für Bestandshalter und Family Offices.">
+<meta name="description" content="Haus- und SEV-Verwaltung für große Bestände: KI-Mietentracking, automatisches Mahnwesen, Mieterhöhung per Klick, Mieterkommunikation in jeder Sprache. Unverbindliche Absichtserklärung.">
 <meta name="robots" content="noindex, nofollow">
 <style>
 @font-face{font-family:Onest;font-weight:400;font-display:swap;src:url(assets/fonts/onest-latin-400-normal.woff2) format("woff2")}
@@ -50,6 +50,27 @@ header .btn{padding:10px 18px;font-size:14px}
 .trust{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 .trust span{background:var(--bg-2);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--navy-2)}
 
+/* hero automation card */
+.auto{background:var(--navy);color:#fff;border-radius:20px;padding:26px 26px 18px;box-shadow:0 20px 50px rgba(11,18,48,.18)}
+.auto-head{font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.auto ul{list-style:none;margin:0;padding:0}
+.auto li{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid rgba(255,255,255,.1)}
+.auto li:first-child{border-top:0}
+.auto i{flex:none;width:34px;height:34px;border-radius:10px;background:rgba(233,179,63,.16);color:var(--gold);display:grid;place-items:center;font-style:normal;font-weight:700}
+.auto b{display:block;font-size:16px}
+.auto span{display:block;font-size:14px;color:#c4c7dd;line-height:1.4}
+/* benefits */
+.benefits .intro{color:var(--muted);max-width:680px;margin:12px 0 0;font-size:17px}
+.benefits .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:28px}
+.benefits .card h3{font-size:20px;margin:0 0 8px}
+.benefits .card p{margin:0;color:var(--navy-2)}
+.benefits .card{border-top:4px solid var(--gold)}
+/* team */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.team figure{margin:0;border-radius:18px;overflow:hidden}
+.team figure img{display:block;width:100%;height:auto}
+.team p{color:var(--navy-2)}
+.stat b{font-size:26px}
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:8px 0 0}
 .stat{background:var(--bg-2);border-radius:var(--r);padding:20px}
@@ -156,7 +177,7 @@ footer img{height:36px}
 footer a{color:#c4c7dd}
 
 @media (max-width:900px){
-  .hero .wrap,.video .wrap,.services .grid,.why .grid,.loi .head{grid-template-columns:1fr}
+  .hero .wrap,.video .wrap,.services .grid,.benefits .grid,.team,.loi .head{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
   .hero{padding-top:32px}
 }
@@ -194,34 +215,57 @@ footer a{color:#c4c7dd}
   <div class="wrap">
     <div>
       <p class="greet" id="greet"></p>
-      <div class="eyebrow">CQ Property Management · Marktsondierung 2026</div>
-      <h1 style="margin-top:12px">Haus- und SEV-Verwaltung, die <mark>mit Qualität skaliert</mark>.</h1>
-      <p class="lead">Unsere eigene KI-Plattform verwaltet über 1.000 Einheiten mit einer Vollzeitkraft – gebaut aus der Praxis, live in unserem Bestand. Jetzt öffnen wir sie für ausgewählte Bestandshalter und Family Offices.</p>
+      <div class="eyebrow">Haus- und SEV-Verwaltung für große Bestände</div>
+      <h1 style="margin-top:12px">Ihr Bestand. <mark>Automatisch verwaltet.</mark></h1>
+      <p class="lead">Mietrückstände in Tagen statt Wochen erkannt, Mieterhöhungen für das ganze Portfolio per Klick, Mieter per WhatsApp in ihrer Sprache betreut. Unsere KI-Plattform übernimmt die Routine, unser Team den Rest.</p>
       <div class="ctas">
         <a class="btn btn-gold" href="#loi">Unverbindlich Interesse bekunden</a>
-        <a class="btn btn-ghost" href="#video">▶&nbsp; Video ansehen (17 Min.)</a>
+        <a class="btn btn-ghost" href="#video">▶&nbsp; Plattform live ansehen (17 Min.)</a>
       </div>
-      <div class="trust"><span>100 % unverbindlich</span><span>ca. 5 Minuten</span><span>Vertraulich behandelt</span></div>
+      <div class="trust"><span>Im eigenen Bestand mit ~1.000 Einheiten erprobt</span><span>100 % unverbindlich</span></div>
     </div>
-    <figure><img src="assets/team.jpg" alt="Das Team von Cashflow Quartier" width="1600" height="1066"></figure>
+    <div class="auto">
+      <div class="auto-head">Was für Ihren Bestand automatisch läuft</div>
+      <ul>
+        <li><i>€</i><div><b>Mietentracking</b><span>KI gleicht Kontoumsätze ab und zeigt sofort, wer nicht gezahlt hat</span></div></li>
+        <li><i>!</i><div><b>Mahnwesen</b><span>Mahnung per Mail, WhatsApp und Brief, ab der 2. Mahnung direkt zum Anwalt</span></div></li>
+        <li><i>↑</i><div><b>Mieterhöhung</b><span>Potenzial je Einheit, KI prüft Kappung und Mietspiegel, Schreiben fertig</span></div></li>
+        <li><i>✉</i><div><b>Mieterkommunikation</b><span>Digital per WhatsApp, Dokumente in jeder Sprache</span></div></li>
+        <li><i>⚡</i><div><b>Energieversorger</b><span>Energieverträge beim Mieterwechsel automatisch geregelt</span></div></li>
+        <li><i>⚒</i><div><b>Schäden und Handwerker</b><span>Mieter meldet per WhatsApp, Ticket entsteht, Handwerker mit einem Klick</span></div></li>
+      </ul>
+    </div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="stats">
-    <div class="stat"><b>~1.000</b><span>Einheiten im eigenen Bestand</span></div>
-    <div class="stat"><b class="g">20 %</b><span>des früheren Aufwands – bei doppelter Qualität</span></div>
-    <div class="stat"><b>1 FTE</b><span>für über 1.000 verwaltete Einheiten</span></div>
-    <div class="stat"><b>200+</b><span>Immobilien pro Jahr vermarktet und selbst verwaltet</span></div>
+    <div class="stat"><b>Tage</b><span>statt Wochen, bis ein Mietrückstand auffällt und gemahnt wird</span></div>
+    <div class="stat"><b class="g">1 Lauf</b><span>im Monat für Mieterhöhungen – statt rund 60 Arbeitstagen bei 3.000 Einheiten</span></div>
+    <div class="stat"><b>Jede Sprache</b><span>für Nachrichten und Dokumente an Ihre Mieter</span></div>
+    <div class="stat"><b>~1.000</b><span>Einheiten verwalten wir so bereits im eigenen Bestand</span></div>
   </div>
 </div>
 
-<section class="video" id="video" style="margin-top:64px">
+<section class="benefits">
+  <div class="wrap">
+    <h2><span class="bar"></span>Was Sie davon haben</h2>
+    <p class="intro">Klassische Verwaltungen skalieren über Personal. Wir skalieren über Prozesse. Für Sie heißt das: weniger Ausfall, mehr Ertrag und eine Verwaltung, die auch bei Wachstum nicht nachlässt.</p>
+    <div class="grid">
+      <div class="card"><h3>Weniger Mietausfall</h3><p>Die KI prüft laufend die Kontoumsätze. Rückstände fallen nach Tagen auf statt nach Wochen. Das Mahnwesen läuft ohne Verzögerung bis zum Anwalt.</p></div>
+      <div class="card"><h3>Mehr Mietertrag</h3><p>Jeden Monat sehen wir für jede Einheit, wo eine Erhöhung möglich ist. Kappungsgrenze und Mietspiegel sind geprüft, das Schreiben ist fertig. Kein Potenzial bleibt liegen, weil die Zeit fehlt.</p></div>
+      <div class="card"><h3>Zufriedene Mieter</h3><p>Mieter erreichen uns per WhatsApp, in ihrer Sprache. Schäden sind mit Foto gemeldet und landen direkt beim Handwerker. Weniger Rückfragen, schnellere Reparaturen.</p></div>
+      <div class="card"><h3>Weniger Aufwand für Sie</h3><p>Energieverträge beim Mieterwechsel, Gutachten und Anwaltsportal laufen über die Plattform. Sie bekommen Ergebnisse statt Rückfragen.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="video" id="video">
   <div class="wrap">
     <div>
       <div class="eyebrow">Die Plattform live</div>
       <h2 style="margin:10px 0 14px">Von der WhatsApp-Meldung bis zur Mieterhöhung.</h2>
-      <p>In 17 Minuten zeigen wir, wie Mietentracking, Mahnwesen, Mieterhöhungen und Schadensmeldungen bei uns automatisch laufen.</p>
+      <p>In 17 Minuten sehen Sie, wie Mietentracking, Mahnwesen, Mieterhöhungen und Schadensmeldungen bei uns automatisch laufen – im echten Bestand, nicht in einer Demo.</p>
       <p style="margin-top:22px"><a class="btn btn-gold" href="assets/CQPM_OnePager.pdf" download>OnePager herunterladen (PDF)</a></p>
     </div>
     <div class="frame">
@@ -232,7 +276,7 @@ footer a{color:#c4c7dd}
 
 <section class="services">
   <div class="wrap">
-    <h2><span class="bar"></span>Was wir anbieten</h2>
+    <h2><span class="bar"></span>Leistungen und Richtpreise</h2>
     <div class="grid">
       <div class="card">
         <div class="eyebrow">Ganze Objekte</div>
@@ -240,10 +284,11 @@ footer a{color:#c4c7dd}
         <p style="color:var(--muted);margin:0">Mietverwaltung für Mehrfamilienhäuser und Portfolios im Alleineigentum.</p>
         <div class="price">ca. 29 € <small>brutto je Einheit und Monat</small></div>
         <ul>
-          <li>Mietentracking und Mahnwesen – Rückstand in Tagen statt Wochen</li>
+          <li>Mietentracking und automatisches Mahnwesen</li>
           <li>Mieterhöhung per Klick für das ganze Portfolio</li>
-          <li>Schäden und Handwerker per WhatsApp, in jeder Sprache</li>
-          <li>Energieverträge beim Mieterwechsel, Dokumente in jeder Sprache</li>
+          <li>Digitale Mieterkommunikation in jeder Sprache</li>
+          <li>Schäden und Handwerker per WhatsApp</li>
+          <li>Energieversorger-Management beim Mieterwechsel</li>
         </ul>
       </div>
       <div class="card">
@@ -264,12 +309,13 @@ footer a{color:#c4c7dd}
 </section>
 
 <section class="why">
-  <div class="wrap">
-    <h2><span class="bar"></span>Warum wir Sie fragen</h2>
-    <div class="grid">
-      <div class="card"><div class="num">1</div><h3 style="font-size:18px;margin:14px 0 6px">Wir planen den Ausbau</h3><p style="margin:0;color:var(--muted)">Wir entscheiden gerade, in welchen Regionen und in welchem Umfang wir die Verwaltung anbieten – regional oder deutschlandweit.</p></div>
-      <div class="card"><div class="num">2</div><h3 style="font-size:18px;margin:14px 0 6px">Ihr Bedarf zählt</h3><p style="margin:0;color:var(--muted)">Mit Ihrer Absichtserklärung wissen wir, wo Einheiten liegen und ab wann Bedarf besteht. So bauen wir dort Kapazität auf, wo sie gebraucht wird.</p></div>
-      <div class="card"><div class="num">3</div><h3 style="font-size:18px;margin:14px 0 6px">Völlig unverbindlich</h3><p style="margin:0;color:var(--muted)">Die Erklärung verpflichtet weder Sie noch uns. Sie sichert Ihnen aber einen frühen Platz, wenn wir in Ihrer Region starten.</p></div>
+  <div class="wrap team">
+    <figure><img src="assets/team.jpg" alt="Das Team von Cashflow Quartier" width="1600" height="1066"></figure>
+    <div>
+      <div class="eyebrow">Wer dahintersteht</div>
+      <h2 style="margin:10px 0 14px">Gebaut von Bestandshaltern für Bestandshalter.</h2>
+      <p>Wir verwalten unseren eigenen Bestand selbst und haben die Plattform dafür aus der Praxis gebaut. Jetzt öffnen wir sie für ausgewählte Bestandshalter und Family Offices.</p>
+      <p><b>Warum wir Sie jetzt fragen:</b> Wir entscheiden gerade, in welchen Regionen wir zuerst starten. Mit Ihrer unverbindlichen Absichtserklärung sichern Sie sich einen frühen Platz, wenn wir in Ihrer Region beginnen.</p>
     </div>
   </div>
 </section>
